@@ -57,9 +57,9 @@ print('Great!') if meaning > 10 else print('Not today')
 # #END</details>
 
 <details>
-<summary>2. Python </summary>
+<summary>2. Data Type - String </summary>
 
-# Python
+# Data Type - String
 
 ```py
 
