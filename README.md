@@ -52,6 +52,8 @@ else:
 print('Great!') if meaning > 10 else print('Not today')
 ```
 
+<img width="1136" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5a0fd9b7-aa1b-43a6-9f6b-93698862cb56">
+
 # #END</details>
 
 <details>
