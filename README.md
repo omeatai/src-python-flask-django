@@ -57,9 +57,9 @@ print('Great!') if meaning > 10 else print('Not today')
 # #END</details>
 
 <details>
-<summary>2. Data Type - String </summary>
+<summary>2. Python Data Type - String </summary>
 
-# Data Type - String
+# Python Data Type - String
 
 [https://github.com/omeatai/src-python-flask-django/commit/786257d573dc94eea4ad0f451ed2a64fea47244c](https://github.com/omeatai/src-python-flask-django/commit/786257d573dc94eea4ad0f451ed2a64fea47244c)
 
@@ -145,9 +145,9 @@ print(first.endswith("Z"))
 # #END</details>
 
 <details>
-<summary>3. Data Type - Boolean </summary>
+<summary>3. Python Data Type - Boolean </summary>
 
-# Data Type - Boolean
+# Python Data Type - Boolean
 
 [https://github.com/omeatai/src-python-flask-django/commit/a379210ee24c5a461d223e4e642654c0fa30b462](https://github.com/omeatai/src-python-flask-django/commit/a379210ee24c5a461d223e4e642654c0fa30b462)
 
@@ -166,9 +166,9 @@ print(isinstance(my_value, bool))
 # #END</details>
 
 <details>
-<summary>3. Data Type - Numeric </summary>
+<summary>4. Python Data Type - Numeric </summary>
 
-# Data Type - Numeric
+# Python Data Type - Numeric
 
 [https://github.com/omeatai/src-python-flask-django/commit/1586574ec08840c3a77cb2b0d93d8667af4f9ed0](https://github.com/omeatai/src-python-flask-django/commit/1586574ec08840c3a77cb2b0d93d8667af4f9ed0)
 
@@ -216,13 +216,69 @@ print(type(zip_value))
 # #END</details>
 
 <details>
-<summary>4. User Input & Control Flow </summary>
+<summary>5. Python User Input & Control Flow </summary>
 
-# User Input & Control Flow
+# Python User Input & Control Flow
+
+[https://github.com/omeatai/src-python-flask-django/commit/7493f2cdb60aad3ef4098079075f9d7e973dd24a](https://github.com/omeatai/src-python-flask-django/commit/7493f2cdb60aad3ef4098079075f9d7e973dd24a)
 
 ```py
+import sys
+import random
+from enum import Enum
+
+
+class RPS(Enum):
+    ROCK = 1
+    PAPER = 2
+    SCISSORS = 3
+
+
+player_choice = input(
+    "Enter...\n1 for Rock,\n2 for Paper, or \n3 for Scissors:\n\n")
+
+player = int(player_choice)
+
+if player < 1 or player > 3:
+    sys.exit("You must enter 1, 2, or 3.")
+
+computer_choice = random.choice("123")
+computer = int(computer_choice)
+
+print("")
+print(f"You chose {str(RPS(player)).replace("RPS.", "")}.")
+print(f"Python chose {str(RPS(computer)).replace("RPS.", "")}.")
+print("")
+
+result = (player, computer)
+
+if result == (1, 3) or result == (2, 1) or result == (3, 2):
+    print("🥳😜 Congrats! You win!")
+elif player == computer:
+    print("😎 It's a tie!")
+else:
+    print("😡 Python wins!")
+
+# References:
+# print(RPS(2))           # RPS.PAPER
+# print(RPS.ROCK)         # RPS.ROCK
+# print(RPS['ROCK'])      # RPS.ROCK
+# print(RPS.ROCK.value)   # 1
+# sys.exit()
+
+# value = input("Please enter a your name: ")
+# print(value)
 
 ```
+
+<img width="1255" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/81dcb299-16bc-4464-b192-0349a4bcbe7b">
+
+# #END</details>
+
+<details>
+<summary>6. Python Lists and Tuples </summary>
+
+# Python Lists and Tuples
 
 ```py
 
