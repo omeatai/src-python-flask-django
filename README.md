@@ -57,9 +57,9 @@ print('Great!') if meaning > 10 else print('Not today')
 # #END</details>
 
 <details>
-<summary>2. Python Data Type - String </summary>
+<summary>2. Data Type - String </summary>
 
-# Python Data Type - String
+# Data Type - String
 
 [https://github.com/omeatai/src-python-flask-django/commit/786257d573dc94eea4ad0f451ed2a64fea47244c](https://github.com/omeatai/src-python-flask-django/commit/786257d573dc94eea4ad0f451ed2a64fea47244c)
 
@@ -145,9 +145,9 @@ print(first.endswith("Z"))
 # #END</details>
 
 <details>
-<summary>3. Python Data Type - Boolean </summary>
+<summary>3. Data Type - Boolean </summary>
 
-# Python Data Type - Boolean
+# Data Type - Boolean
 
 [https://github.com/omeatai/src-python-flask-django/commit/a379210ee24c5a461d223e4e642654c0fa30b462](https://github.com/omeatai/src-python-flask-django/commit/a379210ee24c5a461d223e4e642654c0fa30b462)
 
@@ -166,9 +166,9 @@ print(isinstance(my_value, bool))
 # #END</details>
 
 <details>
-<summary>4. Python Data Type - Numeric </summary>
+<summary>4. Data Type - Numeric </summary>
 
-# Python Data Type - Numeric
+# Data Type - Numeric
 
 [https://github.com/omeatai/src-python-flask-django/commit/1586574ec08840c3a77cb2b0d93d8667af4f9ed0](https://github.com/omeatai/src-python-flask-django/commit/1586574ec08840c3a77cb2b0d93d8667af4f9ed0)
 
@@ -216,9 +216,9 @@ print(type(zip_value))
 # #END</details>
 
 <details>
-<summary>5. Python User Input & Control Flow </summary>
+<summary>5. User Input & Control Flow </summary>
 
-# Python User Input & Control Flow
+# User Input & Control Flow
 
 [https://github.com/omeatai/src-python-flask-django/commit/7493f2cdb60aad3ef4098079075f9d7e973dd24a](https://github.com/omeatai/src-python-flask-django/commit/7493f2cdb60aad3ef4098079075f9d7e973dd24a)
 
@@ -276,9 +276,9 @@ else:
 # #END</details>
 
 <details>
-<summary>6. Python Lists and Tuples </summary>
+<summary>6. Lists and Tuples </summary>
 
-# Python Lists and Tuples
+# Lists and Tuples
 
 ```py
 
