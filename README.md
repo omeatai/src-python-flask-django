@@ -10,7 +10,7 @@
 ```py
 # Assignment Operators
 name = "Dave"
-print(name)
+print(name)  # Dave
 
 # Arithmetic Operators
 a = 2 + 2
@@ -22,34 +22,37 @@ f = 24 % 5
 g = 2 ** 5
 
 print("a", a, "b", b, "c", c, "d", d, "e", e, "f", f, "g", g)
+# a 4 b 2 c 4.8 d 4 e 5 f 4 g 32
 
 meaning = 42
 meaning += 1
-print(meaning)
+print(meaning)  # 43
 meaning -= 1
-print(meaning)
+print(meaning)  # 42
 meaning *= 10
-print(meaning)
+print(meaning)  # 420
 meaning /= 10
-print(meaning)
+print(meaning)  # 42.0
 meaning = round(meaning)
-print(meaning)
+print(meaning)  # 42
 
 # Comparison Operators
-print(2 == 2)
-print(2 != 2)
-print(3 != 2)
-print(10 > 2)
-print(10 < 2)
-print(10 >= 10)
+print(2 == 2)  # True
+print(2 != 2)   # False
+print(3 != 2)  # True
+print(10 > 2)  # True
+print(10 < 2)  # False
+print(10 >= 10)  # True
 
 if meaning > 10:
-    print('Right on!')
+    print('Right on!')  # Right on!
 else:
     print('Not today')
 
 # Ternary Operator
 print('Great!') if meaning > 10 else print('Not today')
+# Great!
+
 ```
 
 <img width="1136" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5a0fd9b7-aa1b-43a6-9f6b-93698862cb56">
@@ -70,24 +73,24 @@ print('Great!') if meaning > 10 else print('Not today')
 first = "Dave"
 last = "Johnson"
 
-print(first, type(first))
-print(type(first) == str)
-print(isinstance(first, str))
+print(first, type(first))  # Dave <class 'str'>
+print(type(first) == str)  # True
+print(isinstance(first, str))  # True
 
 # constructor function
 pizza = str("Pepperoni")
-print(pizza, isinstance(pizza, str))
+print(pizza, isinstance(pizza, str))  # Pepperoni True
 
 # Concatenation
 fullname = first + " " + last
 fullname += "!"
-print(fullname)
+print(fullname)  # Dave Johnson!
 
 # Casting a number to a string
 decade = str(1980)
-print(decade, type(decade))
+print(decade, type(decade))  # 1980 <class 'str'>
 statement = "I like rock music from the " + decade + "s."
-print(statement)
+print(statement)  # I like rock music from the 1980s.
 
 # Multiple lines
 multiline = '''
@@ -97,28 +100,35 @@ I was just checking in.   All good?
                     - Dave
 '''
 print(multiline)
+# Hey, how are you?
+#
+# I was just checking in.   All good?
+#                    - Dave
 
 # Escaping special characters
 sentence = 'I\'m back at work!\tHey!\n\nWhere\'s this \\located?'
 print(sentence)
+# I'm back at work!	Hey!
+#
+# Where's this \located?
 
 # String Methods
 first = "Dave"
-print(first)
-print(first.lower())
-print(first.upper())
+print(first)  # Dave
+print(first.lower())  # dave
+print(first.upper())  # DAVE
 
 multiline = "hey, how are you?"
-print(multiline)
-print(multiline.title())
-print(multiline.replace("hey", "Welcome"))
-print(len(multiline))
+print(multiline)  # hey, how are you?
+print(multiline.title())  # Hey, How Are You?
+print(multiline.replace("hey", "Welcome"))  # Welcome, how are you?
+print(len(multiline))  # 17
 multiline += "                                        "
 multiline = "                  " + multiline
-print(len(multiline))
-print(len(multiline.strip()))
-print(len(multiline.lstrip()))
-print(len(multiline.rstrip()))
+print(len(multiline))  # 75
+print(len(multiline.strip()))  # 17
+print(len(multiline.lstrip()))  # 57
+print(len(multiline.rstrip()))  # 35
 
 # Build a menu
 title = "menu".upper()
@@ -128,16 +138,23 @@ print("Muffin".ljust(16, ".") + "$2".rjust(4))
 print("Cheesecake".ljust(16, ".") + "$4".rjust(4))
 print("Tea".ljust(16, ".") + "$1".rjust(4))
 
+# ========MENU========
+# Coffee..........  $1
+# Muffin..........  $2
+# Cheesecake......  $4
+# Tea.............  $1
+
 # string index values
 first = "Dave"
-print(first[1])
-print(first[-1])
-print(first[1:-1])
-print(first[1:])
+print(first[1])  # a
+print(first[-1])  # e
+print(first[1:-1])  # av
+print(first[1:])  # ave
 
 # Some methods return boolean data
-print(first.startswith("D"))
-print(first.endswith("Z"))
+print(first.startswith("D"))  # True
+print(first.endswith("Z"))  # False
+
 ```
 
 <img width="1255" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/3338cc92-727b-42ef-8921-afd7e43f0e67">
@@ -156,9 +173,8 @@ print(first.endswith("Z"))
 x = bool(False)
 my_value = True
 
-print(type(x))
-print(isinstance(my_value, bool))
-
+print(type(x))  # <class 'bool'>
+print(isinstance(my_value, bool))  # True
 ```
 
 <img width="1255" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/397f15c1-ae2c-4dd4-90b9-979c69046bb6">
@@ -179,36 +195,35 @@ import math
 # integer type
 price = 100
 best_price = int(80.001)
-print(type(price))
-print(isinstance(best_price, int))
+print(type(price))  # <class 'int'>
+print(isinstance(best_price, int))  # True
 
 # float type
 gpa = 3.28
 y = float(1)
-print(type(gpa))
-print(isinstance(y, float))
+print(type(gpa))  # <class 'float'>
+print(isinstance(y, float))  # True
 
 # complex type
 comp_value = 5+3j
-print(type(comp_value))
-print(comp_value.real)
-print(comp_value.imag)
+print(type(comp_value))  # <class 'complex'>
+print(comp_value.real)  # 5.0
+print(comp_value.imag)  # 3.0
 
 # Built-in functions for numbers
 gpa = 3.28
-print(abs(gpa * -1))
-print(round(gpa))
-print(round(gpa, 1))
-print(math.pi)
-print(math.sqrt(64))
-print(math.ceil(gpa))
-print(math.floor(gpa))
+print(abs(gpa * -1))  # 3.28
+print(round(gpa))  # 3
+print(round(gpa, 1))  # 3.3
+print(math.pi)  # 3.141592653589793
+print(math.sqrt(64))  # 8.0
+print(math.ceil(gpa))  # 4
+print(math.floor(gpa))  # 3
 
 # Casting a string to a number
 zipcode = "10001"
 zip_value = int(zipcode)
-print(type(zip_value))
-
+print(type(zip_value))  # <class 'int'>
 ```
 
 <img width="1255" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/28ca3892-458f-498f-b3c7-6cae9a153cd1">
