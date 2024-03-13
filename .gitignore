@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
+Ex_Files/
+exercise_files/
 
 # C extensions
 *.so
