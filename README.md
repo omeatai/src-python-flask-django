@@ -1,6 +1,6 @@
 # Python-Flask-Django - src
 
-+Dave Gray - Python-Flask
+## +Dave Gray - Python-Flask
 
 <details>
 <summary>1. Python Operators </summary>
@@ -767,7 +767,7 @@ for name in names:
 # #END</details>
 
 
-+LinkedIn_Ryan_Mitchell - Python Essential Training
+## +LinkedIn - Python Essential Training
 
 <details>
 <summary>1. Install Jupyter Notebook </summary>
