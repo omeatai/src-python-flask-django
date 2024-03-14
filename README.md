@@ -947,7 +947,7 @@ None
 
 # Ints and Floats
 
-# Dividing int with float
+### Dividing int with float
 
 ```py
 20 / 4
