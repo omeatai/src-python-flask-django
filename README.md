@@ -957,6 +957,109 @@ None
 5.0
 ```
 
+### Flooring int with float
+
+```py
+20 // 4
+```
+
+```x
+5
+```
+
+### Adding int with float
+
+```py
+4 + 4.0
+```
+
+```x
+8.0
+```
+
+### Multiplying int with float
+
+```py
+4 * 4.0
+```
+
+```x
+16.0
+```
+
+### Exponentiating int with float
+
+```py
+4 ** 4.0
+```
+
+```x
+256.0
+```
+
+### Converting float to int
+
+```py
+int(4 ** 4.0)
+```
+
+```x
+256
+```
+
+```py
+int(8.9)
+```
+
+```x
+8
+```
+
+```py
+int(8.99999999)
+```
+
+```x
+8
+```
+
+```py
+int(14/3)
+```
+
+```x
+4
+```
+
+### Rounding floats
+
+```py
+14/3
+# 4.666666666666667
+round(14/3, 2)
+```
+
+```x
+4.67
+```
+
+```py
+1.2 - 1.0
+# 0.19999999999999996
+round(1.2 - 1.0, 2)
+```
+
+```x
+0.2
+```
+
+# #END</details>
+
+<details>
+<summary>5. Using the Decimal Module for float Accuracy </summary>
+
+# Using the Decimal Module for float Accuracy
+
 ```py
 
 ```
@@ -997,5 +1100,44 @@ None
 
 ```
 
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
 
 # #END</details>
