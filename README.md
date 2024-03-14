@@ -1056,57 +1056,81 @@ round(1.2 - 1.0, 2)
 # #END</details>
 
 <details>
-<summary>5. Using the Decimal Module for float Accuracy </summary>
+<summary>5. Using the Decimal Module for float Precision </summary>
 
-# Using the Decimal Module for float Accuracy
+# Using the Decimal Module for float Precision
+
+### getcontext() attributes
 
 ```py
+from decimal import Decimal, getcontext
 
+getcontext()
+```
+
+```x
+Context(prec=28, rounding=ROUND_HALF_EVEN, Emin=-999999, Emax=999999, capitals=1,
+clamp=0, flags=[], traps=[InvalidOperation, DivisionByZero, Overflow])
+```
+
+### Set getcontext() precision
+
+```py
+from decimal import Decimal, getcontext
+
+getcontext().prec=4
+getcontext()
+```
+
+```x
+Context(prec=4, rounding=ROUND_HALF_EVEN, Emin=-999999, Emax=999999, capitals=1,
+clamp=0, flags=[], traps=[InvalidOperation, DivisionByZero, Overflow])
+```
+
+### Use Decimal function with precision
+
+```py
+from decimal import Decimal, getcontext
+
+getcontext().prec=4
+Decimal(1) / Decimal(3)
+```
+
+```x
+0.3333
 ```
 
 ```py
+getcontext().prec=2
+Decimal(1) / Decimal(3)
+```
 
+```x
+0.33
 ```
 
 ```py
+Decimal(3.14)
+```
 
+```x
+3.140000000000000124344978758017532527446746826171875
 ```
 
 ```py
-
+Decimal('3.14')
 ```
 
 ```py
-
+3.14
 ```
 
-```py
+# #END</details>
 
-```
+<details>
+<summary>6. Booleans </summary>
 
-```py
-
-```
-
-```py
-
-```
-
-```py
-
-```
-
-```py
-
-```
-
-```py
-
-```
-
-```py
-
-```
+# Booleans
 
 ```py
 
