@@ -788,6 +788,8 @@ jupyter notebook
 
 <details>
 <summary>2. Run Python </summary>
+
+# Run Python
     
 ```py
 python
@@ -830,19 +832,120 @@ Namespaces are one honking great idea -- let's do more of those!
 # #END</details>
 
 <details>
-<summary>3. Python </summary>
+<summary>3. Python Challenge - Factorial Challenge </summary>
+
+# Python Challenge - Factorial Challenge
+
+The factorial function gives the number of possible arrangements of a set of items of length "n"
+
+For example, there are 4! ("four factorial") or 24 ways to arrange four items, which can be calculated as: 4 * 3 * 2 * 1
+
+5! = 5 * 4 * 3 * 2 * 1 = 120
+
+6! = 6 * 5 * 4 * 3 * 2 * 1 = 720
+
+etc.
+
+In a set of 0 items (an empty set) there is only one way to arrange the items, therefore, 0! = 1
+
+For the purposes of this exercise, factorials are only defined for positive integers (including 0)
+
+# Solution 1 - Using While Loop
     
 ```py
+def factorial(num):
+    if type(num) is not int:
+        return None
+    if num < 0:
+        return None
+    if num == 0:
+        return 1
 
+    i = 0
+    f = 1
+    while i < num:
+        i = i + 1
+        f = f * i
+
+    return f
+
+
+# return 120
+print(factorial(5))
+
+# return 720
+print(factorial(6))
+
+# return 1
+print(factorial(0))
+
+# return None
+print(factorial(-2))
+
+# return None
+print(factorial(1.2))
+
+# return None
+print(factorial('spam spam spam spam spam spam'))
 ```
+
+```x
+120
+720
+1
+None
+None
+None
+```
+
+# Solution 2 - Using Recursion
 
 ```py
+def factorial(num):
+    if type(num) is not int:
+        return None
+    if num < 0:
+        return None
+    if num == 0:
+        return 1
 
+    return num * factorial(num - 1)
+
+
+# return 120
+print(factorial(5))
+
+# return 720
+print(factorial(6))
+
+# return 1
+print(factorial(0))
+
+# return None
+print(factorial(-2))
+
+# return None
+print(factorial(1.2))
+
+# return None
+print(factorial('spam spam spam spam spam spam'))
 ```
 
-```py
-
+```x
+120
+720
+1
+None
+None
+None
 ```
+
+# #END</details>
+
+<details>
+<summary>4. Ints and Floats </summary>
+
+# Ints and Floats
 
 ```py
 
