@@ -95,7 +95,7 @@ Quit the server with CONTROL-C.
 django-admin startapp home
 ```
 
-smartnotes.settings:
+### smartnotes.settings:
 
 ```x
 # Application definition
@@ -118,11 +118,55 @@ INSTALLED_APPS = [
 <details>
 <summary>3. Create View </summary>
 
-# Create View 
+# Create View
+
+### smartnotes.urls:
 
 ```py
+from django.contrib import admin
+from django.urls import path, include
 
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('home.urls')),
+]
 ```
+
+### home.urls:
+
+```py
+from django.urls import path
+from home import views
+
+urlpatterns = [
+    path('home', views.home),
+]
+```
+
+### home.views:
+
+```py
+from django.shortcuts import render
+from django.http import HttpResponse
+
+# Create your views here.
+
+
+def home(request):
+    return HttpResponse("<h1>Hello World!</h1>")
+```
+
+<img width="1413" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ac80da1e-8b1a-4bc7-aa4f-528bd887843b">
+<img width="1280" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/897bdc04-e787-467e-8194-5a5bcc99c229">
+<img width="1280" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/1292f08d-6ebc-4d3d-a0c0-460ed2869b57">
+<img width="1280" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5c024f37-a954-4ae3-89a0-db735d3a7504">
+
+# #END</details>
+
+<details>
+<summary>4. Creating your first Django template </summary>
+
+# Creating your first Django template
 
 ```py
 
