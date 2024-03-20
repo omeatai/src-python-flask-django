@@ -273,6 +273,220 @@ python manage.py runserver
 
 # Basic User Authentication
 
+[https://github.com/omeatai/src-python-flask-django/commit/d5e5549f294eff2e8802a0cbfb499be02c648d31](https://github.com/omeatai/src-python-flask-django/commit/d5e5549f294eff2e8802a0cbfb499be02c648d31)
+
+### home.urls:
+
+```py
+from django.urls import path
+from home import views
+
+urlpatterns = [
+    path('home', views.home),
+    path('authorized', views.authorized),
+]
+```
+
+### home.views:
+
+```py
+from django.shortcuts import render
+from django.http import HttpResponse
+from datetime import datetime
+from django.contrib.auth.decorators import login_required
+
+# Create your views here.
+
+
+def home(request):
+    # return HttpResponse("<h1>Hello World!</h1>")
+    return render(request, 'home/welcome.html', {'name': 'John Doe', 'date': datetime.now()})
+
+
+@login_required
+def authorized(request):
+    return render(request, 'home/authorized.html', {})
+```
+
+### home/authorized.html:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restricted Area</title>
+</head>
+
+<body>
+    <h1>You are in a restricted area!</h1>
+</body>
+
+</html>
+```
+
+<img width="1442" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/4e2e5a7b-8123-4e02-bc14-c92f6b71066b">
+<img width="1442" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/60489590-edb1-4fbe-9d9a-7fac08eadf1d">
+<img width="1442" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/739ecf40-3968-476a-8119-141a4335c8d9">
+<img width="1442" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/9f3c23f0-cc96-4e2e-9066-5eedc5ad5c95">
+
+# #END</details>
+
+<details>
+<summary>8. Basic User Authentication 2 - Force Redirect on failed Login</summary>
+
+# Basic User Authentication 2 - Force Redirect on failed Login
+
+[https://github.com/omeatai/src-python-flask-django/commit/ee29ba256602e97df09bcec992f4c0efda93286b](https://github.com/omeatai/src-python-flask-django/commit/ee29ba256602e97df09bcec992f4c0efda93286b)
+
+### home.views:
+
+```py
+from django.shortcuts import render
+from django.http import HttpResponse
+from datetime import datetime
+from django.contrib.auth.decorators import login_required
+
+# Create your views here.
+
+
+def home(request):
+    # return HttpResponse("<h1>Hello World!</h1>")
+    return render(request, 'home/welcome.html', {'name': 'John Doe', 'date': datetime.now()})
+
+
+@login_required(login_url='/admin')
+def authorized(request):
+    return render(request, 'home/authorized.html', {})
+```
+
+<img width="1442" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/000601ab-8f95-4b1f-a720-34ccf24eb623">
+
+# #END</details>
+
+<details>
+<summary>9. Create Model</summary>
+
+# Create Model
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
 ```py
 
 ```
