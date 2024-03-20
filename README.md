@@ -1221,17 +1221,42 @@ Quit the server with CONTROL-C.
 # #END</details>
 
 <details>
-<summary>2. Django Project </summary>
+<summary>2. Create new App - Home </summary>
 
-# Django Project
+# Create new App - Home
+
+[https://github.com/omeatai/src-python-flask-django/commit/0959e138fcee4d7829ef38e9ca8ff24a5c443a23](https://github.com/omeatai/src-python-flask-django/commit/0959e138fcee4d7829ef38e9ca8ff24a5c443a23)
+
+## Create App
 
 ```py
-
+django-admin startapp home
 ```
 
-```py
+smartnotes.settings:
 
+```x
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # apps
+    'home',
+]
 ```
+
+# #END</details>
+
+<details>
+<summary>3. Create View </summary>
+
+# Create View 
 
 ```py
 
