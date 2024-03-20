@@ -367,25 +367,68 @@ def authorized(request):
 # #END</details>
 
 <details>
-<summary>9. Create a Model</summary>
+<summary>9. Create Notes Model</summary>
 
-# Create a Model
+# Create Notes Model
 
-```py
+[https://github.com/omeatai/src-python-flask-django/commit/09253493e7a3e2e425681639f18e15110a5d6092](https://github.com/omeatai/src-python-flask-django/commit/09253493e7a3e2e425681639f18e15110a5d6092)
 
-```
-
-```py
-
-```
+## Create new app - notes
 
 ```py
-
+django-admin startapp notes
 ```
+
+### smartnotes.settings:
 
 ```py
+# Application definition
 
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # apps
+    'home',
+    'notes',
+]
 ```
+
+### notes.models:
+
+```py
+from django.db import models
+
+# Create your models here.
+
+
+class Notes(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+```
+
+## Run migrations
+
+```py
+python manage.py makemigrations
+python manage.py migrate
+```
+
+# #END</details>
+
+<details>
+<summary>10. Using Admin for data creation and manipulation</summary>
+
+# Using Admin for data creation and manipulation
 
 ```py
 
