@@ -1136,6 +1136,43 @@ Decimal('3.14')
 
 ```
 
+# #END</details>
+
+## +LinkedIn - Django Essential Training
+
+<details>
+<summary>1. Creating a New Django Project </summary>
+
+# Creating a New Django Project
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
 ```py
 
 ```
