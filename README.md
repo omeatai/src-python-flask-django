@@ -120,6 +120,8 @@ INSTALLED_APPS = [
 
 # Create View
 
+[https://github.com/omeatai/src-python-flask-django/commit/c1680ccc9d7982ae87252859481cb3d64db13260](https://github.com/omeatai/src-python-flask-django/commit/c1680ccc9d7982ae87252859481cb3d64db13260)
+
 ### smartnotes.urls:
 
 ```py
