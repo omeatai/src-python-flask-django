@@ -1145,24 +1145,53 @@ Decimal('3.14')
 
 # Creating a New Django Project
 
-```py
+## Install venv
 
+```py
+python -m venv myproject-env
 ```
 
-```py
+## Activate venv
 
+```py
+# myproject-env\Scripts\activate
+source myproject-env/bin/activate
 ```
 
-```py
+## Install Django
 
+```py
+python -m pip install Django
 ```
 
-```py
+## Get dependencies
 
+```py
+pip freeze
 ```
 
-```py
+```x
+asgiref==3.7.2
+Django==5.0.3
+sqlparse==0.4.4
+```
 
+## Save Dependencies to Requirements.txt
+
+```py
+pip freeze > requirements.txt
+```
+
+## Install requirements from Requirements.txt
+
+```py
+pip install -r requirements.txt
+```
+
+## Deactivate a virtual environment
+
+```py
+deactivate
 ```
 
 ```py
