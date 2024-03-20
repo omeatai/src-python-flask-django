@@ -230,25 +230,48 @@ def home(request):
 # #END</details>
 
 <details>
-<summary>5. Create Users </summary>
+<summary>5. Migrate Changes </summary>
 
-# Create Users
+# Migrate Changes
 
 ```py
-
+python manage.py makemigrations
 ```
 
 ```py
-
+python manage.py migrate
 ```
+
+<img width="449" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/7b035ec1-9768-47cb-82b2-99171cccee67">
+
+# #END</details>
+
+<details>
+<summary>6. Create Super User</summary>
+
+# Create Super User
 
 ```py
-
+python manage.py createsuperuser
 ```
+
+# Run Dev Server
 
 ```py
-
+python manage.py runserver
 ```
+
+<img width="448" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/07bc212b-b444-4f42-804e-6212abf24964">
+<img width="1330" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/eb04a65d-2c5e-4040-830c-1e1618cd1767">
+<img width="1442" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/f883b789-fdf6-46d6-b729-f730c87c7ed6">
+<img width="1319" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/97ccec8d-6dcf-4929-b8e0-a8a189fbf2be">
+
+# #END</details>
+
+<details>
+<summary>7. Basic User Authentication</summary>
+
+# Basic User Authentication
 
 ```py
 
