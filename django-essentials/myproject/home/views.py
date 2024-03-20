@@ -11,6 +11,6 @@ def home(request):
     return render(request, 'home/welcome.html', {'name': 'John Doe', 'date': datetime.now()})
 
 
-@login_required
+@login_required(login_url='/admin')
 def authorized(request):
     return render(request, 'home/authorized.html', {})
