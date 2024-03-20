@@ -170,6 +170,90 @@ def home(request):
 
 # Creating your first Django template
 
+[https://github.com/omeatai/src-python-flask-django/commit/6f788cf2b56c91f44b960178d8576c35bbebd11a](https://github.com/omeatai/src-python-flask-django/commit/6f788cf2b56c91f44b960178d8576c35bbebd11a)
+
+### smartnotes.settings:
+
+```py
+# Internationalization
+# https://docs.djangoproject.com/en/5.0/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'America/Denver'
+
+USE_I18N = True
+
+USE_TZ = True
+```
+
+### home.views:
+
+```py
+from django.shortcuts import render
+from django.http import HttpResponse
+from datetime import datetime
+
+# Create your views here.
+
+
+def home(request):
+    # return HttpResponse("<h1>Hello World!</h1>")
+    return render(request, 'home/welcome.html', {'name': 'John Doe', 'date': datetime.now()})
+```
+
+### home/templates/home/welcome.html:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartNotes</title>
+</head>
+
+<body>
+    <h1>Welcome to SmartNotes Home Page - {{name}}.</h1>
+    <h2>Today is {{date}}</h2>
+</body>
+
+</html>
+```
+
+<img width="1413" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/360b36a5-c3e9-4767-81b6-50a6969bbe2c">
+<img width="1280" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b117ad99-4daa-4910-9b8d-7581139d5bac">
+<img width="1280" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/7f247c75-ff40-4fa4-9f30-266cf411a8f3">
+<img width="1280" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/7a366f68-7d08-423b-a7c9-c400262a04af">
+
+# #END</details>
+
+<details>
+<summary>5. Create Users </summary>
+
+# Create Users
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
 ```py
 
 ```
