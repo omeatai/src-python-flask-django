@@ -367,9 +367,9 @@ def authorized(request):
 # #END</details>
 
 <details>
-<summary>9. Create Model</summary>
+<summary>9. Create a Model</summary>
 
-# Create Model
+# Create a Model
 
 ```py
 
