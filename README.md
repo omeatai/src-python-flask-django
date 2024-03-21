@@ -649,29 +649,127 @@ def list(request):
 # #END</details>
 
 <details>
-<summary>13. Creating Dynamic Templates - Display content of a single note </summary>
+<summary>13. Creating Dynamic Templates - Display content of a single note w 404 Page </summary>
 
-# Creating Dynamic Templates - Display content of a single note
+# Creating Dynamic Templates - Display content of a single note w 404 Page
 
-```py
+[https://github.com/omeatai/src-python-flask-django/commit/6a213c7aa46ec24c6017a44bad60269918eaf2a0](https://github.com/omeatai/src-python-flask-django/commit/6a213c7aa46ec24c6017a44bad60269918eaf2a0)
 
-```
-
-```py
-
-```
+### smartnotes.settings:
 
 ```py
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False  # True
 
+ALLOWED_HOSTS = ['*']
+
+
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # apps
+    'home',
+    'notes',
+]
 ```
+
+### notes.urls:
 
 ```py
+from django.urls import path
+from . import views
 
+urlpatterns = [
+    path('notes', views.list),
+    path('notes/<int:pk>', views.detail),
+]
 ```
+
+### notes.views:
 
 ```py
+from django.shortcuts import render
+from django.http import Http404
 
+from .models import Notes
+
+# Create your views here.
+
+
+def list(request):
+    all_notes = Notes.objects.all()
+    return render(request, 'notes/notes_list.html', {'notes': all_notes})
+
+
+def detail(request, pk):
+    try:
+        note = Notes.objects.get(pk=pk)
+    except Notes.DoesNotExist:
+        raise Http404("Note does not exist")
+    return render(request, 'notes/notes_detail.html', {'note': note})
 ```
+
+### notes/notes_detail.html:
+
+```py
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note Detail</title>
+</head>
+
+<body>
+    <h1>{{note.title | title}}</h1>
+    <h3>{{note.content}}</h3>
+</body>
+
+</html>
+```
+
+### notes/templates/404.html:
+
+```py
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Page</title>
+</head>
+
+<body>
+    <h1>404 - Ooops!</h1>
+    <h2>I cannot find the file you requested!</h2>
+</body>
+
+</html>
+```
+
+<img width="1409" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/10aa4c56-be8b-4bc6-ba6b-fe52dcf11389">
+<img width="1409" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/01259842-9e6f-4a09-9091-10b36c1e636d">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/43c1eb4e-fbfd-4ffb-930f-37db29b0e50d">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e6dabf44-5720-492e-9272-6f2e7f8bae55">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/f637fb96-364d-4acd-9c64-3aed91a93080">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ff107b00-75b3-4da7-891a-28b40ad0b797">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0a26901f-dad5-4686-9fd6-cc9b18970de1">
+
+# #END</details>
+
+<details>
+<summary>14. Django Class Based Views </summary>
+
+# Django Class Based Views
 
 ```py
 
