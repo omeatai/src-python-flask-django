@@ -430,6 +430,8 @@ python manage.py migrate
 
 # Setup Admin for data creation and manipulation
 
+[https://github.com/omeatai/src-python-flask-django/commit/fe4590e92ae3f0ac735f5950c8660cf79aed015b](https://github.com/omeatai/src-python-flask-django/commit/fe4590e92ae3f0ac735f5950c8660cf79aed015b)
+
 ### notes.admin:
 
 ```py
@@ -492,27 +494,63 @@ python manage.py migrate
 
 # Using Django shell for creating and querying data
 
-### notes.admin:
+## Run Shell:
 
 ```py
-
+python manage.py shell
 ```
+
+## Get Instance of Model Object
 
 ```py
+from notes.models import Notes
+mynote = Notes.objects.get(pk=1)
 
+mynote.title
+# 'Make food'
+
+mynote.content
+# 'This is how to make the food'
 ```
+
+## Get all Object Instances
 
 ```py
-
+ Notes.objects.all()
+# <QuerySet [<Notes: Make food>]>
 ```
+
+## Create New Object Instance
 
 ```py
+new_note = Notes.objects.create(title="The second note", content="This is the second note.")
 
+Notes.objects.all()
+# <QuerySet [<Notes: Make food>, <Notes: The second note>]>
 ```
+
+## Filter and Exclude contents
 
 ```py
+Notes.objects.filter(title__startswith="The")
+# <QuerySet [<Notes: The second note>]>
 
+Notes.objects.filter(content__icontains="food")
+#  <QuerySet [<Notes: Make food>]>
+
+Notes.objects.exclude(content__icontains="food")
+# <QuerySet [<Notes: The second note>]>
+
+Notes.objects.filter(content__icontains="food").exclude(content__icontains="second")
+# <QuerySet [<Notes: Make food>]>
 ```
+
+# #END</details>
+
+<details>
+<summary>12. Creating Dynamic Templates </summary>
+
+# Creating Dynamic Templates
 
 ```py
 
