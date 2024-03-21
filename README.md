@@ -767,9 +767,71 @@ def detail(request, pk):
 # #END</details>
 
 <details>
-<summary>14. Django Class Based Views </summary>
+<summary>14. Django Class Based Views - TemplateView </summary>
 
-# Django Class Based Views
+# Django Class Based Views - TemplateView
+
+[https://github.com/omeatai/src-python-flask-django/commit/1e10260f38b8bf5b6804d6f45b9f4bf61b1c2edf](https://github.com/omeatai/src-python-flask-django/commit/1e10260f38b8bf5b6804d6f45b9f4bf61b1c2edf)
+
+### home.views:
+
+```py
+from django.shortcuts import render
+from django.http import HttpResponse
+from datetime import datetime
+from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+# Create your views here.
+
+
+class HomeView(TemplateView):
+    template_name = 'home/welcome.html'
+    extra_context = {'name': 'John Doe', 'date': datetime.now()}
+
+
+# def home(request):
+#     # return HttpResponse("<h1>Hello World!</h1>")
+#     return render(request, 'home/welcome.html', {'name': 'John Doe', 'date': datetime.now()})
+
+
+class AuthorizedView(LoginRequiredMixin, TemplateView):
+    template_name = 'home/authorized.html'
+    extra_context = {}
+    login_url = '/admin'
+
+
+# @login_required(login_url='/admin')
+# def authorized(request):
+#     return render(request, 'home/authorized.html', {})
+```
+
+### home.urls:
+
+```py
+from django.urls import path
+from home import views
+
+urlpatterns = [
+    # path('home', views.home),
+    path('home', views.HomeView.as_view()),
+    # path('authorized', views.authorized),
+    path('authorized', views.AuthorizedView.as_view()),
+]
+```
+
+<img width="1458" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/27480e31-f225-49ee-aba2-b9a149a9323d">
+<img width="1458" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/fb460d21-b9a7-4799-961f-56bc751d5121">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/1b2b17f3-5d1c-48bd-9364-25374c1ce361">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/2c4dbd20-39b2-4adb-bc28-ffcac9089466">
+
+# #END</details>
+
+<details>
+<summary>15. Django Class Based Views - ListView </summary>
+
+# Django Class Based Views - ListView
 
 ```py
 
@@ -822,5 +884,42 @@ def detail(request, pk):
 ```py
 
 ```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
 
 # #END</details>
