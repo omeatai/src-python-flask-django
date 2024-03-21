@@ -639,12 +639,12 @@ def list(request):
 </html>
 ```
 
+<img width="1409" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a93749d6-a319-421f-b211-3288eecc3786">
 <img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ebcd35d1-e9b4-4dd9-88de-028296c7ef34">
 <img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0ccaf7cd-59bb-47b9-bf10-1dd7123819dd">
 <img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/1b70d099-f746-4499-a1bb-99f82baaa8ab">
 <img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/2422a6ee-56fd-4479-baca-80f33bb664e4">
 <img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/330aee64-8204-45ba-975c-d34e33a16019">
-<img width="1409" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a93749d6-a319-421f-b211-3288eecc3786">
 
 # #END</details>
 
