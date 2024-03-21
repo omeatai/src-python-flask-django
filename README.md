@@ -548,29 +548,110 @@ Notes.objects.filter(content__icontains="food").exclude(content__icontains="seco
 # #END</details>
 
 <details>
-<summary>12. Creating Dynamic Templates </summary>
+<summary>12. Creating Dynamic Templates - Display all Notes </summary>
 
-# Creating Dynamic Templates
+# Creating Dynamic Templates - Display all Notes
 
-```py
+[https://github.com/omeatai/src-python-flask-django/commit/a135c2a03da27f098e6d5e3a508ffa2746745e96](https://github.com/omeatai/src-python-flask-django/commit/a135c2a03da27f098e6d5e3a508ffa2746745e96)
 
-```
-
-```py
-
-```
+### notes.models:
 
 ```py
+from django.db import models
 
+# Create your models here.
+
+
+class Notes(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Note"
+        verbose_name_plural = "Notes"
+
+    def __str__(self):
+        return self.title
 ```
+
+### smartnotes.urls:
 
 ```py
+from django.contrib import admin
+from django.urls import path, include
 
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('home.urls')),
+    path('smart/', include('notes.urls')),
+]
 ```
+
+### notes.urls:
 
 ```py
+from django.urls import path
+from . import views
 
+urlpatterns = [
+    path('notes', views.list),
+]
 ```
+
+### notes.views:
+
+```py
+from django.shortcuts import render
+from .models import Notes
+
+# Create your views here.
+
+
+def list(request):
+    all_notes = Notes.objects.all()
+    return render(request, 'notes/notes_list.html', {'notes': all_notes})
+```
+
+### notes/notes_list.html:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+</head>
+
+<body>
+    <h1>Note List</h1>
+    <h2>These are the notes:</h2>
+    <ul>
+        {% for note in notes %}
+        <li>{{note.title}}</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
+```
+
+<img width="1409" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a93749d6-a319-421f-b211-3288eecc3786">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ebcd35d1-e9b4-4dd9-88de-028296c7ef34">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0ccaf7cd-59bb-47b9-bf10-1dd7123819dd">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/1b70d099-f746-4499-a1bb-99f82baaa8ab">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/2422a6ee-56fd-4479-baca-80f33bb664e4">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/330aee64-8204-45ba-975c-d34e33a16019">
+
+# #END</details>
+
+<details>
+<summary>13. Creating Dynamic Templates - Display content of a single note </summary>
+
+# Creating Dynamic Templates - Display content of a single note
 
 ```py
 
