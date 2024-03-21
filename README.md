@@ -367,33 +367,132 @@ def authorized(request):
 # #END</details>
 
 <details>
-<summary>9. Create a Model</summary>
+<summary>9. Create Notes Model</summary>
 
-# Create a Model
+# Create Notes Model
 
-```py
+[https://github.com/omeatai/src-python-flask-django/commit/09253493e7a3e2e425681639f18e15110a5d6092](https://github.com/omeatai/src-python-flask-django/commit/09253493e7a3e2e425681639f18e15110a5d6092)
 
-```
-
-```py
-
-```
+## Create new app - notes
 
 ```py
-
+django-admin startapp notes
 ```
+
+### smartnotes.settings:
 
 ```py
+# Application definition
 
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # apps
+    'home',
+    'notes',
+]
 ```
+
+### notes.models:
 
 ```py
+from django.db import models
 
+# Create your models here.
+
+
+class Notes(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
 ```
+
+## Run migrations
 
 ```py
-
+python manage.py makemigrations
+python manage.py migrate
 ```
+
+# #END</details>
+
+<details>
+<summary>10. Setup Admin for data creation and manipulation</summary>
+
+# Setup Admin for data creation and manipulation
+
+### notes.admin:
+
+```py
+from django.contrib import admin
+from . import models
+# Register your models here.
+
+
+class NotesAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created', 'updated',)
+    verbose_name = "Note"
+    verbose_name_plural = "Notes"
+
+    # def get_model_name(self):
+    #     return "Notes"
+
+
+admin.site.register(models.Notes, NotesAdmin)
+```
+
+### notes.models:
+
+```py
+from django.db import models
+
+# Create your models here.
+
+
+class Notes(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Note"
+        verbose_name_plural = "Notes"
+
+    def __str__(self):
+        return self.title
+```
+
+## Run migrations
+
+```py
+python manage.py makemigrations
+python manage.py migrate
+```
+
+<img width="1280" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/44e70011-13a8-4329-98e8-de55d982840e">
+<img width="1280" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/d2b2e809-b98c-4bf9-97bc-a539bb352808">
+<img width="1458" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/354f952d-e64f-4956-ada8-c9c1461ed99c">
+<img width="1458" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/6c302e29-1e1d-4400-a752-c38955302f1f">
+<img width="1458" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e187c091-b598-40e3-82f4-10f61cbe8d95">
+
+# #END</details>
+
+<details>
+<summary>11. Using Django shell for creating and querying data</summary>
+
+# Using Django shell for creating and querying data
+
+### notes.admin:
 
 ```py
 
