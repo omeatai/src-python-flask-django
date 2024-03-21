@@ -1034,21 +1034,74 @@ class NotesDetailView(DetailView):
 # #END</details>
 
 <details>
-<summary>17. Static Files in Django </summary>
+<summary>17. Static Files in Django - CSS in Template </summary>
 
-# Static Files in Django
+# Static Files in Django - CSS in Template
 
-```py
+[https://github.com/omeatai/src-python-flask-django/commit/c9a69902fd55e8eff47d658603800dab25cb0ab8](https://github.com/omeatai/src-python-flask-django/commit/c9a69902fd55e8eff47d658603800dab25cb0ab8)
 
-```
-
-```py
-
-```
+### smartnotes.settings:
 
 ```py
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 ```
+
+### static/notes/css/style.css:
+
+```css
+.note-li {
+    color: blue;
+    font-size: 18px;
+    font-weight: 800;
+}
+```
+
+### notes/templates/notes/notes_list.html:
+
+```py
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'notes/css/style.css' %}">
+    <title>Notes</title>
+</head>
+
+<body>
+    <h1>Note List</h1>
+    <h2>These are the notes:</h2>
+    <ul>
+        {% for note in notes %}
+        <li class="note-li">{{note.title}}</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
+```
+
+<img width="1383" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b43b561f-4547-41f3-afe7-de0ffe54d353">
+<img width="1383" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/9326acdd-5ae5-4bc8-b01d-3a87961fdec2">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/139b36d2-137b-4366-b175-103d50f6489c">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/c2a15c08-1cb5-48f9-87a5-47d3bbea48f8">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/65ed74a3-2119-45ba-8bca-905b770b895c">
+
+# #END</details>
+
+<details>
+<summary>18. Base HTML for Templates </summary>
+
+# Base HTML for Templates
 
 ```py
 
