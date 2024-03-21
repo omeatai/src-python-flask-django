@@ -1,7 +1,8 @@
 from typing import Any
-from django.shortcuts import render
-from django.http import Http404
-from django.views.generic import ListView
+from django.shortcuts import render, redirect
+from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse
+from django.views.generic import ListView, DetailView
 
 from .models import Notes
 
@@ -21,9 +22,24 @@ class NotesListView(ListView):
 #     return render(request, 'notes/notes_list.html', {'notes': all_notes})
 
 
-def detail(request, pk):
-    try:
-        note = Notes.objects.get(pk=pk)
-    except Notes.DoesNotExist:
-        raise Http404("Note does not exist")
-    return render(request, 'notes/notes_detail.html', {'note': note})
+class NotesDetailView(DetailView):
+    model = Notes
+    context_object_name = 'note'
+    template_name = 'notes/notes_detail.html'
+
+    def get_object(self, queryset=None):
+        try:
+            return super().get_object(queryset)
+        except Http404:
+            # return render(self.request, '404.html', {})
+            # return HttpResponseRedirect(reverse('notes-detail-list', args=[1]))
+            # return HttpResponseRedirect(reverse('notes-list'))
+            return "404 - Sorry, the requested note does not exist!"
+
+
+# def detail(request, pk):
+#     try:
+#         note = Notes.objects.get(pk=pk)
+#     except Notes.DoesNotExist:
+#         raise Http404("Note does not exist")
+#     return render(request, 'notes/notes_detail.html', {'note': note})
