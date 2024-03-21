@@ -833,33 +833,210 @@ urlpatterns = [
 
 # Django Class Based Views - ListView
 
-```py
+[https://github.com/omeatai/src-python-flask-django/commit/3f935498be33171d56e127482e771f199787ab6c](https://github.com/omeatai/src-python-flask-django/commit/3f935498be33171d56e127482e771f199787ab6c)
 
-```
-
-```py
-
-```
+### notes.views:
 
 ```py
+from typing import Any
+from django.shortcuts import render
+from django.http import Http404
+from django.views.generic import ListView
 
+from .models import Notes
+
+# Create your views here.
+
+
+class NotesListView(ListView):
+    model = Notes
+    context_object_name = 'notes'
+    template_name = 'notes/notes_list.html'
+    ordering = ['-created']
+    paginate_by = 10
+
+
+# def list(request):
+#     all_notes = Notes.objects.all()
+#     return render(request, 'notes/notes_list.html', {'notes': all_notes})
+
+
+def detail(request, pk):
+    try:
+        note = Notes.objects.get(pk=pk)
+    except Notes.DoesNotExist:
+        raise Http404("Note does not exist")
+    return render(request, 'notes/notes_detail.html', {'note': note})
 ```
+
+### notes.urls:
 
 ```py
+from django.urls import path
+from . import views
 
+urlpatterns = [
+    # path('notes', views.list),
+    path('notes', views.NotesListView.as_view()),
+    path('notes/<int:pk>', views.detail),
+]
 ```
+
+### notes/templates/notes/notes_list.html:
 
 ```py
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+</head>
+
+<body>
+    <h1>Note List</h1>
+    <h2>These are the notes:</h2>
+    <ul>
+        {% for note in notes %}
+        <li>{{note.title}}</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
 ```
+
+<img width="1383" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/8023729d-604c-4b71-9dfa-89fa4501c7cc">
+<img width="1208" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/47e33038-8d50-413c-a88e-1eca9978a27d">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/c369c75a-203c-46f5-9844-00796ae8904a">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0b3720e2-b860-4c42-b7bc-2eccb67e8fb8">
+
+# #END</details>
+
+<details>
+<summary>16. Django Class Based Views - DetailView </summary>
+
+# Django Class Based Views - DetailView
+
+[https://github.com/omeatai/src-python-flask-django/commit/3dbc4628a9a8892e9098e455c03cb8c63e4253f5](https://github.com/omeatai/src-python-flask-django/commit/3dbc4628a9a8892e9098e455c03cb8c63e4253f5)
+
+### smartnotes.urls:
 
 ```py
+from django.contrib import admin
+from django.urls import path, include
 
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('home.urls')),
+    path('smart/', include('notes.urls')),
+]
 ```
+
+### notes.urls:
 
 ```py
+from django.urls import path
+from . import views
 
+urlpatterns = [
+    # path('notes', views.list),
+    path('notes', views.NotesListView.as_view(), name='notes-list'),
+    # path('notes/<int:pk>', views.detail),
+    path('notes/<int:pk>', views.NotesDetailView.as_view(),
+         name='notes-detail-list'),
+]
 ```
+
+### notes.views:
+
+```py
+from typing import Any
+from django.shortcuts import render, redirect
+from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse
+from django.views.generic import ListView, DetailView
+
+from .models import Notes
+
+# Create your views here.
+
+
+class NotesListView(ListView):
+    model = Notes
+    context_object_name = 'notes'
+    template_name = 'notes/notes_list.html'
+    ordering = ['-created']
+    paginate_by = 10
+
+
+# def list(request):
+#     all_notes = Notes.objects.all()
+#     return render(request, 'notes/notes_list.html', {'notes': all_notes})
+
+
+class NotesDetailView(DetailView):
+    model = Notes
+    context_object_name = 'note'
+    template_name = 'notes/notes_detail.html'
+
+    def get_object(self, queryset=None):
+        try:
+            return super().get_object(queryset)
+        except Http404:
+            # return render(self.request, '404.html', {})
+            # return HttpResponseRedirect(reverse('notes-detail-list', args=[1]))
+            # return HttpResponseRedirect(reverse('notes-list'))
+            return "404 - Sorry, the requested note does not exist!"
+
+
+# def detail(request, pk):
+#     try:
+#         note = Notes.objects.get(pk=pk)
+#     except Notes.DoesNotExist:
+#         raise Http404("Note does not exist")
+#     return render(request, 'notes/notes_detail.html', {'note': note})
+```
+
+### notes/templates/notes/notes_list.html:
+
+```py
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+</head>
+
+<body>
+    <h1>Note List</h1>
+    <h2>These are the notes:</h2>
+    <ul>
+        {% for note in notes %}
+        <li>{{note.title}}</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
+```
+
+<img width="1383" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/1be41d27-ca7b-421b-95f5-18d52c56fde7">
+<img width="1383" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/72c45b25-dd04-409d-87a4-b5cf9c34d48d">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e5f7626e-d377-45eb-9ad2-ca78c7de2074">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/07094330-2eb9-4153-9b6e-a8796c2468ac">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/74a02860-d5d8-44cf-9dab-7e9ee5412633">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/fdbf20ef-4a65-4623-a7cb-ba067f2a68ce">
+
+# #END</details>
+
+<details>
+<summary>17. Static Files in Django </summary>
+
+# Static Files in Django
 
 ```py
 
