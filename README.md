@@ -718,7 +718,7 @@ def detail(request, pk):
 
 ### notes/notes_detail.html:
 
-```py
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -738,7 +738,7 @@ def detail(request, pk):
 
 ### notes/templates/404.html:
 
-```py
+```html
 <!DOCTYPE html>
 <html lang="en">
 
