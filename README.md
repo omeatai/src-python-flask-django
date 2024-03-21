@@ -919,6 +919,8 @@ urlpatterns = [
 
 # Django Class Based Views - DetailView
 
+[https://github.com/omeatai/src-python-flask-django/commit/3dbc4628a9a8892e9098e455c03cb8c63e4253f5](https://github.com/omeatai/src-python-flask-django/commit/3dbc4628a9a8892e9098e455c03cb8c63e4253f5)
+
 ### smartnotes.urls:
 
 ```py
