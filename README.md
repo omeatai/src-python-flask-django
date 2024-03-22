@@ -1103,6 +1103,8 @@ STATICFILES_DIRS = [
 
 # Base HTML for Templates
 
+[https://github.com/omeatai/src-python-flask-django/commit/9e009fac7c4d43b7c5cae36dd13301e35079146e](https://github.com/omeatai/src-python-flask-django/commit/9e009fac7c4d43b7c5cae36dd13301e35079146e)
+
 ### smartnotes.settings:
 
 ```py
@@ -1125,16 +1127,57 @@ TEMPLATES = [
 ]
 ```
 
-```py
+### static/notes/css/style.css:
 
+```css
+.note-li {
+    color: purple;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+h2 {
+    color: cadetblue;
+}
 ```
 
-```py
+### templates/notes/base.html:
 
+```html
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'notes/css/style.css' %}">
+    <title>Notes</title>
+</head>
+
+<body>
+    {% block content %}
+    {% endblock content %}
+</body>
+
+</html>
 ```
 
-```py
+### templates/notes/notes_list.html:
 
+```py
+{% extends 'notes/base.html' %}
+
+{% block content %}
+<h1>Note List</h1>
+<h2>These are the notes:</h2>
+<ul>
+    {% for note in notes %}
+    <li class="note-li">{{note.title}}</li>
+    {% endfor %}
+</ul>
+{% endblock content %}
 ```
 
 <img width="1430" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/047a9f2c-1e33-4827-8cab-c825ab3dd210">
@@ -1143,6 +1186,206 @@ TEMPLATES = [
 <img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/4423d5ed-de11-41c9-98f7-58d85515e682">
 <img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0ac816c0-cb25-49c5-843a-276784f40f71">
 
+# #END</details>
+
+<details>
+<summary>19. Styling with Bootstrap and Linking Pages </summary>
+
+# Styling with Bootstrap and Linking Pages
+
+[https://github.com/omeatai/src-python-flask-django/commit/61b4a649138fba4700ea7ecac34d5babea955e80](https://github.com/omeatai/src-python-flask-django/commit/61b4a649138fba4700ea7ecac34d5babea955e80)
+
+### notes.urls:
+
+```py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # path('notes', views.list),
+    path('notes', views.NotesListView.as_view(), name='notes-list'),
+    # path('notes/<int:pk>', views.detail),
+    path('notes/<int:pk>', views.NotesDetailView.as_view(),
+         name='notes-detail-list'),
+]
+```
+
+### templates/home/base.html:
+
+```html
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>SmartNotes</title>
+</head>
+
+<body>
+    <div class="my-5 text-center container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
+```
+
+### home/templates/home/welcome.html:
+
+```py
+{% extends 'home/base.html' %}
+
+{% block content %}
+<h1>Welcome to SmartNotes Home Page - {{name}}.</h1>
+<h2>Today is {{date}}</h2>
+<a href="{% url 'notes-list' %}" class="btn btn-primary">Check out these SmartNotes</a>
+{% endblock content %}
+```
+
+### templates/notes/base.html:
+
+```html
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'notes/css/style.css' %}">
+    <title>Notes</title>
+</head>
+
+<body>
+    <div class="my-5 text-center container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
+```
+
+### notes/templates/notes/notes_list.html:
+
+```html
+{% extends 'notes/base.html' %}
+
+{% block content %}
+<h1>Note List</h1>
+<h2 class="mb-5">These are the notes:</h2>
+
+<div class="row row-cols3 g-2">
+    {% for note in notes %}
+    <div class="col">
+        <div class="p-3 border">
+            <a href="{% url 'notes-detail-list' pk=note.id %}" class="text-dark text-decoration-none">
+                <h3>{{note.title | title}}</h3>
+            </a>
+            <p>{{note.content | truncatechars:30}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}
+```
+
+### notes/templates/notes/notes_detail.html:
+
+```py
+{% extends 'notes/base.html' %}
+
+{% block content %}
+<div class="border round">
+    <h1 class="my-5">{{note.title | title}}</h1>
+    <p>{{note.content}}</p>
+</div>
+
+{% endblock content %}
+```
+
+<img width="1453" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a9a658c5-2846-4604-92b0-a1f2b73c5e5d">
+<img width="1453" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/340f8b96-1493-42ae-b0a3-5fe1a8c7cedb">
+<img width="1453" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/25d5c2c3-fa4f-4976-89e3-de46118d1aea">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/63f9b354-057c-4c3a-b3a2-d9e526685efd">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/f12343af-535e-4817-9ea2-b8aaa055e3fd">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/3528ba4f-38f1-40d9-9e52-5c85a9a73c2a">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/f8acfc54-55cc-471c-a24a-45841e71760f">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/91d083ca-a9b7-4696-ac40-507d024ec472">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e3e639e1-3b09-413c-8493-50c61914e06c">
+
+# #END</details>
+
+<details>
+<summary>20. Create Webpage </summary>
+
+# Create Webpage
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
 
 ```py
 
