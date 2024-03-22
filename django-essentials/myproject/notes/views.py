@@ -2,11 +2,18 @@ from typing import Any
 from django.shortcuts import render, redirect
 from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
 from .models import Notes
 
 # Create your views here.
+
+
+class NotesCreateView(CreateView):
+    model = Notes
+    fields = ['title', 'content']
+    success_url = '/smart/notes'
+    template_name = 'notes/notes_create.html'
 
 
 class NotesListView(ListView):

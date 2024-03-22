@@ -7,4 +7,5 @@ urlpatterns = [
     # path('notes/<int:pk>', views.detail),
     path('notes/<int:pk>', views.NotesDetailView.as_view(),
          name='notes-detail-list'),
+    path('notes/create', views.NotesCreateView.as_view(), name='notes-create'),
 ]
