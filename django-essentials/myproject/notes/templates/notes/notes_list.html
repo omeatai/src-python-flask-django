@@ -1,23 +1,11 @@
-{% load static %}
+{% extends 'notes/base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'notes/css/style.css' %}">
-    <title>Notes</title>
-</head>
-
-<body>
-    <h1>Note List</h1>
-    <h2>These are the notes:</h2>
-    <ul>
-        {% for note in notes %}
-        <li class="note-li">{{note.title}}</li>
-        {% endfor %}
-    </ul>
-</body>
-
-</html>
+{% block content %}
+<h1>Note List</h1>
+<h2>These are the notes:</h2>
+<ul>
+    {% for note in notes %}
+    <li class="note-li">{{note.title}}</li>
+    {% endfor %}
+</ul>
+{% endblock content %}

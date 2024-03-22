@@ -1,5 +1,9 @@
 .note-li {
-    color: blue;
+    color: purple;
     font-size: 18px;
     font-weight: 800;
+}
+
+h2 {
+    color: cadetblue;
 }
