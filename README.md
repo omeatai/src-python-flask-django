@@ -1335,25 +1335,127 @@ urlpatterns = [
 # #END</details>
 
 <details>
-<summary>20. Create Webpage </summary>
+<summary>20. Django Class Based Views - CreateView </summary>
 
-# Create Webpage
+# Django Class Based Views - CreateView
 
-```py
+[https://github.com/omeatai/src-python-flask-django/commit/2f833971f6a3e9d78c730e912bcb08105d79e8c9](https://github.com/omeatai/src-python-flask-django/commit/2f833971f6a3e9d78c730e912bcb08105d79e8c9)
 
-```
-
-```py
-
-```
+### smartnotes.urls:
 
 ```py
+from django.contrib import admin
+from django.urls import path, include
 
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('home.urls')),
+    path('smart/', include('notes.urls')),
+]
 ```
+
+### notes.urls:
 
 ```py
+from django.urls import path
+from . import views
 
+urlpatterns = [
+    # path('notes', views.list),
+    path('notes', views.NotesListView.as_view(), name='notes-list'),
+    # path('notes/<int:pk>', views.detail),
+    path('notes/<int:pk>', views.NotesDetailView.as_view(),
+         name='notes-detail-list'),
+    path('notes/create', views.NotesCreateView.as_view(), name='notes-create'),
+]
 ```
+
+### notes.views:
+
+```py
+from typing import Any
+from django.shortcuts import render, redirect
+from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse
+from django.views.generic import ListView, DetailView, CreateView
+
+from .models import Notes
+
+# Create your views here.
+
+
+class NotesCreateView(CreateView):
+    model = Notes
+    fields = ['title', 'content']
+    success_url = '/smart/notes'
+    template_name = 'notes/notes_create.html'
+
+
+class NotesListView(ListView):
+    model = Notes
+    context_object_name = 'notes'
+    template_name = 'notes/notes_list.html'
+    ordering = ['-created']
+    paginate_by = 10
+
+
+# def list(request):
+#     all_notes = Notes.objects.all()
+#     return render(request, 'notes/notes_list.html', {'notes': all_notes})
+
+
+class NotesDetailView(DetailView):
+    model = Notes
+    context_object_name = 'note'
+    template_name = 'notes/notes_detail.html'
+
+    def get_object(self, queryset=None):
+        try:
+            return super().get_object(queryset)
+        except Http404:
+            # return render(self.request, '404.html', {})
+            # return HttpResponseRedirect(reverse('notes-detail-list', args=[1]))
+            # return HttpResponseRedirect(reverse('notes-list'))
+            return "404 - Sorry, the requested note does not exist!"
+
+
+# def detail(request, pk):
+#     try:
+#         note = Notes.objects.get(pk=pk)
+#     except Notes.DoesNotExist:
+#         raise Http404("Note does not exist")
+#     return render(request, 'notes/notes_detail.html', {'note': note})
+```
+
+### notes/templates/notes/notes_create.html:
+
+```py
+{% extends 'notes/base.html' %}
+
+{% block content %}
+<form action="{% url 'notes-create' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary my-5">Submit</button>
+</form>
+
+{% endblock content %}
+```
+
+<img width="1411" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/1b131ba3-80fe-4ccd-9b3f-fc6fb1684f05">
+<img width="1411" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/269ca0b6-300e-42de-abd4-94a63760f233">
+<img width="1249" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0b81c59f-d6a6-46d0-8b6c-d91b224c1909">
+<img width="1249" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/937c3f1a-7146-49d5-a646-822e7a71e42a">
+<img width="1249" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e34fd8f9-3302-454b-ab2f-a4c8df055f8f">
+<img width="1249" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ac2fdb6a-b470-4fc5-93e4-cfaf999cd9f9">
+
+# #END</details>
+
+<details>
+<summary>21. Using Model Forms </summary>
+
+# Using Model Forms
+
 
 ```py
 
