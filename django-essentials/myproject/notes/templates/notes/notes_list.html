@@ -2,10 +2,19 @@
 
 {% block content %}
 <h1>Note List</h1>
-<h2>These are the notes:</h2>
-<ul>
+<h2 class="mb-5">These are the notes:</h2>
+
+<div class="row row-cols3 g-2">
     {% for note in notes %}
-    <li class="note-li">{{note.title}}</li>
+    <div class="col">
+        <div class="p-3 border">
+            <a href="{% url 'notes-detail-list' pk=note.id %}" class="text-dark text-decoration-none">
+                <h3>{{note.title | title}}</h3>
+            </a>
+            <p>{{note.content | truncatechars:30}}</p>
+        </div>
+    </div>
     {% endfor %}
-</ul>
+</div>
+
 {% endblock content %}

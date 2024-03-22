@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'notes/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Note Detail</title>
-</head>
+{% block content %}
+<div class="border round">
+    <h1 class="my-5">{{note.title | title}}</h1>
+    <p>{{note.content}}</p>
+</div>
 
-<body>
-    <h1>{{note.title | title}}</h1>
-    <h3>{{note.content}}</h3>
-</body>
-
-</html>
+{% endblock content %}
