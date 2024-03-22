@@ -1242,7 +1242,7 @@ urlpatterns = [
 
 ### home/templates/home/welcome.html:
 
-```py
+```html
 {% extends 'home/base.html' %}
 
 {% block content %}
@@ -1310,7 +1310,7 @@ urlpatterns = [
 
 ### notes/templates/notes/notes_detail.html:
 
-```py
+```html
 {% extends 'notes/base.html' %}
 
 {% block content %}
