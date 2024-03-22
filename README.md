@@ -1064,7 +1064,7 @@ STATICFILES_DIRS = [
 
 ### notes/templates/notes/notes_list.html:
 
-```py
+```html
 {% load static %}
 
 <!DOCTYPE html>
@@ -1103,8 +1103,26 @@ STATICFILES_DIRS = [
 
 # Base HTML for Templates
 
-```py
+### smartnotes.settings:
 
+```py
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            BASE_DIR / 'templates',
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 ```
 
 ```py
@@ -1118,6 +1136,13 @@ STATICFILES_DIRS = [
 ```py
 
 ```
+
+<img width="1430" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/047a9f2c-1e33-4827-8cab-c825ab3dd210">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/79af28af-7378-431b-abaa-b208e67194b5">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/c2ef70e3-dd93-4455-83c5-f9d285bdb87b">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/4423d5ed-de11-41c9-98f7-58d85515e682">
+<img width="1252" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0ac816c0-cb25-49c5-843a-276784f40f71">
+
 
 ```py
 
