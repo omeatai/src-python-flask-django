@@ -2050,6 +2050,11 @@ In [6]:
 
 # Django Model - Displaying Logged User Data
 
+[https://ccbv.co.uk/](https://ccbv.co.uk/)
+
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5f0c9a42-25ec-4d2f-8dbe-6968a85cb2f4">
+
+
 ```py
 
 ```
