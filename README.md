@@ -2046,14 +2046,138 @@ In [6]:
 # #END</details>
 
 <details>
-<summary>25. Django Model - Displaying Logged User Data </summary>
+<summary>25. Displaying Logged User Data with LoginRequiredMixin </summary>
 
-# Django Model - Displaying Logged User Data
+# Displaying Logged User Data with LoginRequiredMixin
+
+[https://github.com/omeatai/src-python-flask-django/commit/f14e0baa6a7c6e609002003120b5fc74ed461452](https://github.com/omeatai/src-python-flask-django/commit/f14e0baa6a7c6e609002003120b5fc74ed461452)
 
 [https://ccbv.co.uk/](https://ccbv.co.uk/)
 
-<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5f0c9a42-25ec-4d2f-8dbe-6968a85cb2f4">
+### notes.views:
 
+```py
+from typing import Any
+from django.shortcuts import render, redirect
+from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from .models import Notes
+from .forms import NotesForm
+
+# Create your views here.
+
+
+class NotesDeleteView(DeleteView):
+    model = Notes
+    success_url = '/smart/notes'
+    template_name = 'notes/notes_delete.html'
+
+
+class NotesUpdateView(UpdateView):
+    model = Notes
+    # fields = ['title', 'content']
+    success_url = '/smart/notes'
+    template_name = 'notes/notes_update.html'
+    form_class = NotesForm
+
+
+class NotesCreateView(LoginRequiredMixin, CreateView):
+    model = Notes
+    # fields = ['title', 'content']
+    success_url = '/smart/notes'
+    template_name = 'notes/notes_create.html'
+    form_class = NotesForm
+
+    def form_valid(self, form):
+        """If the form is valid, save the associated model."""
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class NotesListView(LoginRequiredMixin, ListView):
+    model = Notes
+    context_object_name = 'notes'
+    template_name = 'notes/notes_list.html'
+    ordering = ['-created']
+    paginate_by = 10
+    login_url = '/admin'
+
+    def get_queryset(self):
+        # return Notes.objects.filter(user=self.request.user).order_by('-created')
+        return self.request.user.notes.all().order_by('-created')
+
+
+# def list(request):
+#     all_notes = Notes.objects.all()
+#     return render(request, 'notes/notes_list.html', {'notes': all_notes})
+
+
+class NotesDetailView(DetailView):
+    model = Notes
+    context_object_name = 'note'
+    template_name = 'notes/notes_detail.html'
+
+    def get_object(self, queryset=None):
+        try:
+            return super().get_object(queryset)
+        except Http404:
+            # return render(self.request, '404.html', {})
+            # return HttpResponseRedirect(reverse('notes-detail-list', args=[1]))
+            # return HttpResponseRedirect(reverse('notes-list'))
+            return "404 - Sorry, the requested note does not exist!"
+
+
+# def detail(request, pk):
+#     try:
+#         note = Notes.objects.get(pk=pk)
+#     except Notes.DoesNotExist:
+#         raise Http404("Note does not exist")
+#     return render(request, 'notes/notes_detail.html', {'note': note})
+```
+
+### notes.models:
+
+```py
+from django.db import models
+from django.contrib.auth.models import User
+# Create your models here.
+
+
+class Notes(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='notes')
+
+    class Meta:
+        verbose_name = "Note"
+        verbose_name_plural = "Notes"
+
+    def __str__(self):
+        return self.title
+```
+
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5f0c9a42-25ec-4d2f-8dbe-6968a85cb2f4">
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a2f8a5d4-6dd1-409e-99ef-1b543d9e1621">
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b7080570-2ea6-40f1-b54d-420e87fbe425">
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/4313ab0d-b0d4-4c40-8952-446c4bda0714">
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/bce92f56-1d35-4d3d-9941-d9d63e0322b9">
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/1a38113d-ace7-4186-be6c-d1e78953d14d">
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/1b628141-0818-44e6-b721-c57963b1239e">
+
+# #END</details>
+
+<details>
+<summary>26. Login and Logout Pages </summary>
+
+# Login and Logout Pages
 
 ```py
 
