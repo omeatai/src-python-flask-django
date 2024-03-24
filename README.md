@@ -2175,9 +2175,9 @@ class Notes(models.Model):
 # #END</details>
 
 <details>
-<summary>26. Login and Logout Pages </summary>
+<summary>26. Login and Logout Functionality </summary>
 
-# Login and Logout Pages
+# Login and Logout Functionality
 
 ```py
 
