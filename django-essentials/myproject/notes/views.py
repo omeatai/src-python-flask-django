@@ -5,15 +5,17 @@ from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView
 
 from .models import Notes
+from .forms import NotesForm
 
 # Create your views here.
 
 
 class NotesCreateView(CreateView):
     model = Notes
-    fields = ['title', 'content']
+    # fields = ['title', 'content']
     success_url = '/smart/notes'
     template_name = 'notes/notes_create.html'
+    form_class = NotesForm
 
 
 class NotesListView(ListView):
