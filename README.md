@@ -1952,29 +1952,108 @@ class NotesDetailView(DetailView):
 # #END</details>
 
 <details>
-<summary>24. Django Model - ForeignKey Relationship </summary>
+<summary>24. Django Model - ForeignKey Relationships </summary>
 
-# Django Model - ForeignKey Relationship
+# Django Model - ForeignKey Relationships
+
+[https://github.com/omeatai/src-python-flask-django/commit/2f06d43716aeec0be8dfd79e9e70f503c95f9cb3](https://github.com/omeatai/src-python-flask-django/commit/2f06d43716aeec0be8dfd79e9e70f503c95f9cb3)
+
+### notes.models:
 
 ```py
+from django.db import models
+from django.contrib.auth.models import User
+# Create your models here.
+
+
+class Notes(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='notes')
+
+    class Meta:
+        verbose_name = "Note"
+        verbose_name_plural = "Notes"
+
+    def __str__(self):
+        return self.title
+```
+
+## Run Migration:
+
+```py
+python manage.py makemigrations
+python manage.py migrate
+```
+
+```x
+➜  myproject git:(main) ✗ python manage.py makemigrations
+It is impossible to add a non-nullable field 'user' to notes without specifying a default. This is because the database needs something to populate existing rows.
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit and manually define a default value in models.py.
+Select an option: 1
+Please enter the default value as valid Python.
+The datetime and django.utils.timezone modules are available, so it is possible to provide e.g. timezone.now as a value.
+Type 'exit' to exit this prompt
+>>> 1
+Migrations for 'notes':
+  notes/migrations/0003_notes_user.py
+    - Add field user to notes
+➜  myproject git:(main) ✗ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, notes, sessions
+Running migrations:
+  Applying notes.0003_notes_user... OK
+➜  myproject git:(main) ✗ 
+```
+
+## Run Django Shell
+
+```py
+python manage.py shell
+```
+
+```x
+➜  myproject git:(main) ✗ python manage.py shell
+Python 3.12.2 (v3.12.2:6abddd9f6a, Feb  6 2024, 17:02:06) [Clang 13.0.0 (clang-1300.0.29.30)]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 8.20.0 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]: from django.contrib.auth.models import User
+
+In [2]: user = User.objects.get(pk=1)
+
+In [3]: user
+Out[3]: <User: admin>
+
+In [4]: user.notes.count()
+Out[4]: 1
+
+In [5]: user.notes.all()
+Out[5]: <QuerySet [<Notes: Make food>]>
+
+In [6]: 
 
 ```
 
-```py
+<img width="1249" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/89948b35-4faf-4e0c-b5ce-ff1404490ab7">
 
-```
 
-```py
+# #END</details>
 
-```
+<details>
+<summary>25. Django Model - Displaying Logged User Data </summary>
 
-```py
+# Django Model - Displaying Logged User Data
 
-```
+[https://ccbv.co.uk/](https://ccbv.co.uk/)
 
-```py
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5f0c9a42-25ec-4d2f-8dbe-6968a85cb2f4">
 
-```
 
 ```py
 
