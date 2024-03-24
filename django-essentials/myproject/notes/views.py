@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Notes
 from .forms import NotesForm
@@ -24,20 +25,32 @@ class NotesUpdateView(UpdateView):
     form_class = NotesForm
 
 
-class NotesCreateView(CreateView):
+class NotesCreateView(LoginRequiredMixin, CreateView):
     model = Notes
     # fields = ['title', 'content']
     success_url = '/smart/notes'
     template_name = 'notes/notes_create.html'
     form_class = NotesForm
 
+    def form_valid(self, form):
+        """If the form is valid, save the associated model."""
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
-class NotesListView(ListView):
+
+class NotesListView(LoginRequiredMixin, ListView):
     model = Notes
     context_object_name = 'notes'
     template_name = 'notes/notes_list.html'
     ordering = ['-created']
     paginate_by = 10
+    login_url = '/admin'
+
+    def get_queryset(self):
+        # return Notes.objects.filter(user=self.request.user).order_by('-created')
+        return self.request.user.notes.all().order_by('-created')
 
 
 # def list(request):
