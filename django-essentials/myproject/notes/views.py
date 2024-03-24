@@ -2,12 +2,20 @@ from typing import Any
 from django.shortcuts import render, redirect
 from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from .models import Notes
 from .forms import NotesForm
 
 # Create your views here.
+
+
+class NotesUpdateView(UpdateView):
+    model = Notes
+    # fields = ['title', 'content']
+    success_url = '/smart/notes'
+    template_name = 'notes/notes_update.html'
+    form_class = NotesForm
 
 
 class NotesCreateView(CreateView):
