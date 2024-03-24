@@ -1,11 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView
 
 # Create your views here.
+
+
+class LogoutInterfaceView(LogoutView):
+    template_name = 'home/logout.html'
+    http_method_names = ['get', 'post', 'options']
+
+    def dispatch(self, request, *args, **kwargs):
+        # return super().dispatch(request, *args, **kwargs)
+        # Redirect to a specific URL after logout
+        return redirect('/login')
+
+
+class LoginInterfaceView(LoginView):
+    template_name = 'home/login.html'
 
 
 class HomeView(TemplateView):
