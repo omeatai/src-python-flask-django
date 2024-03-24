@@ -1793,6 +1793,321 @@ class NotesDetailView(DetailView):
 
 # Django Class Based Views - DeleteView
 
+[https://github.com/omeatai/src-python-flask-django/commit/ce92ed9ce5332eb39a9b48c0ff0ee6d0364b1cbc](https://github.com/omeatai/src-python-flask-django/commit/ce92ed9ce5332eb39a9b48c0ff0ee6d0364b1cbc)
+
+### notes.urls:
+
+```py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # path('notes', views.list),
+    path('notes', views.NotesListView.as_view(), name='notes-list'),
+    # path('notes/<int:pk>', views.detail),
+    path('notes/<int:pk>', views.NotesDetailView.as_view(),
+         name='notes-detail-list'),
+    path('notes/create', views.NotesCreateView.as_view(), name='notes-create'),
+    path('notes/<int:pk>/edit',
+         views.NotesUpdateView.as_view(), name='notes-update'),
+    path('notes/<int:pk>/delete',
+         views.NotesDeleteView.as_view(), name='notes-delete'),
+]
+```
+
+### notes.views:
+
+```py
+from typing import Any
+from django.shortcuts import render, redirect
+from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
+from .models import Notes
+from .forms import NotesForm
+
+# Create your views here.
+
+
+class NotesDeleteView(DeleteView):
+    model = Notes
+    success_url = '/smart/notes'
+    template_name = 'notes/notes_delete.html'
+
+
+class NotesUpdateView(UpdateView):
+    model = Notes
+    # fields = ['title', 'content']
+    success_url = '/smart/notes'
+    template_name = 'notes/notes_update.html'
+    form_class = NotesForm
+
+
+class NotesCreateView(CreateView):
+    model = Notes
+    # fields = ['title', 'content']
+    success_url = '/smart/notes'
+    template_name = 'notes/notes_create.html'
+    form_class = NotesForm
+
+
+class NotesListView(ListView):
+    model = Notes
+    context_object_name = 'notes'
+    template_name = 'notes/notes_list.html'
+    ordering = ['-created']
+    paginate_by = 10
+
+
+# def list(request):
+#     all_notes = Notes.objects.all()
+#     return render(request, 'notes/notes_list.html', {'notes': all_notes})
+
+
+class NotesDetailView(DetailView):
+    model = Notes
+    context_object_name = 'note'
+    template_name = 'notes/notes_detail.html'
+
+    def get_object(self, queryset=None):
+        try:
+            return super().get_object(queryset)
+        except Http404:
+            # return render(self.request, '404.html', {})
+            # return HttpResponseRedirect(reverse('notes-detail-list', args=[1]))
+            # return HttpResponseRedirect(reverse('notes-list'))
+            return "404 - Sorry, the requested note does not exist!"
+
+
+# def detail(request, pk):
+#     try:
+#         note = Notes.objects.get(pk=pk)
+#     except Notes.DoesNotExist:
+#         raise Http404("Note does not exist")
+#     return render(request, 'notes/notes_detail.html', {'note': note})
+
+```
+
+### notes/templates/notes/notes_delete.html:
+
+```py
+{% extends 'notes/base.html' %}
+
+{% block content %}
+<form method="POST" class="my-5">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>Are you sure you want to delete "{{notes.title}}"?</p>
+    <p>This action can't be undone.</p>
+    <button type="submit" class="btn btn-danger">Confirm</button>
+</form>
+
+{% if form.errors %}
+<div class="alert alert-danger my-5">
+    <div><strong>Oops!</strong> Something went wrong.</div>
+    {{ form.errors.title.as_text }}
+    <div>
+        {% for field in form %}
+        {% for error in field.errors %}
+        <p>{{ error }}</p>
+        {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<a href="{% url 'notes-list' %}" class="btn btn-secondary">Cancel</a>
+
+{% endblock content %}
+```
+
+### notes/templates/notes/notes_detail.html:
+
+```py
+{% extends 'notes/base.html' %}
+
+{% block content %}
+<div class="border round">
+    <h1 class="my-5">{{note.title | title}}</h1>
+    <p>{{note.content}}</p>
+</div>
+
+<a href="{% url 'notes-list' %}" class="btn btn-secondary my-5">Back</a>
+<a href="{% url 'notes-update' pk=note.id %}" class="btn btn-secondary my-5">Edit</a>
+<a href="{% url 'notes-delete' pk=note.id %}" class="btn btn-danger my-5">Delete</a>
+
+{% endblock content %}
+```
+
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/11968d06-a6a0-4a13-b9f9-523704622728">
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/eb5a165c-012d-4279-b796-17ab6135c727">
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/4ef12d30-fc42-43b9-aced-7c5115290249">
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/2c0dd2f5-d6f4-401a-90f1-7ecb8fb15d00">
+<img width="1249" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/92e3e804-c948-4903-9b0d-56ef2c3a22c5">
+<img width="1249" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ebc9e374-d39b-4ff6-a131-bbbcf6e258e7">
+<img width="1249" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/d2b82cbb-c3ad-4562-8b85-9e4ad48a9108">
+<img width="1249" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/2d9a1e2f-b050-46d1-b785-657a0b3cfcad">
+
+# #END</details>
+
+<details>
+<summary>24. Django Model - ForeignKey Relationship </summary>
+
+# Django Model - ForeignKey Relationship
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
 ```py
 
 ```
