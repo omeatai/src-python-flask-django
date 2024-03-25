@@ -1,5 +1,8 @@
 # Python-Flask-Django - src
 
+<details>
+<summary>+LinkedIn - Django Essential Training </summary>
+
 ## +LinkedIn - Django Essential Training
 
 <details>
@@ -2941,3 +2944,5 @@ class AuthorizedView(LoginRequiredMixin, TemplateView):
 # #END</details>
 
 # #END
+
+</details>
