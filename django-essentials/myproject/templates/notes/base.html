@@ -13,6 +13,27 @@
 </head>
 
 <body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="ms-auto">
+            <div class="navbar-nav ms-auto flex-row my-2">
+
+                {% if user.is_authenticated %}
+                <a class="btn btn-outline-light me-1" href="{% url 'home' %}">Home</a>
+                <a class="btn btn-outline-light me-1" href="{% url 'notes-list' %}">Notes</a>
+                <a class="btn btn-outline-light me-1" href="{% url 'notes-create' %}">Create Note</a>
+                <a class="btn btn-outline-light me-1" href="{% url 'logout' %}">Logout</a>
+
+                {% else %}
+
+                <a class="btn btn-outline-light me-1" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-outline-light me-1" href="{% url 'signup' %}">Register</a>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </nav>
     <div class="my-5 text-center container">
         {% block content %}
         {% endblock content %}

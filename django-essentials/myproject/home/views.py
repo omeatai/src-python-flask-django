@@ -7,8 +7,29 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import logout
 
 # Create your views here.
+
+
+class LogoutInterfaceView(LogoutView):
+    template_name = 'home/logout.html'
+    http_method_names = ['get', 'post', 'options']
+
+    def dispatch(self, request, *args, **kwargs):
+        super().dispatch(request, *args, **kwargs)
+        logout(request)
+        # Redirect to a specific URL after logout
+        return redirect('/login')
+
+
+class LoginInterfaceView(LoginView):
+    template_name = 'home/login.html'
+
+    def get(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('home')
+        return super().get(request, *args, **kwargs)
 
 
 class UserSignupForm(UserCreationForm):
@@ -37,23 +58,10 @@ class SignupView(CreateView):
         return super().get(request, *args, **kwargs)
 
 
-class LogoutInterfaceView(LogoutView):
-    template_name = 'home/logout.html'
-    http_method_names = ['get', 'post', 'options']
-
-    def dispatch(self, request, *args, **kwargs):
-        # return super().dispatch(request, *args, **kwargs)
-        # Redirect to a specific URL after logout
-        return redirect('/login')
-
-
-class LoginInterfaceView(LoginView):
-    template_name = 'home/login.html'
-
-
-class HomeView(TemplateView):
+class HomeView(LoginRequiredMixin, TemplateView):
     template_name = 'home/welcome.html'
     extra_context = {'name': 'John Doe', 'date': datetime.now()}
+    login_url = '/login'
 
 
 # def home(request):
@@ -64,7 +72,7 @@ class HomeView(TemplateView):
 class AuthorizedView(LoginRequiredMixin, TemplateView):
     template_name = 'home/authorized.html'
     extra_context = {}
-    login_url = '/admin'
+    login_url = '/login'
 
 
 # @login_required(login_url='/admin')
