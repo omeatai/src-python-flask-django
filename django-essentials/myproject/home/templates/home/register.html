@@ -1,0 +1,29 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<h1>Register</h1>
+
+<form method="POST" style="text-align: left; margin: 0 auto; width: 600px">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+    <div class="my-3">
+        {% comment %} <label for="{{ form.field.id_for_label }}">Your {{field.label_tag}}</label> {% endcomment %}
+        {{ field.label_tag }}
+        {{ field }}
+        {{ field.errors }}
+    </div>
+    {% endfor %}
+    <input type='submit' class="btn btn-secondary" name="submit" />
+</form>
+
+<hr />
+
+<form method="POST" style="text-align: left; margin: 0 auto; width: 600px">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {{ form.as_p }}
+    <input type='submit' class="btn btn-secondary" name="submit" />
+</form>
+
+{% endblock content %}

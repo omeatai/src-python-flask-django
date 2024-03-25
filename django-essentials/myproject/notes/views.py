@@ -46,7 +46,7 @@ class NotesListView(LoginRequiredMixin, ListView):
     template_name = 'notes/notes_list.html'
     ordering = ['-created']
     paginate_by = 10
-    login_url = '/admin'
+    login_url = '/login'
 
     def get_queryset(self):
         # return Notes.objects.filter(user=self.request.user).order_by('-created')
