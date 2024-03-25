@@ -2563,12 +2563,6 @@ class NotesDetailView(DetailView):
 
 [https://github.com/omeatai/src-python-flask-django/commit/02788d37cbaf2ec7804ba1e66fb9c39ca166903f](https://github.com/omeatai/src-python-flask-django/commit/02788d37cbaf2ec7804ba1e66fb9c39ca166903f)
 
-<img width="1474" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b4c676ce-9151-47a0-8b77-48f1c9c44eb3">
-<img width="1474" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/675aa88b-b303-4145-afd8-145d42718841">
-<img width="1474" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0e50370e-0462-4ca2-84e2-8bbaed473bbd">
-<img width="1474" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5d6afec2-d8c6-4f7e-86c2-fe862e0046ff">
-<img width="1474" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/4ae490ee-34fe-4700-a096-f70509858fe3">
-
 ### home.urls:
 
 ```py
@@ -2801,6 +2795,12 @@ class AuthorizedView(LoginRequiredMixin, TemplateView):
 
 </html>
 ```
+
+<img width="1474" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b4c676ce-9151-47a0-8b77-48f1c9c44eb3">
+<img width="1474" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/675aa88b-b303-4145-afd8-145d42718841">
+<img width="1474" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0e50370e-0462-4ca2-84e2-8bbaed473bbd">
+<img width="1474" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5d6afec2-d8c6-4f7e-86c2-fe862e0046ff">
+<img width="1474" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/4ae490ee-34fe-4700-a096-f70509858fe3">
 
 # #END</details>
 
