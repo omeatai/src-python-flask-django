@@ -2557,25 +2557,257 @@ class NotesDetailView(DetailView):
 # #END</details>
 
 <details>
-<summary>28. S </summary>
+<summary>28. Creating Nav Menu </summary>
 
-# S
+# Creating Nav Menu
+
+[https://github.com/omeatai/src-python-flask-django/commit/02788d37cbaf2ec7804ba1e66fb9c39ca166903f](https://github.com/omeatai/src-python-flask-django/commit/02788d37cbaf2ec7804ba1e66fb9c39ca166903f)
+
+<img width="1474" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b4c676ce-9151-47a0-8b77-48f1c9c44eb3">
+<img width="1474" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/675aa88b-b303-4145-afd8-145d42718841">
+<img width="1474" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0e50370e-0462-4ca2-84e2-8bbaed473bbd">
+<img width="1474" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5d6afec2-d8c6-4f7e-86c2-fe862e0046ff">
+<img width="1474" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/4ae490ee-34fe-4700-a096-f70509858fe3">
+
+### home.urls:
 
 ```py
+from django.urls import path
+from home import views
+
+urlpatterns = [
+    # path('home', views.home),
+    path('', views.HomeView.as_view(), name='home'),
+    # path('authorized', views.authorized),
+    path('authorized', views.AuthorizedView.as_view(), name='authorized'),
+    path('login', views.LoginInterfaceView.as_view(), name='login'),
+    path('logout', views.LogoutInterfaceView.as_view(), name='logout'),
+    path('signup', views.SignupView.as_view(), name='signup'),
+]
+```
+
+### home.views:
+
+```py
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from datetime import datetime
+from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
+from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import logout
+
+# Create your views here.
+
+
+class LogoutInterfaceView(LogoutView):
+    template_name = 'home/logout.html'
+    http_method_names = ['get', 'post', 'options']
+
+    def dispatch(self, request, *args, **kwargs):
+        super().dispatch(request, *args, **kwargs)
+        logout(request)
+        # Redirect to a specific URL after logout
+        return redirect('/login')
+
+
+class LoginInterfaceView(LoginView):
+    template_name = 'home/login.html'
+
+    def get(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('home')
+        return super().get(request, *args, **kwargs)
+
+
+class UserSignupForm(UserCreationForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.is_staff = False
+        user.is_superuser = False
+        if commit:
+            user.save()
+        return user
+
+
+class SignupView(CreateView):
+    form_class = UserSignupForm  # UserCreationForm
+    template_name = 'home/register.html'
+    success_url = '/smart/notes'
+    # model = User
+
+    def get(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('notes-list')
+        return super().get(request, *args, **kwargs)
+
+
+class HomeView(LoginRequiredMixin, TemplateView):
+    template_name = 'home/welcome.html'
+    extra_context = {'name': 'John Doe', 'date': datetime.now()}
+    login_url = '/login'
+
+
+# def home(request):
+#     # return HttpResponse("<h1>Hello World!</h1>")
+#     return render(request, 'home/welcome.html', {'name': 'John Doe', 'date': datetime.now()})
+
+
+class AuthorizedView(LoginRequiredMixin, TemplateView):
+    template_name = 'home/authorized.html'
+    extra_context = {}
+    login_url = '/login'
+
+
+# @login_required(login_url='/admin')
+# def authorized(request):
+#     return render(request, 'home/authorized.html', {})
+
+
+# from django import forms
+# from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.models import User
+#
+# class RegisterForm(UserCreationForm):
+#     email = forms.EmailField(required=True)
+#
+#     class Meta:
+#         model = User
+#         fields = ['username', 'email', 'password1', 'password2']
+
+
+# ### in views.py ###
+# from django.contrib.auth import login as auth_login
+# from .forms import RegisterForm
+#
+# def sign_up(request):
+#     if request.method == 'POST':
+#         form = RegisterForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             auth_login(request, user)
+#     else:
+#         form = RegisterForm()
+#
+#     return render(request, 'sign_up.html', {'form': form})
 
 ```
 
-```py
+### src-python/django-essentials/myproject/templates/home/base.html:
 
+```html
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>SmartNotes</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="ms-auto">
+            <div class="navbar-nav ms-auto flex-row my-2">
+
+                {% if user.is_authenticated %}
+                <a class="btn btn-outline-light me-1" href="{% url 'home' %}">Home</a>
+                <a class="btn btn-outline-light me-1" href="{% url 'notes-list' %}">Notes</a>
+                <a class="btn btn-outline-light me-1" href="{% url 'notes-create' %}">Create Note</a>
+                <a class="btn btn-outline-light me-1" href="{% url 'logout' %}">Logout</a>
+
+                {% else %}
+
+                <a class="btn btn-outline-light me-1" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-outline-light me-1" href="{% url 'signup' %}">Register</a>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </nav>
+    <div class="my-5 text-center container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
 ```
 
-```py
-
-```
+### src-python/django-essentials/myproject/templates/notes/base.html:
 
 ```py
+{% load static %}
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'notes/css/style.css' %}">
+    <title>Notes</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="ms-auto">
+            <div class="navbar-nav ms-auto flex-row my-2">
+
+                {% if user.is_authenticated %}
+                <a class="btn btn-outline-light me-1" href="{% url 'home' %}">Home</a>
+                <a class="btn btn-outline-light me-1" href="{% url 'notes-list' %}">Notes</a>
+                <a class="btn btn-outline-light me-1" href="{% url 'notes-create' %}">Create Note</a>
+                <a class="btn btn-outline-light me-1" href="{% url 'logout' %}">Logout</a>
+
+                {% else %}
+
+                <a class="btn btn-outline-light me-1" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-outline-light me-1" href="{% url 'signup' %}">Register</a>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </nav>
+    <div class="my-5 text-center container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
 ```
+
+# #END</details>
+
+<details>
+<summary>29. END </summary>
+
+# END
 
 ```py
 
@@ -2707,3 +2939,5 @@ class NotesDetailView(DetailView):
 
 
 # #END</details>
+
+# #END
