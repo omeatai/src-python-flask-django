@@ -2179,6 +2179,129 @@ class Notes(models.Model):
 
 # Login and Logout Functionality
 
+[https://github.com/omeatai/src-python-flask-django/commit/c9570d056b9827de59c53f69197a19baabf48d50](https://github.com/omeatai/src-python-flask-django/commit/c9570d056b9827de59c53f69197a19baabf48d50)
+
+### smartnotes.settings:
+
+```py
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/smart/notes'
+LOGIN_URL = '/login'
+```
+
+### home.urls:
+
+```py
+from django.urls import path
+from home import views
+
+urlpatterns = [
+    # path('home', views.home),
+    path('', views.HomeView.as_view(), name='home'),
+    # path('authorized', views.authorized),
+    path('authorized', views.AuthorizedView.as_view(), name='authorized'),
+    path('login', views.LoginInterfaceView.as_view(), name='login'),
+    path('logout', views.LogoutInterfaceView.as_view(), name='logout'),
+]
+```
+
+### home.views:
+
+```py
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from datetime import datetime
+from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView
+
+# Create your views here.
+
+
+class LogoutInterfaceView(LogoutView):
+    template_name = 'home/logout.html'
+    http_method_names = ['get', 'post', 'options']
+
+    def dispatch(self, request, *args, **kwargs):
+        # return super().dispatch(request, *args, **kwargs)
+        # Redirect to a specific URL after logout
+        return redirect('/login')
+
+
+class LoginInterfaceView(LoginView):
+    template_name = 'home/login.html'
+
+
+class HomeView(TemplateView):
+    template_name = 'home/welcome.html'
+    extra_context = {'name': 'John Doe', 'date': datetime.now()}
+
+
+# def home(request):
+#     # return HttpResponse("<h1>Hello World!</h1>")
+#     return render(request, 'home/welcome.html', {'name': 'John Doe', 'date': datetime.now()})
+
+
+class AuthorizedView(LoginRequiredMixin, TemplateView):
+    template_name = 'home/authorized.html'
+    extra_context = {}
+    login_url = '/admin'
+
+
+# @login_required(login_url='/admin')
+# def authorized(request):
+#     return render(request, 'home/authorized.html', {})
+```
+
+### src-python/django-essentials/myproject/home/templates/home/login.html:
+
+```html
+{% extends 'home/base.html' %}
+
+{% block content %}
+<h1>Login</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type='submit' class="btn btn-secondary" />
+</form>
+{% endblock content %}
+```
+
+### src-python/django-essentials/myproject/home/templates/home/logout.html:
+
+```html
+{% extends 'home/base.html' %}
+
+{% block content %}
+<h1>Logout</h1>
+<h2>Hope to see you soon :) </h2>
+<p>You have successfully logged out.</p>
+{% endblock content %}
+```
+
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/80339acd-97c4-4b62-ba7a-c3b8913c698b">
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/3606efeb-5dc5-4aa0-b3ce-0474a32eeee1">
+<img width="1471" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/4bfc1e9b-4f3a-43a6-a348-b0dd8cad4f02">
+<img width="1249" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/f155eb3c-094c-4f9c-b516-39306b1ad39b">
+<img width="1249" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5ff1d47c-9d01-413d-beb4-8f6b5c4ea402">
+<img width="1249" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ce7fa2a6-aac4-4633-af32-c0dedd5e408f">
+<img width="1249" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/f768f703-993e-4519-9b07-ec003630d695">
+<img width="1249" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/170cbc76-bb7f-475e-8f07-853ce2fa5aa6">
+
+# #END</details>
+
+<details>
+<summary>27. Signup/Register Functionality </summary>
+
+# Signup/Register Functionality
+
 ```py
 
 ```
