@@ -2302,21 +2302,264 @@ class AuthorizedView(LoginRequiredMixin, TemplateView):
 
 # Signup/Register Functionality
 
-```py
+[https://github.com/omeatai/src-python-flask-django/commit/691b2d3a6dbc30a423f7be44f4bea53ef099b2ef](https://github.com/omeatai/src-python-flask-django/commit/691b2d3a6dbc30a423f7be44f4bea53ef099b2ef)
 
-```
-
-```py
-
-```
+### home.urls:
 
 ```py
+from django.urls import path
+from home import views
 
+urlpatterns = [
+    # path('home', views.home),
+    path('', views.HomeView.as_view(), name='home'),
+    # path('authorized', views.authorized),
+    path('authorized', views.AuthorizedView.as_view(), name='authorized'),
+    path('login', views.LoginInterfaceView.as_view(), name='login'),
+    path('logout', views.LogoutInterfaceView.as_view(), name='logout'),
+    path('signup', views.SignupView.as_view(), name='signup'),
+]
 ```
+
+### home.views:
 
 ```py
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from datetime import datetime
+from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
+from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.forms import UserCreationForm
 
+# Create your views here.
+
+
+class UserSignupForm(UserCreationForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.is_staff = False
+        user.is_superuser = False
+        if commit:
+            user.save()
+        return user
+
+
+class SignupView(CreateView):
+    form_class = UserSignupForm  # UserCreationForm
+    template_name = 'home/register.html'
+    success_url = '/smart/notes'
+    # model = User
+
+    def get(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('notes-list')
+        return super().get(request, *args, **kwargs)
+
+
+class LogoutInterfaceView(LogoutView):
+    template_name = 'home/logout.html'
+    http_method_names = ['get', 'post', 'options']
+
+    def dispatch(self, request, *args, **kwargs):
+        # return super().dispatch(request, *args, **kwargs)
+        # Redirect to a specific URL after logout
+        return redirect('/login')
+
+
+class LoginInterfaceView(LoginView):
+    template_name = 'home/login.html'
+
+
+class HomeView(TemplateView):
+    template_name = 'home/welcome.html'
+    extra_context = {'name': 'John Doe', 'date': datetime.now()}
+
+
+# def home(request):
+#     # return HttpResponse("<h1>Hello World!</h1>")
+#     return render(request, 'home/welcome.html', {'name': 'John Doe', 'date': datetime.now()})
+
+
+class AuthorizedView(LoginRequiredMixin, TemplateView):
+    template_name = 'home/authorized.html'
+    extra_context = {}
+    login_url = '/admin'
+
+
+# @login_required(login_url='/admin')
+# def authorized(request):
+#     return render(request, 'home/authorized.html', {})
+
+
+# from django import forms
+# from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.models import User
+#
+# class RegisterForm(UserCreationForm):
+#     email = forms.EmailField(required=True)
+#
+#     class Meta:
+#         model = User
+#         fields = ['username', 'email', 'password1', 'password2']
+
+
+# ### in views.py ###
+# from django.contrib.auth import login as auth_login
+# from .forms import RegisterForm
+#
+# def sign_up(request):
+#     if request.method == 'POST':
+#         form = RegisterForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             auth_login(request, user)
+#     else:
+#         form = RegisterForm()
+#
+#     return render(request, 'sign_up.html', {'form': form})
 ```
+
+### notes.views:
+
+```py
+from typing import Any
+from django.shortcuts import render, redirect
+from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from .models import Notes
+from .forms import NotesForm
+
+# Create your views here.
+
+
+class NotesDeleteView(DeleteView):
+    model = Notes
+    success_url = '/smart/notes'
+    template_name = 'notes/notes_delete.html'
+
+
+class NotesUpdateView(UpdateView):
+    model = Notes
+    # fields = ['title', 'content']
+    success_url = '/smart/notes'
+    template_name = 'notes/notes_update.html'
+    form_class = NotesForm
+
+
+class NotesCreateView(LoginRequiredMixin, CreateView):
+    model = Notes
+    # fields = ['title', 'content']
+    success_url = '/smart/notes'
+    template_name = 'notes/notes_create.html'
+    form_class = NotesForm
+
+    def form_valid(self, form):
+        """If the form is valid, save the associated model."""
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class NotesListView(LoginRequiredMixin, ListView):
+    model = Notes
+    context_object_name = 'notes'
+    template_name = 'notes/notes_list.html'
+    ordering = ['-created']
+    paginate_by = 10
+    login_url = '/login'
+
+    def get_queryset(self):
+        # return Notes.objects.filter(user=self.request.user).order_by('-created')
+        return self.request.user.notes.all().order_by('-created')
+
+
+# def list(request):
+#     all_notes = Notes.objects.all()
+#     return render(request, 'notes/notes_list.html', {'notes': all_notes})
+
+
+class NotesDetailView(DetailView):
+    model = Notes
+    context_object_name = 'note'
+    template_name = 'notes/notes_detail.html'
+
+    def get_object(self, queryset=None):
+        try:
+            return super().get_object(queryset)
+        except Http404:
+            # return render(self.request, '404.html', {})
+            # return HttpResponseRedirect(reverse('notes-detail-list', args=[1]))
+            # return HttpResponseRedirect(reverse('notes-list'))
+            return "404 - Sorry, the requested note does not exist!"
+
+
+# def detail(request, pk):
+#     try:
+#         note = Notes.objects.get(pk=pk)
+#     except Notes.DoesNotExist:
+#         raise Http404("Note does not exist")
+#     return render(request, 'notes/notes_detail.html', {'note': note})
+```
+
+### src-python/django-essentials/myproject/home/templates/home/register.html:
+
+```py
+{% extends 'home/base.html' %}
+
+{% block content %}
+<h1>Register</h1>
+
+<form method="POST" style="text-align: left; margin: 0 auto; width: 600px">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+    <div class="my-3">
+        {% comment %} <label for="{{ form.field.id_for_label }}">Your {{field.label_tag}}</label> {% endcomment %}
+        {{ field.label_tag }}
+        {{ field }}
+        {{ field.errors }}
+    </div>
+    {% endfor %}
+    <input type='submit' class="btn btn-secondary" name="submit" />
+</form>
+
+<hr />
+
+<form method="POST" style="text-align: left; margin: 0 auto; width: 600px">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {{ form.as_p }}
+    <input type='submit' class="btn btn-secondary" name="submit" />
+</form>
+
+{% endblock content %}
+```
+
+<img width="1367" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b318e50a-1ec6-4d74-9906-4c87cdb366cf">
+<img width="1367" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0a8e48a8-5621-489b-8612-2c2208702998">
+<img width="1367" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0705c63c-0aa1-465d-b7cf-e139ee16e720">
+<img width="1171" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ef5c18af-283c-4850-979e-c6aa6251a747">
+<img width="1171" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b9e26ef9-c351-4a64-87cc-36ed5161f809">
+<img width="1171" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/504f4ad6-ff04-4e2d-b778-c5f23425b6d5">
+<img width="1171" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/23df12a4-5734-4058-8a11-7cb53f4b4c44">
+
+# #END</details>
+
+<details>
+<summary>28. S </summary>
+
+# S
 
 ```py
 
