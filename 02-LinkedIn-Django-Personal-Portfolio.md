@@ -1,7 +1,7 @@
 <details>
-<summary>+LinkedIn - Django Essential Training </summary>
+<summary>+LinkedIn - Building a Personal Portfolio with Django </summary>
 
-## +LinkedIn - Django Essential Training
+## +LinkedIn - Building a Personal Portfolio with Django
 
 <details>
 <summary>1. Creating a New Django Project </summary>
