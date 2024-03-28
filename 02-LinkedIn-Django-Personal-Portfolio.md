@@ -479,7 +479,7 @@ def home(request):
 
 ### src-python/linkedin/django-personal-portfolio/jobs/templates/jobs/home.html:
 
-```py
+```html
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 
