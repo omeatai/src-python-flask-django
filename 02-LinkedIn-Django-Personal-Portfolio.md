@@ -371,6 +371,20 @@ admin.site.register(Job)
 
 # Create Jobs in Admin Panel 
 
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/14c47c31-3ff2-4291-98cc-b1710bfa2fb7">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b2104630-2119-4ea8-aa59-f40c8b96e0d6">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/26bcbd51-d1b1-419d-bfa2-5f1f815c3eae">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b89e3927-91d1-4ed4-9067-5abc0a89b47e">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e98c9874-92a5-4554-909e-36a1e18d69ed">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a3ad9af0-961d-4f84-8536-ca38ce711f76">
+
+# #END</details>
+
+<details>
+<summary>8. Pulling Objects from Database  </summary>
+
+# Pulling Objects from Database
+
 ```py
 
 ```
