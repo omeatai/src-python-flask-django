@@ -208,18 +208,16 @@ def home(request):
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SmartNotes</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>Welcome to SmartNotes Home Page - {{name}}.</h1>
     <h2>Today is {{date}}</h2>
-</body>
-
+  </body>
 </html>
 ```
 
@@ -314,17 +312,15 @@ def authorized(request):
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Restricted Area</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>You are in a restricted area!</h1>
-</body>
-
+  </body>
 </html>
 ```
 
@@ -620,23 +616,21 @@ def list(request):
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Notes</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>Note List</h1>
     <h2>These are the notes:</h2>
     <ul>
-        {% for note in notes %}
-        <li>{{note.title}}</li>
-        {% endfor %}
+      {% for note in notes %}
+      <li>{{note.title}}</li>
+      {% endfor %}
     </ul>
-</body>
-
+  </body>
 </html>
 ```
 
@@ -722,18 +716,16 @@ def detail(request, pk):
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Note Detail</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>{{note.title | title}}</h1>
     <h3>{{note.content}}</h3>
-</body>
-
+  </body>
 </html>
 ```
 
@@ -742,18 +734,16 @@ def detail(request, pk):
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>404 Page</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>404 - Ooops!</h1>
     <h2>I cannot find the file you requested!</h2>
-</body>
-
+  </body>
 </html>
 ```
 
@@ -1057,9 +1047,9 @@ STATICFILES_DIRS = [
 
 ```css
 .note-li {
-    color: blue;
-    font-size: 18px;
-    font-weight: 800;
+  color: blue;
+  font-size: 18px;
+  font-weight: 800;
 }
 ```
 
@@ -1070,24 +1060,22 @@ STATICFILES_DIRS = [
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'notes/css/style.css' %}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'notes/css/style.css' %}" />
     <title>Notes</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>Note List</h1>
     <h2>These are the notes:</h2>
     <ul>
-        {% for note in notes %}
-        <li class="note-li">{{note.title}}</li>
-        {% endfor %}
+      {% for note in notes %}
+      <li class="note-li">{{note.title}}</li>
+      {% endfor %}
     </ul>
-</body>
-
+  </body>
 </html>
 ```
 
@@ -1132,13 +1120,13 @@ TEMPLATES = [
 
 ```css
 .note-li {
-    color: purple;
-    font-size: 18px;
-    font-weight: 800;
+  color: purple;
+  font-size: 18px;
+  font-weight: 800;
 }
 
 h2 {
-    color: cadetblue;
+  color: cadetblue;
 }
 ```
 
@@ -1149,19 +1137,16 @@ h2 {
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'notes/css/style.css' %}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'notes/css/style.css' %}" />
     <title>Notes</title>
-</head>
+  </head>
 
-<body>
-    {% block content %}
-    {% endblock content %}
-</body>
-
+  <body>
+    {% block content %} {% endblock content %}
+  </body>
 </html>
 ```
 
@@ -1218,38 +1203,41 @@ urlpatterns = [
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
     <title>SmartNotes</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="my-5 text-center container">
-        {% block content %}
-        {% endblock content %}
+      {% block content %} {% endblock content %}
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
 ```
 
 ### home/templates/home/welcome.html:
 
 ```html
-{% extends 'home/base.html' %}
-
-{% block content %}
+{% extends 'home/base.html' %} {% block content %}
 <h1>Welcome to SmartNotes Home Page - {{name}}.</h1>
 <h2>Today is {{date}}</h2>
-<a href="{% url 'notes-list' %}" class="btn btn-primary">Check out these SmartNotes</a>
+<a href="{% url 'notes-list' %}" class="btn btn-primary"
+  >Check out these SmartNotes</a
+>
 {% endblock content %}
 ```
 
@@ -1260,50 +1248,54 @@ urlpatterns = [
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'notes/css/style.css' %}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'notes/css/style.css' %}" />
     <title>Notes</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="my-5 text-center container">
-        {% block content %}
-        {% endblock content %}
+      {% block content %} {% endblock content %}
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
 ```
 
 ### notes/templates/notes/notes_list.html:
 
 ```html
-{% extends 'notes/base.html' %}
-
-{% block content %}
+{% extends 'notes/base.html' %} {% block content %}
 <h1>Note List</h1>
 <h2 class="mb-5">These are the notes:</h2>
 
 <div class="row row-cols3 g-2">
-    {% for note in notes %}
-    <div class="col">
-        <div class="p-3 border">
-            <a href="{% url 'notes-detail-list' pk=note.id %}" class="text-dark text-decoration-none">
-                <h3>{{note.title | title}}</h3>
-            </a>
-            <p>{{note.content | truncatechars:30}}</p>
-        </div>
+  {% for note in notes %}
+  <div class="col">
+    <div class="p-3 border">
+      <a
+        href="{% url 'notes-detail-list' pk=note.id %}"
+        class="text-dark text-decoration-none"
+      >
+        <h3>{{note.title | title}}</h3>
+      </a>
+      <p>{{note.content | truncatechars:30}}</p>
     </div>
-    {% endfor %}
+  </div>
+  {% endfor %}
 </div>
 
 {% endblock content %}
@@ -1312,12 +1304,10 @@ urlpatterns = [
 ### notes/templates/notes/notes_detail.html:
 
 ```html
-{% extends 'notes/base.html' %}
-
-{% block content %}
+{% extends 'notes/base.html' %} {% block content %}
 <div class="border round">
-    <h1 class="my-5">{{note.title | title}}</h1>
-    <p>{{note.content}}</p>
+  <h1 class="my-5">{{note.title | title}}</h1>
+  <p>{{note.content}}</p>
 </div>
 
 {% endblock content %}
@@ -1553,30 +1543,23 @@ class NotesDetailView(DetailView):
 ### notes/templates/notes/notes_create.html:
 
 ```html
-{% extends 'notes/base.html' %}
-
-{% block content %}
+{% extends 'notes/base.html' %} {% block content %}
 <form action="{% url 'notes-create' %}" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary my-5">Submit</button>
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit" class="btn btn-primary my-5">Submit</button>
 </form>
 
 {% if form.errors %}
 <div class="alert alert-danger my-5">
-    <div><strong>Oops!</strong> Something went wrong.</div>
-    {{ form.errors.title.as_text }}
-    <div>
-        {% for field in form %}
-        {% for error in field.errors %}
-        <p>{{ error }}</p>
-        {% endfor %}
-        {% endfor %}
-    </div>
+  <div><strong>Oops!</strong> Something went wrong.</div>
+  {{ form.errors.title.as_text }}
+  <div>
+    {% for field in form %} {% for error in field.errors %}
+    <p>{{ error }}</p>
+    {% endfor %} {% endfor %}
+  </div>
 </div>
-{% endif %}
-
-{% endblock content %}
+{% endif %} {% endblock content %}
 ```
 
 ### templates/notes/base.html:
@@ -1586,27 +1569,30 @@ class NotesDetailView(DetailView):
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'notes/css/style.css' %}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'notes/css/style.css' %}" />
     <title>Notes</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="my-5 text-center container">
-        {% block content %}
-        {% endblock content %}
+      {% block content %} {% endblock content %}
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
 ```
 
@@ -1614,18 +1600,18 @@ class NotesDetailView(DetailView):
 
 ```css
 .note-li {
-    color: purple;
-    font-size: 18px;
-    font-weight: 800;
+  color: purple;
+  font-size: 18px;
+  font-weight: 800;
 }
 
 h2 {
-    color: cadetblue;
+  color: cadetblue;
 }
 
 ul.errorlist {
-    display: none;
-    color: red;
+  display: none;
+  color: red;
 }
 ```
 
@@ -2009,7 +1995,7 @@ Operations to perform:
   Apply all migrations: admin, auth, contenttypes, notes, sessions
 Running migrations:
   Applying notes.0003_notes_user... OK
-➜  myproject git:(main) ✗ 
+➜  myproject git:(main) ✗
 ```
 
 ## Run Django Shell
@@ -2037,12 +2023,11 @@ Out[4]: 1
 In [5]: user.notes.all()
 Out[5]: <QuerySet [<Notes: Make food>]>
 
-In [6]: 
+In [6]:
 
 ```
 
 <img width="1249" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/89948b35-4faf-4e0c-b5ce-ff1404490ab7">
-
 
 # #END</details>
 
@@ -2262,15 +2247,12 @@ class AuthorizedView(LoginRequiredMixin, TemplateView):
 ### src-python/django-essentials/myproject/home/templates/home/login.html:
 
 ```html
-{% extends 'home/base.html' %}
-
-{% block content %}
+{% extends 'home/base.html' %} {% block content %}
 <h1>Login</h1>
 
 <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type='submit' class="btn btn-secondary" />
+  {% csrf_token %} {{ form.as_p }}
+  <input type="submit" class="btn btn-secondary" />
 </form>
 {% endblock content %}
 ```
@@ -2278,11 +2260,9 @@ class AuthorizedView(LoginRequiredMixin, TemplateView):
 ### src-python/django-essentials/myproject/home/templates/home/logout.html:
 
 ```html
-{% extends 'home/base.html' %}
-
-{% block content %}
+{% extends 'home/base.html' %} {% block content %}
 <h1>Logout</h1>
-<h2>Hope to see you soon :) </h2>
+<h2>Hope to see you soon :)</h2>
 <p>You have successfully logged out.</p>
 {% endblock content %}
 ```
@@ -2702,46 +2682,57 @@ class AuthorizedView(LoginRequiredMixin, TemplateView):
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
     <title>SmartNotes</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <nav class="navbar navbar-dark bg-dark">
-        <div class="ms-auto">
-            <div class="navbar-nav ms-auto flex-row my-2">
+      <div class="ms-auto">
+        <div class="navbar-nav ms-auto flex-row my-2">
+          {% if user.is_authenticated %}
+          <a class="btn btn-outline-light me-1" href="{% url 'home' %}">Home</a>
+          <a class="btn btn-outline-light me-1" href="{% url 'notes-list' %}"
+            >Notes</a
+          >
+          <a class="btn btn-outline-light me-1" href="{% url 'notes-create' %}"
+            >Create Note</a
+          >
+          <a class="btn btn-outline-light me-1" href="{% url 'logout' %}"
+            >Logout</a
+          >
 
-                {% if user.is_authenticated %}
-                <a class="btn btn-outline-light me-1" href="{% url 'home' %}">Home</a>
-                <a class="btn btn-outline-light me-1" href="{% url 'notes-list' %}">Notes</a>
-                <a class="btn btn-outline-light me-1" href="{% url 'notes-create' %}">Create Note</a>
-                <a class="btn btn-outline-light me-1" href="{% url 'logout' %}">Logout</a>
+          {% else %}
 
-                {% else %}
+          <a class="btn btn-outline-light me-1" href="{% url 'login' %}"
+            >Login</a
+          >
+          <a class="btn btn-outline-light me-1" href="{% url 'signup' %}"
+            >Register</a
+          >
 
-                <a class="btn btn-outline-light me-1" href="{% url 'login' %}">Login</a>
-                <a class="btn btn-outline-light me-1" href="{% url 'signup' %}">Register</a>
-
-                {% endif %}
-
-            </div>
+          {% endif %}
         </div>
+      </div>
     </nav>
     <div class="my-5 text-center container">
-        {% block content %}
-        {% endblock content %}
+      {% block content %} {% endblock content %}
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
 ```
 
@@ -2938,10 +2929,8 @@ class AuthorizedView(LoginRequiredMixin, TemplateView):
 
 ```
 
-
 # #END</details>
 
 # #END
 
 </details>
-
