@@ -385,9 +385,56 @@ admin.site.register(Job)
 
 # Pulling Objects from Database
 
+[https://github.com/omeatai/src-python-flask-django/commit/500292e12ff3a34d76c09906963794c007e6987f](https://github.com/omeatai/src-python-flask-django/commit/500292e12ff3a34d76c09906963794c007e6987f)
+
+### jobs.views:
+
 ```py
+from django.shortcuts import render
+from .models import Job
+# Create your views here.
+
+
+def home(request):
+    jobs = Job.objects.all()
+    return render(request, 'jobs/home.html', {'jobs': jobs})
 
 ```
+
+### src-python/linkedin/django-personal-portfolio/jobs/templates/jobs/home.html:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+</head>
+
+<body>
+    <h1>All my Jobs</h1>
+    {% for job in jobs %}
+    <h2>{{ job.title }}</h2>
+    <p>{{ job.summary }}</p>
+    <img src='/images/1.webp' alt='{{ job.title }}' />
+    {% endfor %}
+</body>
+
+</html>
+```
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ebf8c8de-6df9-4d65-bd75-e6fb86dfee69">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/be86c166-c5eb-414b-b684-5f76cedc83e8">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/7b9adf65-1756-4326-bb5f-4ad5456e29b9">
+
+# #END</details>
+
+<details>
+<summary>9. Bootstrap Layout and Template </summary>
+
+# Bootstrap Layout and Template
 
 ```py
 
