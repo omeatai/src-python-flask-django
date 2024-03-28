@@ -182,6 +182,105 @@ def home(request):
 
 # Creating Models in Django
 
+[https://github.com/omeatai/src-python-flask-django/commit/780144938397964962e4b786cfd724dc145045a8](https://github.com/omeatai/src-python-flask-django/commit/780144938397964962e4b786cfd724dc145045a8)
+
+## Install Pillow
+
+```py
+pip install pillow
+```
+
+## Run Local Server
+
+```py
+python manage.py runserver
+```
+
+### jobs.models:
+
+```py
+from django.db import models
+# Create your models here.
+
+
+class Job(models.Model):
+    title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='images/')
+    summary = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # date = models.DateField()
+    # description = models.TextField()
+    # url = models.URLField()
+    # company = models.CharField(max_length=100)
+    # position = models.CharField(max_length=100)
+    # location = models.CharField(max_length=100)
+
+```
+
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/659e18a7-99fc-44f0-bb89-5745f661bbf1">
+
+# #END</details>
+
+<details>
+<summary>5. Setup PostgreSQL for Django </summary>
+
+# Setup PostgreSQL for Django
+
+[https://www.postgresql.org/](https://www.postgresql.org/)
+
+## Create Password for Postgres
+
+```x
+postgres=# \password postgres
+Enter new password for user "postgres": 
+Enter it again: 
+postgres=# 
+```
+
+## Create Portfolio Database
+
+```py
+postgres=# CREATE DATABASE portfoliodb;
+CREATE DATABASE
+postgres=# 
+```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/f9f8740a-553c-4c7b-a15f-3db5666610ff)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/1fac7b3b-53ea-4502-8f20-4059048635a0)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/4ea617c9-716f-467d-bad9-aa8a0e041790)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/ad3b1721-236b-443a-a965-8d66e25f6da9)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/624f2fb3-e3aa-40e1-88b4-5d19962d5835)
+<img width="763" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/afbe7d2d-4a88-4086-bcf7-b85fef9180a4">
+<img width="763" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ecbf236f-1aa8-485e-aced-918c2e01e41a">
+<img width="682" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0c4e4d73-ef28-41cd-a513-ba24628a81c4">
+<img width="671" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ff5df38d-cfcd-44fb-bf94-83126f6914be">
+<img width="763" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/819787d6-f111-4cd0-9d46-75b4ba63c086">
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
 ```py
 
 ```
