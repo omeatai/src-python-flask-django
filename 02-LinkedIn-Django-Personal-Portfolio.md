@@ -1,5 +1,4 @@
-<details>
-<summary>+LinkedIn - Building a Personal Portfolio with Django </summary>
+
 
 ## +LinkedIn - Building a Personal Portfolio with Django
 
@@ -64,5 +63,10 @@ python manage.py runserver
 ```
 
 # #END</details>
+
+
+
+<details>
+<summary>+LinkedIn - Building a Personal Portfolio with Django </summary>
 
 # #END</details>
