@@ -312,11 +312,13 @@ python manage.py runserver
 ```
 
 <img width="219" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/8496d476-8a7b-45c5-a341-90a38678b92b">
+
 ![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/f9f8740a-553c-4c7b-a15f-3db5666610ff)
 ![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/1fac7b3b-53ea-4502-8f20-4059048635a0)
 ![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/4ea617c9-716f-467d-bad9-aa8a0e041790)
 ![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/ad3b1721-236b-443a-a965-8d66e25f6da9)
 ![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/624f2fb3-e3aa-40e1-88b4-5d19962d5835)
+
 <img width="763" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/afbe7d2d-4a88-4086-bcf7-b85fef9180a4">
 <img width="763" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ecbf236f-1aa8-485e-aced-918c2e01e41a">
 <img width="682" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0c4e4d73-ef28-41cd-a513-ba24628a81c4">
