@@ -335,13 +335,55 @@ python manage.py runserver
 
 # Setup Django Admin Panel 
 
+[https://github.com/omeatai/src-python-flask-django/commit/f453a68d89b1d7c15c30a0b643a6a951daeed426](https://github.com/omeatai/src-python-flask-django/commit/f453a68d89b1d7c15c30a0b643a6a951daeed426)
+
+## Create Django Superuser
+
 ```py
+python manage.py createsuperuser
+```
+
+### jobs.admin:
+
+```py
+from django.contrib import admin
+from .models import Job
+
+# Register your models here.
+admin.site.register(Job)
 
 ```
 
-```py
+<img width="1420" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/8fb2e7d4-8286-4c98-898c-28ca77657600">
 
-```
+### http://127.0.0.1:8000/admin:
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/11c7e95e-81bd-464a-a64f-1fa552505d75)
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/f08f528c-a223-40d9-86bb-972822a792fd">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0a39b127-762a-44e6-b6b4-b87125f1b672">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/913b54ae-1451-4141-b26d-64f749744be1">
+
+# #END</details>
+
+<details>
+<summary>7. Create Jobs in Admin Panel  </summary>
+
+# Create Jobs in Admin Panel 
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/14c47c31-3ff2-4291-98cc-b1710bfa2fb7">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b2104630-2119-4ea8-aa59-f40c8b96e0d6">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/26bcbd51-d1b1-419d-bfa2-5f1f815c3eae">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b89e3927-91d1-4ed4-9067-5abc0a89b47e">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e98c9874-92a5-4554-909e-36a1e18d69ed">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a3ad9af0-961d-4f84-8536-ca38ce711f76">
+
+# #END</details>
+
+<details>
+<summary>8. Pulling Objects from Database  </summary>
+
+# Pulling Objects from Database
 
 ```py
 
