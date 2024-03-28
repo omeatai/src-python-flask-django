@@ -227,6 +227,8 @@ class Job(models.Model):
 
 # Setup PostgreSQL for Django
 
+[https://github.com/omeatai/src-python-flask-django/commit/5aaa98696ea594578f7e3f1c555d12d09660e028](https://github.com/omeatai/src-python-flask-django/commit/5aaa98696ea594578f7e3f1c555d12d09660e028)
+
 [https://www.postgresql.org/](https://www.postgresql.org/)
 
 ## Create Password for Postgres
@@ -246,6 +248,70 @@ CREATE DATABASE
 postgres=# 
 ```
 
+## Install Psycopg2
+
+```py
+pip install psycopg2
+```
+
+## Install Django-environ
+
+```py
+pip install django-environ
+```
+
+- In the same directory as settings.py, create a file called ‘.env’
+- Declare your environment variables in .env
+- Make sure you don’t use quotations around strings.
+- IMPORTANT: Add your .env file to .gitignore
+
+```x
+DATABASE_NAME=portfoliodb
+DATABASE_USER=postgres
+DATABASE_PASS=supersecretpassword
+```
+
+### portfolio.settings:
+
+```py
+import environ
+env = environ.Env()
+environ.Env.read_env()
+
+
+# Database
+# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
+DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'portfoliodb',
+        'USER': 'postgres',
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': 'localhost',  # 127.0.0.1
+        'PORT': '5432',
+    }
+}
+```
+
+## Run Migrations
+
+```py
+python manage.py makemigrations
+python manage.py migrate
+```
+
+## Run Local Server
+
+```py
+python manage.py runserver
+```
+
+<img width="219" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/8496d476-8a7b-45c5-a341-90a38678b92b">
 ![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/f9f8740a-553c-4c7b-a15f-3db5666610ff)
 ![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/1fac7b3b-53ea-4502-8f20-4059048635a0)
 ![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/4ea617c9-716f-467d-bad9-aa8a0e041790)
@@ -256,10 +322,16 @@ postgres=#
 <img width="682" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0c4e4d73-ef28-41cd-a513-ba24628a81c4">
 <img width="671" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ff5df38d-cfcd-44fb-bf94-83126f6914be">
 <img width="763" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/819787d6-f111-4cd0-9d46-75b4ba63c086">
+<img width="862" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/776130c5-d56d-40e8-8a9b-6611d90afbcd">
+<img width="1426" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/eaf5ffd0-c3b0-4e4c-b9ac-ce00a39cc110">
+<img width="1426" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/26b48359-2810-4a22-a895-d0a7c3d3055a">
 
-```py
+# #END</details>
 
-```
+<details>
+<summary>6. Setup Django Admin Panel  </summary>
+
+# Setup Django Admin Panel 
 
 ```py
 
