@@ -436,6 +436,27 @@ def home(request):
 
 # Bootstrap Layout and Template
 
+[https://getbootstrap.com/](https://getbootstrap.com/)
+[https://getbootstrap.com/docs/5.3/examples/album/](https://getbootstrap.com/docs/5.3/examples/album/)
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/92c7b2f9-8bd5-4b19-a1be-4df99bbe6d6e">
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/83029a5f-39fb-474d-8e5f-f9dbd9fef106)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/60bb6b74-5edf-4af6-bf21-f4bb419eb45f)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/b08f30c9-4d92-4bc2-8c36-6ee3a4887014)
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/88573e62-ac0b-445d-b7f2-a088ef498a45">
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/93eda305-2d48-4c6f-b04a-c50ed160e03e)
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/63ef7e7f-96d3-482b-85c2-884f601d06c8)
+
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/fd7570c6-d16f-4de1-b85e-286b87b821be">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b3f13f6b-5571-4af2-926b-f308b6d23bbb">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b7e89d03-3817-40c4-9e90-a6a6172c7e42">
+
+
+
 ```py
 
 ```
