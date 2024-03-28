@@ -123,16 +123,48 @@ urlpatterns = [
 ]
 ```
 
+### jobs.urls:
+
 ```py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('home', views.home, name='home'),
+]
 
 ```
 
+### jobs.views:
+
 ```py
+from django.shortcuts import render
+
+# Create your views here.
+
+
+def home(request):
+    return render(request, 'jobs/home.html', {})
 
 ```
 
-```py
+### src-python/linkedin/django-personal-portfolio/jobs/templates/jobs/home.html:
 
+```py
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+</head>
+
+<body>
+    <h1>Hello World!</h1>
+</body>
+
+</html>
 ```
 
 ![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/970501cd-942b-4527-a718-b0cea40380d3)
@@ -141,6 +173,12 @@ urlpatterns = [
 <img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/bb30e39c-efe7-40dc-be48-a5243416de54">
 <img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/96eaa040-50a5-4f2a-b3e4-40370b4e7aaf">
 
+# #END</details>
+
+<details>
+<summary>4. Creating Models in Django </summary>
+
+# Creating Models in Django
 
 ```py
 
