@@ -182,6 +182,83 @@ def home(request):
 
 # Creating Models in Django
 
+[https://github.com/omeatai/src-python-flask-django/commit/780144938397964962e4b786cfd724dc145045a8](https://github.com/omeatai/src-python-flask-django/commit/780144938397964962e4b786cfd724dc145045a8)
+
+## Install Pillow
+
+```py
+pip install pillow
+```
+
+## Run Local Server
+
+```py
+python manage.py runserver
+```
+
+### jobs.models:
+
+```py
+from django.db import models
+# Create your models here.
+
+
+class Job(models.Model):
+    title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='images/')
+    summary = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # date = models.DateField()
+    # description = models.TextField()
+    # url = models.URLField()
+    # company = models.CharField(max_length=100)
+    # position = models.CharField(max_length=100)
+    # location = models.CharField(max_length=100)
+
+```
+
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/659e18a7-99fc-44f0-bb89-5745f661bbf1">
+
+# #END</details>
+
+<details>
+<summary>5. Setup PostgreSQL for Django </summary>
+
+# Setup PostgreSQL for Django
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
 ```py
 
 ```
