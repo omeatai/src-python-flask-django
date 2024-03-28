@@ -335,13 +335,41 @@ python manage.py runserver
 
 # Setup Django Admin Panel 
 
+[https://github.com/omeatai/src-python-flask-django/commit/f453a68d89b1d7c15c30a0b643a6a951daeed426](https://github.com/omeatai/src-python-flask-django/commit/f453a68d89b1d7c15c30a0b643a6a951daeed426)
+
+## Create Django Superuser
+
 ```py
+python manage.py createsuperuser
+```
+
+### jobs.admin:
+
+```py
+from django.contrib import admin
+from .models import Job
+
+# Register your models here.
+admin.site.register(Job)
 
 ```
 
-```py
+<img width="1420" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/8fb2e7d4-8286-4c98-898c-28ca77657600">
 
-```
+### http://127.0.0.1:8000/admin:
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/11c7e95e-81bd-464a-a64f-1fa552505d75)
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/f08f528c-a223-40d9-86bb-972822a792fd">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0a39b127-762a-44e6-b6b4-b87125f1b672">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/913b54ae-1451-4141-b26d-64f749744be1">
+
+# #END</details>
+
+<details>
+<summary>7. Create Jobs in Admin Panel  </summary>
+
+# Create Jobs in Admin Panel 
 
 ```py
 
