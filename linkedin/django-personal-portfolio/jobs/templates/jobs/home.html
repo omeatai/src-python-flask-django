@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 
@@ -188,7 +190,9 @@
                             Developer based here in the beautiful province of Alberta, Canada. With a track record of
                             over 6 years in the field, I excel in creating resilient, scalable, and user-centric web,
                             mobile and data-driven applications that tackle real-world challenges head-on.</p>
+                        <img src="{% static 'picofme.png' %}" width="100" alt="my profile pic" />
                     </div>
+
                     <div class="col-sm-4 offset-md-1 py-4">
                         <h4>Contact</h4>
                         <ul class="list-unstyled">
@@ -237,6 +241,7 @@
                         <a href="mailto:omeatai@gmail.com?subject=Contact Form on Website&cc="
                             class="btn btn-secondary my-2">Email me</a>
                     </p>
+                    <img src="{% static 'picofme.png' %}" width="300" alt="my profile pic" />
                 </div>
             </div>
         </section>
@@ -252,14 +257,17 @@
 
                     <div class="col">
                         <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                            <img src="{% static job.image %}" alt='{{job.title}}'
+                                class="bd-placeholder-img card-img-top p-2 bg-black" width="100%" height="225" />
+                            {% comment %} <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
                                 preserveAspectRatio="xMidYMid slice" focusable="false">
                                 <title>{{ job.title }}</title>
                                 <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
                                     dy=".3em">{{ job.title }}</text>
-                            </svg>
+                            </svg> {% endcomment %}
                             <div class="card-body">
+                                <h4>{{ job.title }}</h4>
                                 <p class="card-text">{{ job.summary }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
