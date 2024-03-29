@@ -10,6 +10,9 @@
 
 ```py
 python -m venv myproject-env
+
+pip install virtualenv
+virtualenv myproject-env
 ```
 
 ## Activate venv
@@ -23,6 +26,8 @@ source myproject-env/bin/activate
 
 ```py
 python -m pip install Django
+
+pip install Django
 ```
 
 ## Get dependencies
@@ -58,7 +63,7 @@ deactivate
 ## Create Django Project
 
 ```py
-django-admin startproject smartnotes .
+django-admin startproject anyisgarden .
 ```
 
 ## Start Local Server
