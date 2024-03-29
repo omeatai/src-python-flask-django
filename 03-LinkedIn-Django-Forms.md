@@ -187,7 +187,7 @@ def order(request):
 
 ### src-python/linkedin/django-forms/pizza/templates/pizza/order.html:
 
-```py
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -203,6 +203,9 @@ def order(request):
 
 </html>
 ```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/839178ea-5101-492f-a904-f57f2678c8c5)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/138eca54-b81b-457b-b5b7-e0ba9d190809)
 
 <img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/1c063cc4-0a77-492b-b172-5bc91d089b6b">
 <img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/41e065ce-2c52-4922-bef0-b51ed2b2e6f7">
