@@ -270,7 +270,7 @@ def order(request):
 
 ### src-python/linkedin/django-forms/pizza/templates/pizza/order.html:
 
-```py
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -310,7 +310,7 @@ def order(request):
 # #END</details>
 
 <details>
-<summary>5. Django Form Class </summary>
+<summary>6. Django Form Class </summary>
 
 # Django Form Class
 
