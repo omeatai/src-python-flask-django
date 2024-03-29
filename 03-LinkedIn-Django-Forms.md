@@ -402,17 +402,96 @@ def order(request):
 
 # Using Submitted Data
 
+[https://github.com/omeatai/src-python-flask-django/commit/fb0f8ea1b17786714e1a30a1e9fbb44c801276c7](https://github.com/omeatai/src-python-flask-django/commit/fb0f8ea1b17786714e1a30a1e9fbb44c801276c7)
+
+### pizza.forms:
+
 ```py
+from django import forms
+
+
+CHOICES = [('small', 'Small'), ('medium', 'Medium'), ('large', 'Large')]
+
+
+class PizzaForm(forms.Form):
+    topping1 = forms.CharField(label='Topping 1', max_length=100)
+    topping2 = forms.CharField(label='Topping 2', max_length=100)
+    size = forms.ChoiceField(label='Size', choices=CHOICES)
 
 ```
 
+### pizza.views:
+
 ```py
+from django.shortcuts import render
+from .forms import PizzaForm
+# Create your views here.
+
+
+def home(request):
+    return render(request, 'pizza/home.html')
+
+
+def order(request):
+    if request.method == 'POST':
+        filled_form = PizzaForm(request.POST)
+        if filled_form.is_valid():
+            size = filled_form.cleaned_data['size']
+            topping1 = filled_form.cleaned_data['topping1']
+            topping2 = filled_form.cleaned_data['topping2']
+            # note = f"Thanks for ordering! Your {size} pizza with {topping1} and {topping2} is on its way!"
+            note = "Thanks for ordering! Your %s Pizza with %s and %s is on its way!" % (
+                size, topping1, topping2)
+            empty_form = PizzaForm()
+            return render(request, 'pizza/order.html', {'form': empty_form, 'note': note})
+    else:
+        form = PizzaForm()
+        return render(request, 'pizza/order.html', {'form': form})
 
 ```
 
-```py
+### src-python/linkedin/django-forms/pizza/templates/pizza/order.html:
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order a Pizza</title>
+</head>
+
+<body>
+    <h1>Order Pizza Form</h1>
+
+    {% if note %}
+    <h2 style="color: green;">{{ note }}</h2>
+    {% endif %}
+
+    <form action="{% url 'order' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Order Pizza">
+
+    </form>
+</body>
+
+</html>
 ```
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/21c1e785-3929-4076-89b5-df14c7ef6fe5">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/bcac377d-c2b0-41fe-b847-fe396890eafe">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/4dcc8164-592a-47dd-aed9-de696bedf658">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/547c4336-44cf-4724-a8db-2aadc808bab5">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/88dd2d26-aaf0-4004-b0dc-d7afed925ad3">
+
+# #END</details>
+
+<details>
+<summary>8. Adding Models to Form </summary>
+
+# Adding Models to Form
 
 ```py
 
