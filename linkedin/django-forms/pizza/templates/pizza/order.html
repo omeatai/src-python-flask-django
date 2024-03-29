@@ -12,7 +12,10 @@
 
     <form action="{% url 'order' %}" method="post">
         {% csrf_token %}
-        <div>
+        {{ form.as_p }}
+        <input type="submit" value="Order Pizza">
+
+        {% comment %} <div>
             <label for="topping1">Topping 1: </label>
             <input type="text" id="topping1" name="topping1">
             <label for="topping2">Topping 2: </label>
@@ -24,7 +27,7 @@
                 <option value="large">Large</option>
             </select>
             <input type="submit" value="Order Pizza">
-        </div>
+        </div> {% endcomment %}
     </form>
 </body>
 
