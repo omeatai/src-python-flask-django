@@ -221,9 +221,52 @@ def order(request):
 
 # Create Form Fields
 
-```py
+[https://github.com/omeatai/src-python-flask-django/commit/c736d189596b7caa3597f762b1afbe344912c42b](https://github.com/omeatai/src-python-flask-django/commit/c736d189596b7caa3597f762b1afbe344912c42b)
 
+### src-python/linkedin/django-forms/pizza/templates/pizza/order.html:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order a Pizza</title>
+</head>
+
+<body>
+    <h1>Order Pizza Form</h1>
+
+    <form>
+        <div>
+            <label for="topping1">Topping 1: </label>
+            <input type="text" id="topping1" name="topping1">
+            <label for="topping2">Topping 2: </label>
+            <input type="text" id="topping2" name="topping2">
+            <label for="size">Size: </label>
+            <select name="size" id="size">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+        </div>
+    </form>
+</body>
+
+</html>
 ```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/a0e9d418-23bb-438c-b6cf-d6462fd2ac63)
+
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/eea37d7a-f6a2-4954-84c3-5c9ab5530bc0">
+
+# #END</details>
+
+<details>
+<summary>5. Submitting Forms </summary>
+
+# Submitting Forms
 
 ```py
 
