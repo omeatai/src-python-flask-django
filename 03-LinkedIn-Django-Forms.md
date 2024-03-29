@@ -489,9 +489,142 @@ def order(request):
 # #END</details>
 
 <details>
-<summary>8. Adding Models to Form </summary>
+<summary>8. Creating Models for Form </summary>
 
-# Adding Models to Form
+# Creating Models for Form
+
+[https://github.com/omeatai/src-python-flask-django/commit/f89abad1ceb7bee49234637369082b023fa5ebf8](https://github.com/omeatai/src-python-flask-django/commit/f89abad1ceb7bee49234637369082b023fa5ebf8)
+
+## Make Migrations 
+
+```py
+python manage.py makemigrations
+python manage.py migrate
+```
+
+## Create Super User
+
+```py
+python manage.py createsuperuser
+```
+
+## Run Development Server
+
+```py
+python manage.py runserver
+```
+
+### pizza.forms:
+
+```py
+from django import forms
+
+
+CHOICES = [('small', 'Small'), ('medium', 'Medium'), ('large', 'Large')]
+
+
+class PizzaForm(forms.Form):
+    topping1 = forms.CharField(label='Topping 1', max_length=100)
+    topping2 = forms.CharField(label='Topping 2', max_length=100)
+    size = forms.ChoiceField(label='Size', choices=CHOICES)
+
+```
+
+### pizza.models:
+
+```py
+from django.db import models
+
+# Create your models here.
+
+
+class Size(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title
+
+
+class Pizza(models.Model):
+    topping1 = models.CharField(max_length=100)
+    topping2 = models.CharField(max_length=100)
+    size = models.ForeignKey(Size, on_delete=models.CASCADE)
+
+```
+
+### pizza.admin:
+
+```py
+from django.contrib import admin
+from .models import Size, Pizza
+# Register your models here.
+
+admin.site.register(Size)
+admin.site.register(Pizza)
+
+```
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/02333abe-6f41-4ee2-98e8-5f670116a8c3">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a96685b8-a537-4d13-9086-8e155e36e076">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/df10d946-508c-42f7-87d1-cb9d34f0be74">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/c2d5e5a5-e994-4c4f-ad81-533753fdc4d1">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0ce4832c-1485-409b-8f17-97ca24a61aa0">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/7373b861-af9b-470c-9c7b-a34935550018">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/8c8450d9-abd9-4b6a-b067-6b7a18d8efe5">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/92e1f04a-34e1-49db-8198-16b421312c28">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/864babcc-7712-4223-a852-e6508b215e90">
+
+<img width="574" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/45d5e1ae-394e-48d4-b118-99fe34aa6540">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/c4077616-46e0-4c94-bdc4-d43c65d0c5db">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/7b90815a-73c2-47f5-abf7-41e7525a7e95">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/6645dc42-e412-47f9-94ed-4326c01d3541">
+
+# #END</details>
+
+<details>
+<summary>9. Using Model Forms </summary>
+
+# Using Model Forms
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
 
 ```py
 
