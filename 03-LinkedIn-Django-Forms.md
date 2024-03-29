@@ -314,17 +314,93 @@ def order(request):
 
 # Django Form Class
 
+[https://github.com/omeatai/src-python-flask-django/commit/aac29045cc48a4a8130804c301196727c6076ccf](https://github.com/omeatai/src-python-flask-django/commit/aac29045cc48a4a8130804c301196727c6076ccf)
+
+### pizza.forms:
+
 ```py
+from django import forms
+
+
+CHOICES = [('small', 'Small'), ('medium', 'Medium'), ('large', 'Large')]
+
+
+class PizzaForm(forms.Form):
+    topping1 = forms.CharField(label='Topping 1', max_length=100)
+    topping2 = forms.CharField(label='Topping 2', max_length=100)
+    size = forms.ChoiceField(label='Size', choices=CHOICES)
 
 ```
 
+### pizza.views:
+
 ```py
+from django.shortcuts import render
+from .forms import PizzaForm
+# Create your views here.
+
+
+def home(request):
+    return render(request, 'pizza/home.html')
+
+
+def order(request):
+    form = PizzaForm()
+    return render(request, 'pizza/order.html', {'form': form})
 
 ```
 
-```py
+### src-python/linkedin/django-forms/pizza/templates/pizza/order.html:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order a Pizza</title>
+</head>
+
+<body>
+    <h1>Order Pizza Form</h1>
+
+    <form action="{% url 'order' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Order Pizza">
+
+        {% comment %} <div>
+            <label for="topping1">Topping 1: </label>
+            <input type="text" id="topping1" name="topping1">
+            <label for="topping2">Topping 2: </label>
+            <input type="text" id="topping2" name="topping2">
+            <label for="size">Size: </label>
+            <select name="size" id="size">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+            <input type="submit" value="Order Pizza">
+        </div> {% endcomment %}
+    </form>
+</body>
+
+</html>
 
 ```
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/8e3ec26a-ff38-406c-9876-71aa31cf2ceb">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a660edbe-8b71-49c4-a9e3-48ff05d1aa0d">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/963c5324-57b2-4428-8a6c-eb7055364908">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e972105a-a753-4b41-b065-5348fef9a26e">
+
+# #END</details>
+
+<details>
+<summary>7. Using Submitted Data </summary>
+
+# Using Submitted Data
 
 ```py
 
