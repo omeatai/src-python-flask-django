@@ -10,24 +10,15 @@
 <body>
     <h1>Order Pizza Form</h1>
 
+    {% if note %}
+    <h2 style="color: green;">{{ note }}</h2>
+    {% endif %}
+
     <form action="{% url 'order' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Order Pizza">
 
-        {% comment %} <div>
-            <label for="topping1">Topping 1: </label>
-            <input type="text" id="topping1" name="topping1">
-            <label for="topping2">Topping 2: </label>
-            <input type="text" id="topping2" name="topping2">
-            <label for="size">Size: </label>
-            <select name="size" id="size">
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
-            </select>
-            <input type="submit" value="Order Pizza">
-        </div> {% endcomment %}
     </form>
 </body>
 
