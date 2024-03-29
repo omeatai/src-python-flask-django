@@ -268,9 +268,51 @@ def order(request):
 
 # Submitting Forms
 
-```py
+### src-python/linkedin/django-forms/pizza/templates/pizza/order.html:
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order a Pizza</title>
+</head>
+
+<body>
+    <h1>Order Pizza Form</h1>
+
+    <form action="{% url 'order' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="topping1">Topping 1: </label>
+            <input type="text" id="topping1" name="topping1">
+            <label for="topping2">Topping 2: </label>
+            <input type="text" id="topping2" name="topping2">
+            <label for="size">Size: </label>
+            <select name="size" id="size">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+            <input type="submit" value="Order Pizza">
+        </div>
+    </form>
+</body>
+
+</html>
 ```
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b5bb0727-f8c9-4e0a-8634-430117c3ea55">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/6a19534c-52c2-4c58-a57d-c3c4c5ebbc3f">
+
+# #END</details>
+
+<details>
+<summary>6. Django Form Class </summary>
+
+# Django Form Class
 
 ```py
 
