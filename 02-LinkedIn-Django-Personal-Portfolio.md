@@ -1901,7 +1901,46 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # #END</details>
 
 <details>
-<summary>13. Setup URL, View and Template for Details Page </summary>
+<summary>13. Setup Model Default String Name </summary>
+
+# Setup Model Default String Name
+
+[https://github.com/omeatai/src-python-flask-django/commit/77db2bc76db3f37538be9094a42d1e1f546e51df](https://github.com/omeatai/src-python-flask-django/commit/77db2bc76db3f37538be9094a42d1e1f546e51df)
+
+### jobs.models:
+
+```py
+from django.db import models
+# Create your models here.
+
+
+class Job(models.Model):
+    title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='images/')
+    summary = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # date = models.DateField()
+    # description = models.TextField()
+    # url = models.URLField()
+    # company = models.CharField(max_length=100)
+    # position = models.CharField(max_length=100)
+    # location = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title
+```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/cc8f0e4b-5057-423b-be7a-1187673cd69d)
+
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/6f8bf4ef-3568-4ff6-b7fa-ca36c850af47">
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/b198f65d-c54e-430a-a15d-797614f25f1e)
+
+# #END</details>
+
+<details>
+<summary>14. Setup URL, View and Template for Details Page </summary>
 
 # Setup URL, View and Template for Details Page
 
