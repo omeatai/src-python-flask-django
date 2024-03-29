@@ -586,17 +586,97 @@ admin.site.register(Pizza)
 
 # Using Model Forms
 
+[https://github.com/omeatai/src-python-flask-django/commit/db771cdf8a0227c81712ed81236793b2866aff0d](https://github.com/omeatai/src-python-flask-django/commit/db771cdf8a0227c81712ed81236793b2866aff0d)
+
+### pizza.models:
+
 ```py
+from django.db import models
+
+# Create your models here.
+
+
+class Size(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title
+
+
+class Pizza(models.Model):
+    topping1 = models.CharField(max_length=100)
+    topping2 = models.CharField(max_length=100)
+    size = models.ForeignKey(Size, on_delete=models.CASCADE)
 
 ```
 
+### pizza.forms:
+
 ```py
+from django import forms
+from .models import Pizza
+
+# CHOICES = [('small', 'Small'), ('medium', 'Medium'), ('large', 'Large')]
+
+
+# class PizzaForm(forms.Form):
+#     topping1 = forms.CharField(label='Topping 1', max_length=100)
+#     topping2 = forms.CharField(label='Topping 2', max_length=100)
+#     size = forms.ChoiceField(label='Size', choices=CHOICES)
+
+class PizzaForm(forms.ModelForm):
+    class Meta:
+        model = Pizza
+        fields = ['topping1', 'topping2', 'size']
+        labels = {
+            'topping1': 'Topping 1',
+            'topping2': 'Topping 2',
+            'size': 'Size',
+        }
 
 ```
 
+### pizza.views:
+
 ```py
+from django.shortcuts import render
+from .forms import PizzaForm
+# Create your views here.
+
+
+def home(request):
+    return render(request, 'pizza/home.html')
+
+
+def order(request):
+    if request.method == 'POST':
+        filled_form = PizzaForm(request.POST)
+        if filled_form.is_valid():
+            size = filled_form.cleaned_data['size']
+            topping1 = filled_form.cleaned_data['topping1']
+            topping2 = filled_form.cleaned_data['topping2']
+            # note = f"Thanks for ordering! Your {size} pizza with {topping1} and {topping2} is on its way!"
+            note = "Thanks for ordering! Your %s Pizza with %s and %s is on its way!" % (
+                size, topping1, topping2)
+            empty_form = PizzaForm()
+            return render(request, 'pizza/order.html', {'form': empty_form, 'note': note})
+    else:
+        form = PizzaForm()
+        return render(request, 'pizza/order.html', {'form': form})
 
 ```
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e7b73289-e729-424e-86a8-089afc7850d1">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e8a819a6-7d5e-486d-aead-d06369416097">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/58b91581-64bd-4f81-bfbd-390921624929">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a6680012-2f05-4e7a-bdc6-63cda3dae49d">
+
+# #END</details>
+
+<details>
+<summary>10. Using Widgets </summary>
+
+# Using Widgets
 
 ```py
 
