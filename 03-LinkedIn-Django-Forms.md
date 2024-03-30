@@ -782,45 +782,340 @@ class PizzaForm(forms.ModelForm):
 # #END</details>
 
 <details>
-<summary>12. Working with Files in Forms </summary>
+<summary>12. Adding Files to Forms </summary>
 
-# Working with Files in Forms
+# Adding Files to Forms
+
+[https://github.com/omeatai/src-python-flask-django/commit/b507f6a78c7d9e2ab0f26dd8aa0426caf39d8f70](https://github.com/omeatai/src-python-flask-django/commit/b507f6a78c7d9e2ab0f26dd8aa0426caf39d8f70)
+
+## Install Pillow:
 
 ```py
+pip install pillow
+```
+
+### pizza.views:
+
+```py
+from django.shortcuts import render
+from .forms import PizzaForm
+# Create your views here.
+
+
+def home(request):
+    return render(request, 'pizza/home.html')
+
+
+def order(request):
+    if request.method == 'POST':
+        filled_form = PizzaForm(request.POST, request.FILES)
+        if filled_form.is_valid():
+            size = filled_form.cleaned_data['size']
+            topping1 = filled_form.cleaned_data['topping1']
+            topping2 = filled_form.cleaned_data['topping2']
+            # note = f"Thanks for ordering! Your {size} pizza with {topping1} and {topping2} is on its way!"
+            note = "Thanks for ordering! Your %s Pizza with %s and %s is on its way!" % (
+                size, topping1, topping2)
+            empty_form = PizzaForm()
+            return render(request, 'pizza/order.html', {'form': empty_form, 'note': note})
+    else:
+        form = PizzaForm()
+        return render(request, 'pizza/order.html', {'form': form})
 
 ```
 
+### pizza.forms:
+
 ```py
+from django import forms
+from .models import Pizza, Size
+
+CHOICES = [('small', 'Small'), ('medium', 'Medium'), ('large', 'Large')]
+TOPPING_CHOICES = [('pep', 'Pepperoni'), ('cheese',
+                                          'Cheese'), ('olives', 'Olives')]
+
+
+# class PizzaForm(forms.Form):
+#     topping1 = forms.CharField(label='Topping 1', max_length=100)
+#     topping2 = forms.CharField(label='Topping 2', max_length=100)
+#     size = forms.ChoiceField(label='Size', choices=CHOICES)
+
+class PizzaForm(forms.ModelForm):
+
+    image = forms.ImageField(label='Image', required=False)
+
+    class Meta:
+        model = Pizza
+        fields = ['topping1', 'topping2', 'size']
+        labels = {
+            'topping1': 'Topping 1',
+            'topping2': 'Topping 2',
+            'size': 'Size',
+        }
+
+        widgets = {
+            'topping1': forms.TextInput(attrs={'class': 'form-control'}),
+            'topping2': forms.TextInput(attrs={'class': 'form-control'}),
+            'size': forms.RadioSelect(attrs={'class': 'form-control'}),
+        }
 
 ```
 
+### src-python/linkedin/django-forms/pizza/templates/pizza/order.html:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order a Pizza</title>
+</head>
+
+<body>
+    <h1>Order Pizza Form</h1>
+
+    {% if note %}
+    <h2 style="color: green;">{{ note }}</h2>
+    {% endif %}
+
+    <form enctype="multipart/form-data" action="{% url 'order' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Order Pizza">
+
+    </form>
+</body>
+
+</html>
+```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/351a6625-b2aa-4b54-b7d0-17dc44d50f38)
+
+<img width="1457" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/cf8af387-957e-4e5d-bb3e-1b8f99516098">
+<img width="1457" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ba6fe724-ae09-4e60-902e-d23b4b6bc0c5">
+<img width="1457" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/87a24092-afeb-42d2-960a-97448b09fdd5">
+
+# #END</details>
+
+<details>
+<summary>13. Using Formsets - Multiple Forms on a page </summary>
+
+# Using Formsets - Multiple Forms on a page 
+
+[https://github.com/omeatai/src-python-flask-django/commit/afd858b787522e90f3a0cab463c9384db471177a](https://github.com/omeatai/src-python-flask-django/commit/afd858b787522e90f3a0cab463c9384db471177a)
+
+### pizza.urls:
+
 ```py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('order', views.order, name='order'),
+    path('orders', views.orders, name='orders'),
+]
 
 ```
 
+### pizza.views:
+
 ```py
+from django.shortcuts import render
+from .forms import PizzaForm, MultiplePizzaForm
+from django.forms import formset_factory
+# Create your views here.
+
+
+def home(request):
+    return render(request, 'pizza/home.html')
+
+
+def order(request):
+    multiple_form = MultiplePizzaForm()
+    if request.method == 'POST':
+        filled_form = PizzaForm(request.POST)
+        if filled_form.is_valid():
+            filled_form.save()
+            size = filled_form.cleaned_data['size']
+            topping1 = filled_form.cleaned_data['topping1']
+            topping2 = filled_form.cleaned_data['topping2']
+            # note = f"Thanks for ordering! Your {size} pizza with {topping1} and {topping2} is on its way!"
+            note = "Thanks for ordering! Your %s Pizza with %s and %s is on its way!" % (
+                size, topping1, topping2)
+            empty_form = PizzaForm()
+            return render(request, 'pizza/order.html', {'form': empty_form, 'note': note, "multiple_form": multiple_form})
+    else:
+        form = PizzaForm()
+        return render(request, 'pizza/order.html', {'form': form, "multiple_form": multiple_form})
+
+
+def orders(request):
+    number_of_pizzas = 2
+    filled_multi_form = MultiplePizzaForm(request.GET)
+
+    if filled_multi_form.is_valid():
+        number_of_pizzas = filled_multi_form.cleaned_data['number']
+
+    PizzaFormSet = formset_factory(PizzaForm, extra=number_of_pizzas)
+    formset = PizzaFormSet()
+
+    if request.method == 'POST':
+        filled_formset = PizzaFormSet(request.POST)
+        if filled_formset.is_valid():
+            for form in filled_formset:
+                print(form.cleaned_data)
+            note = "Multiple Pizzas have been ordered"
+        else:
+            note = "Order was not created, please try again"
+        return render(request, 'pizza/orders.html', {'note': note, 'formset': formset})
+    else:
+        return render(request, 'pizza/orders.html', {'formset': formset})
 
 ```
 
+### pizza.forms:
+
 ```py
+from django import forms
+from .models import Pizza, Size
+
+CHOICES = [('small', 'Small'), ('medium', 'Medium'), ('large', 'Large')]
+TOPPING_CHOICES = [('pep', 'Pepperoni'), ('cheese',
+                                          'Cheese'), ('olives', 'Olives')]
+
+
+# class PizzaForm(forms.Form):
+#     topping1 = forms.CharField(label='Topping 1', max_length=100)
+#     topping2 = forms.CharField(label='Topping 2', max_length=100)
+#     size = forms.ChoiceField(label='Size', choices=CHOICES)
+
+class PizzaForm(forms.ModelForm):
+
+    class Meta:
+        model = Pizza
+        fields = ['topping1', 'topping2', 'size']
+        labels = {
+            'topping1': 'Topping 1',
+            'topping2': 'Topping 2',
+            'size': 'Size',
+        }
+
+        widgets = {
+            'topping1': forms.TextInput(attrs={'class': 'form-control'}),
+            'topping2': forms.TextInput(attrs={'class': 'form-control'}),
+            'size': forms.RadioSelect(attrs={'class': 'form-control'}),
+        }
+
+
+class MultiplePizzaForm(forms.Form):
+    number = forms.IntegerField(min_value=2, max_value=6)
 
 ```
 
-```py
+### src-python/linkedin/django-forms/pizza/templates/pizza/order.html:
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order a Pizza</title>
+</head>
+
+<body>
+    <h1>Order Pizza Form</h1>
+
+    {% if note %}
+    <h2 style="color: green;">{{ note }}</h2>
+    {% endif %}
+
+    <div>
+        <form action="{% url 'order' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Order Pizza">
+        </form>
+        <br /><br />
+    </div>
+
+    <div>
+        <h3>Want more than one pizza?</h3>
+
+        <form action="{% url 'orders' %}" method="get">
+            {% csrf_token %}
+            {{ multiple_form.as_p }}
+            <input type="submit" value="Get Pizzas">
+        </form>
+    </div>
+
+</body>
+
+</html>
 ```
 
-```py
+### src-python/linkedin/django-forms/pizza/templates/pizza/orders.html:
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Orders</title>
+</head>
+
+<body>
+    <h1>Make your orders</h1>
+
+    {% if note %}
+    <h2 style="color: green;">{{ note }}</h2>
+    {% endif %}
+
+    <div>
+        <form action="{% url 'orders' %}" method="post">
+            {% csrf_token %}
+            {{ formset.management_form }}
+
+            {% for form in formset %}
+            {{ form.as_p }}
+            <br />
+            <hr>
+            {% endfor %}
+            <input type="submit" value="Order Pizzas">
+            <a type="button" style="padding: 5px 20px; background: red; border-radius: 50px; color: white; "
+                href="{% url 'order' %}">I
+                want more
+                orders</a>
+        </form>
+    </div>
+
+</body>
+
+</html>
 ```
 
-```py
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/ce9acb71-82bf-44a9-837e-20a9964d3830)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/8a89d00e-8628-482b-b2a4-822e841a94c7)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/23b9bfa5-c6a4-4ad6-84a3-42fec59cf5d8)
 
-```
+<img width="1457" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/c99e3a90-aa0f-43ae-a74a-0ab8f1eb81a3">
+<img width="1457" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/17149a9d-bcac-4fb9-887d-508c2e718ee4">
+<img width="1457" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ea4a7d77-216a-4c86-bd60-a1d6d0f16727">
+<img width="1457" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/1c1b44cf-d754-4b9f-90c7-785dbaad46e8">
+<img width="1457" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/fd0f7177-5311-414b-8b0d-f45c49093313">
 
-```py
+# #END</details>
 
-```
+<details>
+<summary>14. Using Formsets - Editing Objects in Models </summary>
+
+# Using Formsets - Editing Objects in Models 
 
 ```py
 
