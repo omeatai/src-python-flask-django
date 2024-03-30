@@ -729,6 +729,63 @@ class PizzaForm(forms.Form):
 
 # Using Widgets for Model Form
 
+[https://github.com/omeatai/src-python-flask-django/commit/9d3d91c02d14ecab171e51fb4410f5f81cefa426](https://github.com/omeatai/src-python-flask-django/commit/9d3d91c02d14ecab171e51fb4410f5f81cefa426)
+
+### pizza.forms:
+
+```py
+from django import forms
+from .models import Pizza, Size
+
+CHOICES = [('small', 'Small'), ('medium', 'Medium'), ('large', 'Large')]
+TOPPING_CHOICES = [('pep', 'Pepperoni'), ('cheese',
+                                          'Cheese'), ('olives', 'Olives')]
+
+
+# class PizzaForm(forms.Form):
+#     topping1 = forms.CharField(label='Topping 1', max_length=100)
+#     topping2 = forms.CharField(label='Topping 2', max_length=100)
+#     size = forms.ChoiceField(label='Size', choices=CHOICES)
+
+class PizzaForm(forms.ModelForm):
+
+    size = forms.ModelChoiceField(
+        # queryset=Size.objects.all(), to_field_name='title', empty_label=None, widget=forms.CheckboxSelectMultiple(attrs={'class': 'form-control'}))
+        queryset=Size.objects.all(), to_field_name='title', empty_label=None, widget=forms.RadioSelect(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Pizza
+        fields = ['topping1', 'topping2', 'size']
+        labels = {
+            'topping1': 'Topping 1',
+            'topping2': 'Topping 2',
+            'size': 'Size',
+        }
+
+        # widgets = {
+        #     'topping1': forms.TextInput(attrs={'class': 'form-control'}),
+        #     'topping2': forms.TextInput(attrs={'class': 'form-control'}),
+        #     'size': forms.Select(attrs={'class': 'form-control'}),
+        # }
+
+        # widgets = {
+        #     'topping1': forms.Textarea(attrs={'class': 'form-control'}),
+        #     'topping2': forms.TextInput(attrs={'class': 'form-control'}),
+        #     'size': forms.CheckboxSelectMultiple(attrs={'class': 'form-control'}),
+        # }
+
+```
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/fea26596-9a4b-45d7-8435-212a3e1edd8c">
+<img width="1464" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b82bf792-bb2f-47b2-89a9-72336bdd7460">
+
+# #END</details>
+
+<details>
+<summary>12. Working with Files in Forms </summary>
+
+# Working with Files in Forms
+
 ```py
 
 ```
