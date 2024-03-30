@@ -14,7 +14,7 @@
     <h2 style="color: green;">{{ note }}</h2>
     {% endif %}
 
-    <form action="{% url 'order' %}" method="post">
+    <form enctype="multipart/form-data" action="{% url 'order' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Order Pizza">

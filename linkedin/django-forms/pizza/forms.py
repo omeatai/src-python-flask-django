@@ -13,9 +13,7 @@ TOPPING_CHOICES = [('pep', 'Pepperoni'), ('cheese',
 
 class PizzaForm(forms.ModelForm):
 
-    size = forms.ModelChoiceField(
-        # queryset=Size.objects.all(), to_field_name='title', empty_label=None, widget=forms.CheckboxSelectMultiple(attrs={'class': 'form-control'}))
-        queryset=Size.objects.all(), to_field_name='title', empty_label=None, widget=forms.RadioSelect(attrs={'class': 'form-control'}))
+    image = forms.ImageField(label='Image', required=False)
 
     class Meta:
         model = Pizza
@@ -26,14 +24,8 @@ class PizzaForm(forms.ModelForm):
             'size': 'Size',
         }
 
-        # widgets = {
-        #     'topping1': forms.TextInput(attrs={'class': 'form-control'}),
-        #     'topping2': forms.TextInput(attrs={'class': 'form-control'}),
-        #     'size': forms.Select(attrs={'class': 'form-control'}),
-        # }
-
-        # widgets = {
-        #     'topping1': forms.Textarea(attrs={'class': 'form-control'}),
-        #     'topping2': forms.TextInput(attrs={'class': 'form-control'}),
-        #     'size': forms.CheckboxSelectMultiple(attrs={'class': 'form-control'}),
-        # }
+        widgets = {
+            'topping1': forms.TextInput(attrs={'class': 'form-control'}),
+            'topping2': forms.TextInput(attrs={'class': 'form-control'}),
+            'size': forms.RadioSelect(attrs={'class': 'form-control'}),
+        }
