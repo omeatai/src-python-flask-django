@@ -14,12 +14,25 @@
     <h2 style="color: green;">{{ note }}</h2>
     {% endif %}
 
-    <form enctype="multipart/form-data" action="{% url 'order' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Order Pizza">
+    <div>
+        <form action="{% url 'order' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Order Pizza">
+        </form>
+        <br /><br />
+    </div>
 
-    </form>
+    <div>
+        <h3>Want more than one pizza?</h3>
+
+        <form action="{% url 'orders' %}" method="get">
+            {% csrf_token %}
+            {{ multiple_form.as_p }}
+            <input type="submit" value="Get Pizzas">
+        </form>
+    </div>
+
 </body>
 
 </html>

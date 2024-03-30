@@ -13,8 +13,6 @@ TOPPING_CHOICES = [('pep', 'Pepperoni'), ('cheese',
 
 class PizzaForm(forms.ModelForm):
 
-    image = forms.ImageField(label='Image', required=False)
-
     class Meta:
         model = Pizza
         fields = ['topping1', 'topping2', 'size']
@@ -29,3 +27,7 @@ class PizzaForm(forms.ModelForm):
             'topping2': forms.TextInput(attrs={'class': 'form-control'}),
             'size': forms.RadioSelect(attrs={'class': 'form-control'}),
         }
+
+
+class MultiplePizzaForm(forms.Form):
+    number = forms.IntegerField(min_value=2, max_value=6)
