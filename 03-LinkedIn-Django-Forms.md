@@ -1113,9 +1113,242 @@ class MultiplePizzaForm(forms.Form):
 # #END</details>
 
 <details>
-<summary>14. Using Formsets - Editing Objects in Models </summary>
+<summary>14. Editing Pizza Orders </summary>
 
-# Using Formsets - Editing Objects in Models 
+# Editing Pizza Orders
+
+[https://github.com/omeatai/src-python-flask-django/commits/main/](https://github.com/omeatai/src-python-flask-django/commits/main/)
+
+### pizza.models:
+
+```py
+from django.db import models
+
+# Create your models here.
+
+
+class Size(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title
+
+
+class Pizza(models.Model):
+    topping1 = models.CharField(max_length=100)
+    topping2 = models.CharField(max_length=100)
+    size = models.ForeignKey(Size, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.size} pizza with {self.topping1} and {self.topping2}."
+
+```
+
+### pizza.urls:
+
+```py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('order', views.order, name='order'),
+    path('orders', views.orders, name='orders'),
+    path('order/<int:pk>', views.edit_order, name='edit-order'),
+]
+
+```
+
+### pizza.views:
+
+```py
+from django.shortcuts import render, get_object_or_404
+from django.forms import formset_factory
+from .forms import PizzaForm, MultiplePizzaForm
+from .models import Pizza
+# Create your views here.
+
+
+def home(request):
+    return render(request, 'pizza/home.html')
+
+
+def order(request):
+    multiple_form = MultiplePizzaForm()
+    if request.method == 'POST':
+        filled_form = PizzaForm(request.POST)
+        if filled_form.is_valid():
+            created_pizza = filled_form.save()
+            created_pizza_pk = created_pizza.id
+            size = filled_form.cleaned_data['size']
+            topping1 = filled_form.cleaned_data['topping1']
+            topping2 = filled_form.cleaned_data['topping2']
+            # note = f"Thanks for ordering! Your {size} pizza with {topping1} and {topping2} is on its way!"
+            note = "Thanks for ordering! Your %s Pizza with %s and %s is on its way!" % (
+                size, topping1, topping2)
+            empty_form = PizzaForm()
+            return render(request, 'pizza/order.html', {'created_pizza_pk': created_pizza_pk, 'form': empty_form, 'note': note, "multiple_form": multiple_form})
+    else:
+        form = PizzaForm()
+        return render(request, 'pizza/order.html', {'form': form, "multiple_form": multiple_form})
+
+
+def orders(request):
+    number_of_pizzas = 2
+    filled_multi_form = MultiplePizzaForm(request.GET)
+
+    if filled_multi_form.is_valid():
+        number_of_pizzas = filled_multi_form.cleaned_data['number']
+
+    PizzaFormSet = formset_factory(PizzaForm, extra=number_of_pizzas)
+    formset = PizzaFormSet()
+
+    if request.method == 'POST':
+        filled_formset = PizzaFormSet(request.POST)
+        if filled_formset.is_valid():
+            for form in filled_formset:
+                print(form.cleaned_data)
+            note = "Multiple Pizzas have been ordered"
+        else:
+            note = "Order was not created, please try again"
+        return render(request, 'pizza/orders.html', {'note': note, 'formset': formset})
+    else:
+        return render(request, 'pizza/orders.html', {'formset': formset})
+
+
+def edit_order(request, pk):
+    # pizza = Pizza.objects.get(pk=pk)
+    pizza = get_object_or_404(Pizza, pk=pk)
+    filled_form = PizzaForm(instance=pizza)
+    if request.method == 'POST':
+        filled_form = PizzaForm(request.POST, instance=pizza)
+        if filled_form.is_valid():
+            filled_form.save()
+            note = "Your order has been updated"
+            return render(request, 'pizza/edit_order.html', {'form': filled_form, 'pizza': pizza, 'note': note})
+    else:
+        return render(request, 'pizza/edit_order.html', {'form': filled_form, 'pizza': pizza})
+
+```
+
+### src-python/linkedin/django-forms/pizza/templates/pizza/edit_order.html:
+
+```py
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Pizza</title>
+</head>
+
+<body>
+    <h1>Edit Pizza Form</h1>
+
+    {% if note %}
+    <h2 style="color: green;">{{ note }}</h2>
+    {% endif %}
+
+    <div>
+        <form action="{% url 'edit-order' pizza.pk %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Edit Your Order">
+        </form>
+        <br />
+        <hr>
+    </div>
+
+</body>
+
+</html>
+```
+
+### src-python/linkedin/django-forms/pizza/templates/pizza/order.html:
+
+```py
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order a Pizza</title>
+    <style>
+        .btn {
+            background-color: blue;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Order Pizza Form</h1>
+
+    {% if note %}
+    <h2 style="color: green;">{{ note }}</h2>
+    {% endif %}
+
+    {% if created_pizza_pk %}
+    <a href="{% url 'edit-order' created_pizza_pk %}" class="btn">Edit Your Order</a>
+    {% endif %}
+
+    <div>
+        <form action="{% url 'order' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Order Pizza">
+        </form>
+        <br /><br />
+    </div>
+
+    <div>
+        <h3>Want more than one pizza?</h3>
+
+        <form action="{% url 'orders' %}" method="get">
+            {% csrf_token %}
+            {{ multiple_form.as_p }}
+            <input type="submit" value="Get Pizzas">
+        </form>
+    </div>
+
+</body>
+
+</html>
+```
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a562667c-f6c3-4cb2-b524-e2047bde0db4">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ad62630b-08d6-4ccc-9aea-cff10e82dafd">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/7d5b89c9-a063-49d3-acc6-45a34cca2020">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/d94221cf-0bfd-4b9a-9078-83da01df3e98">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/28e93711-3018-41f8-ac25-bfaa769e71a9">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/22d67e7e-2e41-4535-b1f6-80e0ec61dd4e">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/78712b66-e122-4ee4-9f75-c5b3f001bd0a">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/d3ac196d-1b11-4540-8f44-28681e09c087">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/8f3938fd-6f72-4ea7-bb48-15ca656d73ba">
+
+<img width="1369" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/34cd5e26-e5f6-4b69-8618-82782f802f39">
+<img width="1369" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ba5d2371-f225-496b-9c48-4b603fef6252">
+<img width="1369" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a1de2933-e7bc-4f24-8821-9b0fa0d80e40">
+<img width="1369" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/bb3f776b-b186-4eb9-bbb5-31a10afd7731">
+<img width="1369" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/3a883bed-719e-4363-bf24-64de5ef5ec28">
+
+# #END</details>
+
+<details>
+<summary>15. Local Validation and Errors </summary>
+
+# Local Validation and Errors
 
 ```py
 
@@ -1136,6 +1369,15 @@ class MultiplePizzaForm(forms.Form):
 ```py
 
 ```
+
+```py
+
+```
+
+```py
+
+```
+
 
 ```py
 
