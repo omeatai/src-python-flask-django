@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from .forms import PizzaForm, MultiplePizzaForm
+from django.shortcuts import render, get_object_or_404
 from django.forms import formset_factory
+from .forms import PizzaForm, MultiplePizzaForm
+from .models import Pizza
 # Create your views here.
 
 
@@ -13,7 +14,8 @@ def order(request):
     if request.method == 'POST':
         filled_form = PizzaForm(request.POST)
         if filled_form.is_valid():
-            filled_form.save()
+            created_pizza = filled_form.save()
+            created_pizza_pk = created_pizza.id
             size = filled_form.cleaned_data['size']
             topping1 = filled_form.cleaned_data['topping1']
             topping2 = filled_form.cleaned_data['topping2']
@@ -21,7 +23,7 @@ def order(request):
             note = "Thanks for ordering! Your %s Pizza with %s and %s is on its way!" % (
                 size, topping1, topping2)
             empty_form = PizzaForm()
-            return render(request, 'pizza/order.html', {'form': empty_form, 'note': note, "multiple_form": multiple_form})
+            return render(request, 'pizza/order.html', {'created_pizza_pk': created_pizza_pk, 'form': empty_form, 'note': note, "multiple_form": multiple_form})
     else:
         form = PizzaForm()
         return render(request, 'pizza/order.html', {'form': form, "multiple_form": multiple_form})
@@ -48,3 +50,17 @@ def orders(request):
         return render(request, 'pizza/orders.html', {'note': note, 'formset': formset})
     else:
         return render(request, 'pizza/orders.html', {'formset': formset})
+
+
+def edit_order(request, pk):
+    # pizza = Pizza.objects.get(pk=pk)
+    pizza = get_object_or_404(Pizza, pk=pk)
+    filled_form = PizzaForm(instance=pizza)
+    if request.method == 'POST':
+        filled_form = PizzaForm(request.POST, instance=pizza)
+        if filled_form.is_valid():
+            filled_form.save()
+            note = "Your order has been updated"
+            return render(request, 'pizza/edit_order.html', {'form': filled_form, 'pizza': pizza, 'note': note})
+    else:
+        return render(request, 'pizza/edit_order.html', {'form': filled_form, 'pizza': pizza})

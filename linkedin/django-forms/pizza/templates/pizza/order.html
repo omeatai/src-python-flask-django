@@ -5,6 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order a Pizza</title>
+    <style>
+        .btn {
+            background-color: blue;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -12,6 +27,10 @@
 
     {% if note %}
     <h2 style="color: green;">{{ note }}</h2>
+    {% endif %}
+
+    {% if created_pizza_pk %}
+    <a href="{% url 'edit-order' created_pizza_pk %}" class="btn">Edit Your Order</a>
     {% endif %}
 
     <div>
