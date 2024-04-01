@@ -1,4 +1,7 @@
 
+<details>
+<summary>+LinkedIn - Django Forms </summary>
+
 ## +LinkedIn - Django Forms
 
 <details>
@@ -1654,55 +1657,299 @@ class MultiplePizzaForm(forms.Form):
 # #END</details>
 
 <details>
-<summary>17. Styling with Bootstrap </summary>
+<summary>17. Using Base Template and Styling with Django-Widget-Tweaks and Bootstrap </summary>
 
-# Styling with Bootstrap
+# Using Base Template and Styling with Django-Widget-Tweaks and Bootstrap 
+
+[https://github.com/omeatai/src-python-flask-django/commit/cc5e531355f58bffa3fd110c1a7d0b25c29272d7](https://github.com/omeatai/src-python-flask-django/commit/cc5e531355f58bffa3fd110c1a7d0b25c29272d7)
+
+## Install Django Widget Tweaks
 
 ```py
+pip install django-widget-tweaks
+```
+
+## Run Collect Static
+
+```py
+python manage.py collectstatic
+```
+
+### anyisgarden.settings:
+
+```py
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'pizza',
+    'widget_tweaks',
+]
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
+
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+```
+
+### src-python/linkedin/django-forms/pizza/templates/pizza/base.html:
+
+```html
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Anyi's Garden</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #238a44">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Nandia's Garden</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'order' %}">Order Pizza</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}
+    {% endblock content %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>
+```
+
+### src-python/linkedin/django-forms/pizza/templates/pizza/order.html:
+
+```html
+{% extends "pizza/base.html" %}
+
+{% block content %}
+
+{% load widget_tweaks %}
+
+<div class="container">
+    <h1 class="my-4">Order Pizza Form</h1>
+
+    {% if note %}
+    <h2 style="color: green;">{{ note }}</h2>
+    {% endif %}
+
+    {% if created_pizza_pk %}
+    <a href="{% url 'edit-order' created_pizza_pk %}" class="btn btn-lg btn-primary">Edit Your Order</a>
+    {% endif %}
+
+    <div>
+        {% comment %} <form action="{% url 'order' %}" method="post" novalidate> {% endcomment %}
+            <form action="{% url 'order' %}" method="post">
+                {% csrf_token %}
+
+                {% for field in form %}
+
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control" %}
+                    {{ field.errors }}
+                </div>
+                <br />
+
+                {% endfor %}
+
+                <input type="submit" class="btn btn-lg btn-success" value="Order Pizza">
+            </form>
+            <br />
+            <hr>
+    </div>
+
+    <div>
+        <h3>Want more than one pizza?</h3>
+
+        <form action="{% url 'orders' %}" method="get">
+            {% csrf_token %}
+            {{ multiple_form.as_p }}
+            <input type="submit" class="btn btn-lg btn-primary" value="Get Pizzas">
+        </form>
+    </div>
+
+</div>
+
+{% endblock content %}
+```
+
+### src-python/linkedin/django-forms/pizza/templates/pizza/orders.html:
+
+```html
+{% extends "pizza/base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Make your orders</h1>
+
+    {% if note %}
+    <h2 style="color: green;">{{ note }}</h2>
+    {% endif %}
+
+    <div>
+        <form action="{% url 'orders' %}" method="post">
+            {% csrf_token %}
+            {{ formset.management_form }}
+
+            {% for form in formset %}
+            {{ form.as_p }}
+            <br />
+            <hr>
+            {% endfor %}
+            <input type="submit" value="Order Pizzas">
+            <a type="button" style="padding: 5px 20px; background: red; border-radius: 50px; color: white; "
+                href="{% url 'order' %}">I
+                want more
+                orders</a>
+        </form>
+    </div>
+
+</div>
+
+{% endblock content %}
+```
+
+### src-python/linkedin/django-forms/pizza/templates/pizza/edit_order.html:
+
+```html
+{% extends "pizza/base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Edit Pizza Form</h1>
+
+    {% if note %}
+    <h2 style="color: green;">{{ note }}</h2>
+    {% endif %}
+
+    <div>
+        <form action="{% url 'edit-order' pizza.pk %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Edit Your Order">
+        </form>
+        <br />
+        <hr>
+    </div>
+
+</div>
+
+{% endblock content %}
+```
+
+### src-python/linkedin/django-forms/pizza/templates/pizza/home.html:
+
+```html
+{% extends "pizza/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<img src="{% static 'pizza.jpeg' %}" class="img-fluid w-100 min-h-screen" alt='Anyis Garden'></img>
+
+<div>
+    <a href="{% url 'order' %}" class="btn btn-toolbar btn-primary py-5">Order pizza</a>
+</div>
+
+
+{% endblock content%}
+```
+
+### pizza.forms:
+
+```py
+from django import forms
+from .models import Pizza, Size
+
+CHOICES = [('small', 'Small'), ('medium', 'Medium'), ('large', 'Large')]
+TOPPING_CHOICES = [('pep', 'Pepperoni'), ('cheese',
+                                          'Cheese'), ('olives', 'Olives')]
+
+
+# class PizzaForm(forms.Form):
+#     topping1 = forms.CharField(label='Topping 1', max_length=100)
+#     topping2 = forms.CharField(label='Topping 2', max_length=100)
+#     size = forms.ChoiceField(label='Size', choices=CHOICES)
+
+class PizzaForm(forms.ModelForm):
+
+    # email = forms.EmailField()
+    # website = forms.URLField()
+
+    class Meta:
+        model = Pizza
+        fields = ['topping1', 'topping2', 'size']
+        labels = {
+            'topping1': 'Topping 1',
+            'topping2': 'Topping 2',
+            'size': 'Size',
+        }
+
+        widgets = {
+            'topping1': forms.TextInput(attrs={'class': 'form-control'}),
+            'topping2': forms.TextInput(attrs={'class': 'form-control'}),
+            'size': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
+class MultiplePizzaForm(forms.Form):
+    number = forms.IntegerField(min_value=2, max_value=6)
 
 ```
 
-```py
+[https://getbootstrap.com/docs/5.3/getting-started/introduction/](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
 
-```
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/8166e251-8d37-493a-80a7-e45dd1ebaf85)
 
-```py
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/58250154-03cb-4e62-8cd4-82c14457cd37)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/4e6d0d2f-412a-4c5e-ace0-898a583f29c8)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/e18c2df2-4eba-47d3-a49c-c7c6442df37e)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/18232db0-5f9b-4b1f-9b51-c57a38e41466)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/dcc200c8-19da-4631-8cdd-40df5696d7b6)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/28ec3b6c-61f5-4e66-868c-7f07ee47954b)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/f0c9c0f1-69c1-4b57-99c8-c54fa8497537)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/43ec87d1-ac41-47d0-8a2b-b170d5d8bbed)
 
-```
-
-
-```py
-
-```
-
-```py
-
-```
-
-```py
-
-```
-
-```py
-
-```
-
-```py
-
-```
-
-```py
-
-```
-
-```py
-
-```
+<img width="1454" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/48551516-dd43-46dd-b65c-1c535018b932">
+<img width="1454" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/2ec4204e-001e-4b17-b605-25811714691b">
+<img width="1454" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/50835de6-07e6-42e8-a2ff-33d98c0873aa">
+<img width="1454" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/629b9df2-7039-49bf-a85f-24b980475196">
+<img width="1454" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/4a1219a0-00d4-4682-a40c-cb8b31047757">
+<img width="1454" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ccbd8316-617d-4867-820d-79a295ecc85a">
+<img width="1454" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/88c21cf2-3dd6-460b-8b58-c9123e5c1b2c">
 
 # #END</details>
-
-
-<details>
-<summary>+LinkedIn - Django Forms </summary>
 
 # #END</details>
