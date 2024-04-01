@@ -1558,13 +1558,105 @@ class MultiplePizzaForm(forms.Form):
 # #END</details>
 
 <details>
-<summary>16. Customizing Forms </summary>
+<summary>16. Customizing Form Fields </summary>
 
-# Customizing Forms
+# Customizing Form Fields
 
-```py
+[https://github.com/omeatai/src-python-flask-django/commit/ee30329b2e87cb46b4869ee97399ae586f047316](https://github.com/omeatai/src-python-flask-django/commit/ee30329b2e87cb46b4869ee97399ae586f047316)
 
+### src-python/linkedin/django-forms/pizza/templates/pizza/order.html:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order a Pizza</title>
+    <style>
+        .btn {
+            background-color: blue;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Order Pizza Form</h1>
+
+    {% if note %}
+    <h2 style="color: green;">{{ note }}</h2>
+    {% endif %}
+
+    {% if created_pizza_pk %}
+    <a href="{% url 'edit-order' created_pizza_pk %}" class="btn">Edit Your Order</a>
+    {% endif %}
+
+    <div>
+        {% comment %} <form action="{% url 'order' %}" method="post" novalidate> {% endcomment %}
+            <form action="{% url 'order' %}" method="post">
+                {% csrf_token %}
+
+                <div>
+                    {{ form.topping1.label_tag }}
+                    {{ form.topping1 }}
+                    {{ form.topping1.errors }}
+                </div>
+                <br />
+                <div>
+                    {{ form.topping2.label_tag }}
+                    {{ form.topping2 }}
+                    {{ form.topping2.errors }}
+                </div>
+                <br />
+                <div>
+                    <label for="{{ form.size.id_for_label }}">Size for your Pizza:</label>
+                    {% comment %} {{ form.size.label_tag }} {% endcomment %}
+                    {{ form.size }}
+                    {{ form.size.errors }}
+                </div>
+                <br />
+
+                <input type="submit" value="Order Pizza">
+            </form>
+            <br /><br />
+    </div>
+
+    <div>
+        <h3>Want more than one pizza?</h3>
+
+        <form action="{% url 'orders' %}" method="get">
+            {% csrf_token %}
+            {{ multiple_form.as_p }}
+            <input type="submit" value="Get Pizzas">
+        </form>
+    </div>
+
+</body>
+
+</html>
 ```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/1395404d-ee25-4617-8f04-481504e3155f)
+
+<img width="1454" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/1fee9e3d-d27d-4c0f-b846-c4b0b379eb07">
+
+# #END</details>
+
+<details>
+<summary>17. Styling with Bootstrap </summary>
+
+# Styling with Bootstrap
 
 ```py
 
