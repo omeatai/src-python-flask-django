@@ -37,24 +37,27 @@
         {% comment %} <form action="{% url 'order' %}" method="post" novalidate> {% endcomment %}
             <form action="{% url 'order' %}" method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
 
-                <hr>
-                <table>
-                    {{ form.as_table }}
-                </table>
+                <div>
+                    {{ form.topping1.label_tag }}
+                    {{ form.topping1 }}
+                    {{ form.topping1.errors }}
+                </div>
+                <br />
+                <div>
+                    {{ form.topping2.label_tag }}
+                    {{ form.topping2 }}
+                    {{ form.topping2.errors }}
+                </div>
+                <br />
+                <div>
+                    <label for="{{ form.size.id_for_label }}">Size for your Pizza:</label>
+                    {% comment %} {{ form.size.label_tag }} {% endcomment %}
+                    {{ form.size }}
+                    {{ form.size.errors }}
+                </div>
+                <br />
 
-                <hr>
-                <ul>
-                    {{ form.as_ul }}
-                </ul>
-
-                <hr>
-                <ol>
-                    {{ form.as_ul }}
-                </ol>
-
-                <hr>
                 <input type="submit" value="Order Pizza">
             </form>
             <br /><br />
