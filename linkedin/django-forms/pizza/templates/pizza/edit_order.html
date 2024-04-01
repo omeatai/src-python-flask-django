@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "pizza/base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Pizza</title>
-</head>
+{% block content %}
 
-<body>
+<div class="container">
     <h1>Edit Pizza Form</h1>
 
     {% if note %}
@@ -24,6 +19,6 @@
         <hr>
     </div>
 
-</body>
+</div>
 
-</html>
+{% endblock content %}

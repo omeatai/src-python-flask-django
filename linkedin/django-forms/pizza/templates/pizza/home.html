@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "pizza/base.html" %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anyi's garden</title>
-</head>
+{% block content %}
 
-<body>
-    <h1>Anyi's Garden</h1>
-    <a href="{% url 'order' %}">Order a pizza</a>
-</body>
 
-</html>
+<img src="{% static 'pizza.jpeg' %}" class="img-fluid w-100 min-h-screen" alt='Anyis Garden'></img>
+
+<div>
+    <a href="{% url 'order' %}" class="btn btn-toolbar btn-primary py-5">Order pizza</a>
+</div>
+
+
+{% endblock content%}

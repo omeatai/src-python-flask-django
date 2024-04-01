@@ -13,8 +13,8 @@ TOPPING_CHOICES = [('pep', 'Pepperoni'), ('cheese',
 
 class PizzaForm(forms.ModelForm):
 
-    email = forms.EmailField()
-    website = forms.URLField()
+    # email = forms.EmailField()
+    # website = forms.URLField()
 
     class Meta:
         model = Pizza
@@ -28,7 +28,7 @@ class PizzaForm(forms.ModelForm):
         widgets = {
             'topping1': forms.TextInput(attrs={'class': 'form-control'}),
             'topping2': forms.TextInput(attrs={'class': 'form-control'}),
-            'size': forms.RadioSelect(attrs={'class': 'form-control'}),
+            'size': forms.Select(attrs={'class': 'form-control'}),
         }
 
 

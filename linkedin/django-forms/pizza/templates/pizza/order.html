@@ -1,36 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "pizza/base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order a Pizza</title>
-    <style>
-        .btn {
-            background-color: blue;
-            border: none;
-            border-radius: 50px;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-        }
-    </style>
-</head>
+{% block content %}
 
-<body>
-    <h1>Order Pizza Form</h1>
+{% load widget_tweaks %}
+
+<div class="container">
+    <h1 class="my-4">Order Pizza Form</h1>
 
     {% if note %}
     <h2 style="color: green;">{{ note }}</h2>
     {% endif %}
 
     {% if created_pizza_pk %}
-    <a href="{% url 'edit-order' created_pizza_pk %}" class="btn">Edit Your Order</a>
+    <a href="{% url 'edit-order' created_pizza_pk %}" class="btn btn-lg btn-primary">Edit Your Order</a>
     {% endif %}
 
     <div>
@@ -38,29 +20,21 @@
             <form action="{% url 'order' %}" method="post">
                 {% csrf_token %}
 
-                <div>
-                    {{ form.topping1.label_tag }}
-                    {{ form.topping1 }}
-                    {{ form.topping1.errors }}
-                </div>
-                <br />
-                <div>
-                    {{ form.topping2.label_tag }}
-                    {{ form.topping2 }}
-                    {{ form.topping2.errors }}
-                </div>
-                <br />
-                <div>
-                    <label for="{{ form.size.id_for_label }}">Size for your Pizza:</label>
-                    {% comment %} {{ form.size.label_tag }} {% endcomment %}
-                    {{ form.size }}
-                    {{ form.size.errors }}
+                {% for field in form %}
+
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control" %}
+                    {{ field.errors }}
                 </div>
                 <br />
 
-                <input type="submit" value="Order Pizza">
+                {% endfor %}
+
+                <input type="submit" class="btn btn-lg btn-success" value="Order Pizza">
             </form>
-            <br /><br />
+            <br />
+            <hr>
     </div>
 
     <div>
@@ -69,10 +43,10 @@
         <form action="{% url 'orders' %}" method="get">
             {% csrf_token %}
             {{ multiple_form.as_p }}
-            <input type="submit" value="Get Pizzas">
+            <input type="submit" class="btn btn-lg btn-primary" value="Get Pizzas">
         </form>
     </div>
 
-</body>
+</div>
 
-</html>
+{% endblock content %}
