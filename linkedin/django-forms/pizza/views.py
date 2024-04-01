@@ -22,8 +22,11 @@ def order(request):
             # note = f"Thanks for ordering! Your {size} pizza with {topping1} and {topping2} is on its way!"
             note = "Thanks for ordering! Your %s Pizza with %s and %s is on its way!" % (
                 size, topping1, topping2)
-            empty_form = PizzaForm()
-            return render(request, 'pizza/order.html', {'created_pizza_pk': created_pizza_pk, 'form': empty_form, 'note': note, "multiple_form": multiple_form})
+            filled_form = PizzaForm()
+        else:
+            created_pizza_pk = None
+            note = "Order was not created, please try again"
+        return render(request, 'pizza/order.html', {'created_pizza_pk': created_pizza_pk, 'form': filled_form, 'note': note, "multiple_form": multiple_form})
     else:
         form = PizzaForm()
         return render(request, 'pizza/order.html', {'form': form, "multiple_form": multiple_form})

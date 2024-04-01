@@ -13,6 +13,9 @@ TOPPING_CHOICES = [('pep', 'Pepperoni'), ('cheese',
 
 class PizzaForm(forms.ModelForm):
 
+    email = forms.EmailField()
+    website = forms.URLField()
+
     class Meta:
         model = Pizza
         fields = ['topping1', 'topping2', 'size']

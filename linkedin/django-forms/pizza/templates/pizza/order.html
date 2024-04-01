@@ -34,12 +34,30 @@
     {% endif %}
 
     <div>
-        <form action="{% url 'order' %}" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Order Pizza">
-        </form>
-        <br /><br />
+        {% comment %} <form action="{% url 'order' %}" method="post" novalidate> {% endcomment %}
+            <form action="{% url 'order' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <hr>
+                <table>
+                    {{ form.as_table }}
+                </table>
+
+                <hr>
+                <ul>
+                    {{ form.as_ul }}
+                </ul>
+
+                <hr>
+                <ol>
+                    {{ form.as_ul }}
+                </ol>
+
+                <hr>
+                <input type="submit" value="Order Pizza">
+            </form>
+            <br /><br />
     </div>
 
     <div>
