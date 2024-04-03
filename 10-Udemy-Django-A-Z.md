@@ -1,5 +1,3 @@
-<details>
-<summary>+Udemy - Django A-Z Build and Deploy Web Project </summary>
 
 ## +Udemy - Django A-Z Build and Deploy Web Project
 
@@ -165,3 +163,11 @@ def home(request):
 <img width="1280" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5c024f37-a954-4ae3-89a0-db735d3a7504">
 
 # #END</details>
+
+
+<details>
+<summary>+Udemy - Django A-Z Build and Deploy Web Project </summary>
+
+# #END</details>
+
+
