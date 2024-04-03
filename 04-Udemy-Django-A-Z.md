@@ -279,7 +279,7 @@ def todolist(request):
 
 ### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
 
-```py
+```html
 <!doctype html>
 <html lang="en">
 
@@ -351,9 +351,212 @@ def todolist(request):
 
 # Base Templating with Jinja 2
 
+[https://github.com/omeatai/src-python-flask-django/commits/main/](https://github.com/omeatai/src-python-flask-django/commits/main/)
+
+### taskmate.settings:
+
 ```py
 
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 ```
+
+### taskmate.urls:
+
+```py
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('task/', include('todolist.urls')),
+]
+
+```
+
+### todolist.urls:
+
+```py
+from django.urls import path
+from todolist import views
+
+urlpatterns = [
+    path('', views.todolist, name="todolist"),
+    path('about/', views.about, name="about"),
+    path('contact/', views.contact, name="contact"),
+]
+
+```
+
+### todolist.views:
+
+```py
+from django.shortcuts import render
+from django.http import HttpResponse
+# Create your views here.
+
+
+def todolist(request):
+    context = {
+        "welcome_text": "Welcome to your Todo List!"
+    }
+    # return HttpResponse("<h1>Welcome to the Task Page</h1>")
+    return render(request, 'todolist.html', context)
+
+
+def about(request):
+    context = {
+        "welcome_text": "Welcome to the About Page!"
+    }
+    return render(request, 'about.html', context)
+
+
+def contact(request):
+    context = {
+        "welcome_text": "Welcome to the Contact Page!"
+    }
+    return render(request, 'contact.html', context)
+
+```
+
+### src-python/udemy/django-A-Z/templates/todolist/base.html:
+
+```html
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+    <title>Todo List Manager - {% block title %}{% endblock title %} </title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Task Mate</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'todolist' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'todolist' %}">Todo List</a>
+                        {% comment %} <a class="nav-link" href="/task">Todo List</a> {% endcomment %}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About Us</a>
+                        {% comment %} <a class="nav-link" href="/task/about">About Us</a> {% endcomment %}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                        {% comment %} <a class="nav-link" href="/task/contact">Contact Us</a> {% endcomment %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Taskmate</h1>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
+```
+
+### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
+
+```html
+{% extends "todolist/base.html" %}
+
+{% block title %}
+Welcome
+{% endblock title %}
+
+{% block content %}
+<h2>{{ welcome_text }}</h2>
+{% endblock content %}
+```
+
+### src-python/udemy/django-A-Z/todolist/templates/about.html:
+
+```html
+{% extends "todolist/base.html" %}
+
+{% block title %}
+About Us
+{% endblock title %}
+
+{% block content %}
+<h2>{{ welcome_text }}</h2>
+{% endblock content %}
+```
+
+### src-python/udemy/django-A-Z/todolist/templates/contact.html:
+
+```html
+{% extends "todolist/base.html" %}
+
+{% block title %}
+Contact Us
+{% endblock title %}
+
+{% block content %}
+<h2>{{ welcome_text }}</h2>
+{% endblock content %}
+```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/cf0018f9-f76d-4331-9a12-6e593e93388b)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/4c1a659a-e02e-4100-bd7d-e8642b1827b5)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/c3df0c22-7edc-4e21-912d-f3d99900780b)
+<img width="1429" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/404412e4-8604-4713-8743-16acc5cb9ac5">
+<img width="1473" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a17c5e5f-fcbc-4441-8ed1-f9f7072c28f4">
+<img width="1473" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/95719a7d-890b-4a25-bbc3-2c6c89c8b1dc">
+<img width="1473" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/15c80222-f800-406c-828f-c4c8bc2ce164">
+<img width="1473" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/958b11f8-8a51-4bf7-9248-72d3a4c4a14a">
+<img width="1473" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e5d94c38-773f-4bef-aeb3-68d5e0eed1cd">
+<img width="1473" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/82861d69-ab2b-4767-9e65-fe2017da7056">
+<img width="1473" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/c2707449-f9fe-44c6-bd18-412d76ada279">
+
+# #END</details>
+
+<details>
+<summary>7. Setup Static Folder </summary>
+
+# Setup Static Folder
 
 ```py
 
