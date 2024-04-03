@@ -23,6 +23,8 @@ source myproject-env/bin/activate
 
 ```py
 python -m pip install Django
+pip install django
+pip install django==5.0
 ```
 
 ## Get dependencies
@@ -58,7 +60,7 @@ deactivate
 ## Create Django Project
 
 ```py
-django-admin startproject smartnotes .
+django-admin startproject taskmate .
 ```
 
 ## Start Local Server
@@ -70,14 +72,15 @@ python manage.py runserver
 ```x
 You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
 Run 'python manage.py migrate' to apply them.
-March 20, 2024 - 04:58:12
-Django version 5.0.3, using settings 'smartnotes.settings'
+April 03, 2024 - 19:56:32
+Django version 5.0.4, using settings 'taskmate.settings'
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 ```
 
-<img width="1280" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/d1188761-5eb8-44f3-849e-b6b69662cd44">
-<img width="1416" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/c414f6de-58e0-490e-a6d6-e0cbaae242b1">
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/22df5e9a-3927-4360-bffc-40c6cfb95033)
+
+<img width="1529" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/db85e8c0-bde6-4dcf-8103-f7faf5b96511">
 
 # #END</details>
 
