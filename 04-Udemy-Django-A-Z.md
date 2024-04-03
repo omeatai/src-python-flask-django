@@ -63,6 +63,13 @@ deactivate
 django-admin startproject taskmate .
 ```
 
+## Make Migrations
+
+```py
+python manage.py makemigrations
+python manage.py migrate
+```
+
 ## Start Local Server
 
 ```py
@@ -80,7 +87,7 @@ Quit the server with CONTROL-C.
 
 ![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/22df5e9a-3927-4360-bffc-40c6cfb95033)
 
-<img width="1529" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/db85e8c0-bde6-4dcf-8103-f7faf5b96511">
+<img width="1529" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e087d565-d986-4697-b1d6-3e1a239d5689">
 
 # #END</details>
 
@@ -89,7 +96,7 @@ Quit the server with CONTROL-C.
 
 # Create new App - Home
 
-[https://github.com/omeatai/src-python-flask-django/commit/0959e138fcee4d7829ef38e9ca8ff24a5c443a23](https://github.com/omeatai/src-python-flask-django/commit/0959e138fcee4d7829ef38e9ca8ff24a5c443a23)
+
 
 ## Create App
 
@@ -122,7 +129,7 @@ INSTALLED_APPS = [
 
 # Create View
 
-[https://github.com/omeatai/src-python-flask-django/commit/c1680ccc9d7982ae87252859481cb3d64db13260](https://github.com/omeatai/src-python-flask-django/commit/c1680ccc9d7982ae87252859481cb3d64db13260)
+
 
 ### smartnotes.urls:
 
@@ -160,10 +167,7 @@ def home(request):
     return HttpResponse("<h1>Hello World!</h1>")
 ```
 
-<img width="1413" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ac80da1e-8b1a-4bc7-aa4f-528bd887843b">
-<img width="1280" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/897bdc04-e787-467e-8194-5a5bcc99c229">
-<img width="1280" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/1292f08d-6ebc-4d3d-a0c0-460ed2869b57">
-<img width="1280" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5c024f37-a954-4ae3-89a0-db735d3a7504">
+
 
 # #END</details>
 
