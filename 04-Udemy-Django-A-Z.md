@@ -221,6 +221,8 @@ def todolist(request):
 <img width="1473" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/4dd585bd-dfd6-4303-8744-62592671234a">
 <img width="1473" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/86cd6c65-0954-43fd-a751-6a9473475cf4">
 
+# #END</details>
+
 <details>
 <summary>5. Using Bootstrap Template </summary>
 
