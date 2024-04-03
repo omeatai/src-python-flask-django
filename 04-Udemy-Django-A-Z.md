@@ -105,7 +105,7 @@ python manage.py startapp todolist
 django-admin startapp todolist
 ```
 
-### smartnotes.settings:
+### taskmate.settings:
 
 ```x
 # Application definition
@@ -131,11 +131,10 @@ INSTALLED_APPS = [
 <details>
 <summary>3. Create Urls and Views </summary>
 
-# Create View
+# Create Urls and Views
 
 
-
-### smartnotes.urls:
+### taskmate.urls:
 
 ```py
 from django.contrib import admin
@@ -143,38 +142,131 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('home.urls')),
+    path('task/', include('todolist.urls')),
 ]
 ```
 
-### home.urls:
+### todolist.urls:
 
 ```py
 from django.urls import path
-from home import views
+from todolist import views
 
 urlpatterns = [
-    path('home', views.home),
+    path('', views.todolist, name="todolist"),
 ]
 ```
 
-### home.views:
+### todolist.views:
 
 ```py
 from django.shortcuts import render
 from django.http import HttpResponse
-
 # Create your views here.
 
 
-def home(request):
-    return HttpResponse("<h1>Hello World!</h1>")
+def todolist(request):
+    return HttpResponse("<h1>Welcome to the Task Page</h1>")
 ```
 
-
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/00dc48de-9654-4228-9306-b1e13ebdebef)
+<img width="1529" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/428fa1e7-2306-4ed8-8d4d-92f0aff97760">
+<img width="1529" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e0b80bad-7cdc-4a7c-b993-0d9fd4a5ccd2">
+<img width="1529" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ca3b2339-c5b3-41b8-a5cd-6bf04e8e7dd6">
 
 # #END</details>
 
+<details>
+<summary>4. Create Templates </summary>
+
+# Create Templates
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+
+# #END</details>
 
 <details>
 <summary>+Udemy - Django A-Z Build and Deploy Web Project </summary>
