@@ -177,21 +177,56 @@ def todolist(request):
 # #END</details>
 
 <details>
-<summary>4. Create Templates </summary>
+<summary>4. Create Template </summary>
 
-# Create Templates
+# Create Template
+
+[https://github.com/omeatai/src-python-flask-django/commits/main/](https://github.com/omeatai/src-python-flask-django/commits/main/)
+
+### todolist.urls:
 
 ```py
+from django.urls import path
+from todolist import views
+
+urlpatterns = [
+    path('', views.todolist, name="todolist"),
+]
 
 ```
 
+### todolist.views:
+
 ```py
+from django.shortcuts import render
+from django.http import HttpResponse
+# Create your views here.
+
+
+def todolist(request):
+    # return HttpResponse("<h1>Welcome to the Task Page</h1>")
+    return render(request, 'todolist.html', {})
 
 ```
 
-```py
+### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
 
+```py
+<h1>Welcome to the New Task Page on Template!</h1>
 ```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/d396c262-ed1e-4f1c-bf43-fa520ea9c3af)
+
+<img width="1473" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/cfbc6f64-928f-4080-ba25-8ebcc3d0a6de">
+<img width="1473" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/4dd585bd-dfd6-4303-8744-62592671234a">
+<img width="1473" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/86cd6c65-0954-43fd-a751-6a9473475cf4">
+
+# #END</details>
+
+<details>
+<summary>5. Using Bootstrap Template </summary>
+
+# Using Bootstrap Template
 
 ```py
 
