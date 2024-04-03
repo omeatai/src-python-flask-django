@@ -92,16 +92,17 @@ Quit the server with CONTROL-C.
 # #END</details>
 
 <details>
-<summary>2. Create new App - Home </summary>
+<summary>2. Create new App - TodoList </summary>
 
-# Create new App - Home
+# Create new App - TodoList
 
-
+[https://github.com/omeatai/src-python-flask-django/commit/fbf231bb53a548dc15c021d4041212fa10ffc13b](https://github.com/omeatai/src-python-flask-django/commit/fbf231bb53a548dc15c021d4041212fa10ffc13b)
 
 ## Create App
 
 ```py
-django-admin startapp home
+python manage.py startapp todolist
+django-admin startapp todolist
 ```
 
 ### smartnotes.settings:
@@ -118,14 +119,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # apps
-    'home',
+    'todolist',
 ]
 ```
+
+<img width="1529" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0df79c8a-1bcd-44c9-8941-cae421178859">
+
 
 # #END</details>
 
 <details>
-<summary>3. Create View </summary>
+<summary>3. Create Urls and Views </summary>
 
 # Create View
 
