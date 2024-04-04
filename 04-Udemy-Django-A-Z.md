@@ -1225,9 +1225,9 @@ Welcome
 # #END</details>
 
 <details>
-<summary>13. U </summary>
+<summary>13. Using Bootstrap Screen Orientation </summary>
 
-# U
+# Using Bootstrap Screen Orientation
 
 ```py
 
