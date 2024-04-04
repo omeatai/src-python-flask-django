@@ -24,6 +24,23 @@ def todolist(request):
     return render(request, 'todolist.html', context)
 
 
+def edit_task(request, id):
+    if request.method == "POST":
+        form = TaskForm(request.POST or None,
+                        instance=TaskList.objects.get(pk=id))
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, "Your new Task has been updated successfully!")
+            return redirect('todolist')
+    else:
+        task = TaskList.objects.get(pk=id)
+        context = {
+            'task': task,
+        }
+        return render(request, 'edit.html', context)
+
+
 def delete_task(request, id):
     task = TaskList.objects.get(pk=id)
     task.delete()
