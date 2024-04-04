@@ -882,9 +882,172 @@ Welcome
 # #END</details>
 
 <details>
-<summary>11. Using Forms to add data </summary>
+<summary>11. Using Django Forms to add data </summary>
 
-# Using Forms to add data
+# Using Django Forms to add data
+
+[https://getbootstrap.com/docs/5.3/forms/overview/](https://getbootstrap.com/docs/5.3/forms/overview/)
+
+## Bootstrap Form Format:
+
+```html
+<form>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1">
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+```
+
+### todolist.forms:
+
+```py
+from django import forms
+from .models import TaskList
+
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = TaskList
+        fields = ['task', 'done']
+
+```
+
+### todolist.views:
+
+```py
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .models import TaskList
+from .forms import TaskForm
+# Create your views here.
+
+
+def todolist(request):
+    note = None
+    if request.method == "POST":
+        form = TaskForm(request.POST or None)
+        if form.is_valid():
+            form.done = False
+            form.save()
+        note = "Your new Task has been added successfully!"
+    tasks = TaskList.objects.all()
+    context = {
+        'tasks': tasks,
+        "welcome_text": "Welcome to your Todo List!",
+        "note": note
+    }
+    return render(request, 'todolist.html', context)
+    # return redirect('todolist')
+
+
+def about(request):
+    context = {
+        "welcome_text": "Welcome to the About Page!"
+    }
+    return render(request, 'about.html', context)
+
+
+def contact(request):
+    context = {
+        "welcome_text": "Welcome to the Contact Page!"
+    }
+    return render(request, 'contact.html', context)
+
+```
+
+### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
+
+```html
+{% extends "todolist/base.html" %}
+
+{% block title %}
+Welcome
+{% endblock title %}
+
+{% block content %}
+<h2>{{ welcome_text }}</h2>
+
+<form method="POST" class="my-3">
+    {% csrf_token %}
+
+    {% if note %}
+    <div class="alert alert-success" role="alert">
+        {{ note }}
+    </div>
+    {% endif %}
+
+    <div class="mb-3">
+        <label for="task" class="form-label">Add Task</label>
+        <input type="text" class="form-control" id="task" name="task" aria-describedby="textHelp"
+            placeholder="Call Alex...">
+        <div id="textHelp" class="form-text">What would you want to do?</div>
+    </div>
+    <button type="submit" class="btn btn-primary">ADD TASK</button>
+</form>
+
+
+<table class="table table-light table-striped table-hover table-bordered">
+    <thead>
+        <tr class="table-dark">
+            <th scope="col">Task</th>
+            <th scope="col">Done</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for todo in tasks %}
+        {% if todo.done %}
+        <tr class="table-success">
+            <th scope="row">{{ todo.task }}</th>
+            <td>YES</td>
+            <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+            <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+        </tr>
+        {% else %}
+        <tr>
+            <th scope="row">{{ todo.task }}</th>
+            <td>NO</td>
+            <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+            <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock content %}
+```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/8afc0f90-f618-4ac8-aefc-478857e50dbe)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/5d8b4547-5156-43c1-ada2-84d89ea33cdb)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/a0ac350c-628a-4532-bc46-21c48f266abc)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/115ac876-d1e4-40bd-915b-d9b7ffa680a5)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/43c0a4c2-fc8d-4320-b49f-407036a94eba)
+
+<img width="1400" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/57c4415d-d405-448e-9bb8-983c30dc37ca">
+<img width="1400" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/def193eb-d990-4848-90eb-41cf3b3820bb">
+<img width="1400" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/2095b37c-9c3b-413b-a050-8f9b306bcdfe">
+<img width="1400" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/57649b4d-8987-42f7-ab9f-18077b67601b">
+
+# #END</details>
+
+<details>
+<summary>12. Using Django Messages for Alert </summary>
+
+# Using Django Messages for Alert
 
 ```py
 
