@@ -1816,9 +1816,9 @@ Welcome
 # #END</details>
 
 <details>
-<summary>16. Django Pagination </summary>
+<summary>16. Using Django Pagination </summary>
 
-# Django Pagination
+# Using Django Pagination
 
 ```py
 
