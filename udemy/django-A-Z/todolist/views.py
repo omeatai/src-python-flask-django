@@ -41,6 +41,20 @@ def edit_task(request, id):
         return render(request, 'edit.html', context)
 
 
+def completed(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.done = True
+    task.save()
+    return redirect('todolist')
+
+
+def pending(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.done = False
+    task.save()
+    return redirect('todolist')
+
+
 def delete_task(request, id):
     task = TaskList.objects.get(pk=id)
     task.delete()

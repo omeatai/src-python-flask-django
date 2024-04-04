@@ -53,14 +53,14 @@ Welcome
         {% if todo.done %}
         <tr class="table-success">
             <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
-            <td>YES</td>
+            <td><a href="{% url 'pending' todo.id %}" type="button" class="btn btn-success btn-sm">YES - Mark as Pending</a></td>
             <td><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning btn-sm">Edit</a></td>
             <td><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger btn-sm">Delete</a></td>
         </tr>
         {% else %}
         <tr>
             <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
-            <td>NO</td>
+            <td><a href="{% url 'completed' todo.id %}" type="button" class="btn btn-danger btn-sm">NO - Mark as Completed</a></td>
             <td><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning btn-sm">Edit</a></td>
             <td><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger btn-sm">Delete</a></td>
         </tr>

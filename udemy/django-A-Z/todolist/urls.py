@@ -7,4 +7,6 @@ urlpatterns = [
     path('contact/', views.contact, name="contact"),
     path('edit/<int:id>', views.edit_task, name="edit-task"),
     path('delete/<int:id>', views.delete_task, name="delete-task"),
+    path('completed/<int:id>', views.completed, name="completed"),
+    path('pending/<int:id>', views.pending, name="pending"),
 ]
