@@ -1049,6 +1049,186 @@ Welcome
 
 # Using Django Messages for Alert
 
+[https://github.com/omeatai/src-python-flask-django/commit/f7595ceae38ddf8f9d4557b33d9dd1385b1d75b4](https://github.com/omeatai/src-python-flask-django/commit/f7595ceae38ddf8f9d4557b33d9dd1385b1d75b4)
+[https://getbootstrap.com/docs/5.3/components/alerts/](https://getbootstrap.com/docs/5.3/components/alerts/)
+
+## Bootstrap Alert Formats:
+
+```html
+<div class="alert alert-primary" role="alert">
+  A simple primary alert—check it out!
+</div>
+<div class="alert alert-secondary" role="alert">
+  A simple secondary alert—check it out!
+</div>
+<div class="alert alert-success" role="alert">
+  A simple success alert—check it out!
+</div>
+<div class="alert alert-danger" role="alert">
+  A simple danger alert—check it out!
+</div>
+<div class="alert alert-warning" role="alert">
+  A simple warning alert—check it out!
+</div>
+<div class="alert alert-info" role="alert">
+  A simple info alert—check it out!
+</div>
+<div class="alert alert-light" role="alert">
+  A simple light alert—check it out!
+</div>
+<div class="alert alert-dark" role="alert">
+  A simple dark alert—check it out!
+</div>
+```
+
+```html
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+```
+
+### todolist.views:
+
+```py
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.contrib import messages
+
+from .models import TaskList
+from .forms import TaskForm
+# Create your views here.
+
+
+def todolist(request):
+    if request.method == "POST":
+        form = TaskForm(request.POST or None)
+        if form.is_valid():
+            form.done = False
+            form.save()
+            messages.success(
+                request, "Awesome! Your new Task has been added successfully!")
+        # note = "Your new Task has been added successfully!"
+    tasks = TaskList.objects.all()
+    context = {
+        'tasks': tasks,
+        "welcome_text": "Welcome to your Todo List!",
+    }
+    return render(request, 'todolist.html', context)
+
+
+def about(request):
+    context = {
+        "welcome_text": "Welcome to the About Page!"
+    }
+    return render(request, 'about.html', context)
+
+
+def contact(request):
+    context = {
+        "welcome_text": "Welcome to the Contact Page!"
+    }
+    return render(request, 'contact.html', context)
+
+```
+
+### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
+
+```html
+{% extends "todolist/base.html" %}
+
+{% block title %}
+Welcome
+{% endblock title %}
+
+{% block content %}
+<h2>{{ welcome_text }}</h2>
+
+<form method="POST" class="my-3">
+    {% csrf_token %}
+
+    {% if messages %}
+
+    {% for message in messages %}
+    {% comment %} <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div> {% endcomment %}
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+
+    <div class="mb-3">
+        <label for="task" class="form-label">Add Task</label>
+        <input type="text" class="form-control" id="task" name="task" aria-describedby="textHelp"
+            placeholder="Call Alex...">
+        <div id="textHelp" class="form-text">What would you want to do?</div>
+    </div>
+    <button type="submit" class="btn btn-primary">ADD TASK</button>
+</form>
+
+
+<table class="table table-light table-striped table-hover table-bordered">
+    <thead>
+        <tr class="table-dark">
+            <th scope="col">Task</th>
+            <th scope="col">Done</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if tasks %}
+
+        {% for todo in tasks %}
+
+        {% if todo.done %}
+        <tr class="table-success">
+            <th scope="row">{{ todo.task }}</th>
+            <td>YES</td>
+            <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+            <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+        </tr>
+        {% else %}
+        <tr>
+            <th scope="row">{{ todo.task }}</th>
+            <td>NO</td>
+            <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+            <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+        </tr>
+        {% endif %}
+
+        {% endfor %}
+
+        {% endif %}
+    </tbody>
+</table>
+
+
+{% endblock content %}
+```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/517a9dd3-823e-4dc7-8e85-fd193c699f63)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/60adead8-b2cd-4e83-b129-b5298b2456f7)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/161b66c4-e1d9-44b2-8990-a23df0dc86ae)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/2d72e0aa-bc86-4224-86ca-32689a5c77d5)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/75d1697b-d560-48e8-901f-eebc11d6324c)
+
+<img width="1400" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b0974a5c-390b-4a5b-a2c6-644c8b35ef1b">
+<img width="1400" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/4cb1326a-a41b-45cd-b6b3-486e82eaffed">
+
+# #END</details>
+
+<details>
+<summary>13. Using Bootstrap Screen Orientation </summary>
+
+# Using Bootstrap Screen Orientation
+
 ```py
 
 ```
@@ -1057,9 +1237,6 @@ Welcome
 
 ```
 
-```py
-
-```
 
 ```py
 
