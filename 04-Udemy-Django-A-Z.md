@@ -882,9 +882,9 @@ Welcome
 # #END</details>
 
 <details>
-<summary>11. Using Django Forms to add data </summary>
+<summary>11. Using Django Forms to Create Tasks </summary>
 
-# Using Django Forms to add data
+# Using Django Forms to Create Tasks
 
 [https://getbootstrap.com/docs/5.3/forms/overview/](https://getbootstrap.com/docs/5.3/forms/overview/)
 
