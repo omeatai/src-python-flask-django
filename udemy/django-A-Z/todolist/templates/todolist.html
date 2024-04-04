@@ -7,7 +7,7 @@ Welcome
 {% block content %}
 <h2>{{ welcome_text }}</h2>
 
-<form method="POST" class="my-3">
+<form method="POST" class="row my-3">
     {% csrf_token %}
 
     {% if messages %}
@@ -52,17 +52,17 @@ Welcome
 
         {% if todo.done %}
         <tr class="table-success">
-            <th scope="row">{{ todo.task }}</th>
+            <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
             <td>YES</td>
             <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
-            <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+            <td><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger btn-sm">Delete</a></td>
         </tr>
         {% else %}
         <tr>
-            <th scope="row">{{ todo.task }}</th>
+            <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
             <td>NO</td>
             <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
-            <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+            <td><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger btn-sm">Delete</a></td>
         </tr>
         {% endif %}
 
