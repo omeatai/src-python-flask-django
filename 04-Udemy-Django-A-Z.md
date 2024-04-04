@@ -687,6 +687,8 @@ python manage.py runserver
 
 # Setup Django Model and Migration
 
+[https://github.com/omeatai/src-python-flask-django/commit/d3985ea132dfa34bb55905b46db68e27b9d763b3](https://github.com/omeatai/src-python-flask-django/commit/d3985ea132dfa34bb55905b46db68e27b9d763b3)
+
 ### todolist.models:
 
 ```py
@@ -743,9 +745,146 @@ python manage.py runserver
 
 # Fetch Data from Database
 
+[https://github.com/omeatai/src-python-flask-django/commit/36b1e3ea6eecc65fecc913682d0829684a876ebd](https://github.com/omeatai/src-python-flask-django/commit/36b1e3ea6eecc65fecc913682d0829684a876ebd)
+
+[https://getbootstrap.com/docs/5.3/content/tables/](https://getbootstrap.com/docs/5.3/content/tables/)
+
+## Bootstrap Table Format:
+
+```html
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+### todolist.views:
+
 ```py
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import TaskList
+# Create your views here.
+
+
+def todolist(request):
+    tasks = TaskList.objects.all()
+    context = {
+        'tasks': tasks,
+        "welcome_text": "Welcome to your Todo List!"
+    }
+    # return HttpResponse("<h1>Welcome to the Task Page</h1>")
+    return render(request, 'todolist.html', context)
+
+
+def about(request):
+    context = {
+        "welcome_text": "Welcome to the About Page!"
+    }
+    return render(request, 'about.html', context)
+
+
+def contact(request):
+    context = {
+        "welcome_text": "Welcome to the Contact Page!"
+    }
+    return render(request, 'contact.html', context)
 
 ```
+
+### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
+
+```html
+{% extends "todolist/base.html" %}
+
+{% block title %}
+Welcome
+{% endblock title %}
+
+{% block content %}
+<h2>{{ welcome_text }}</h2>
+
+{% comment %} <table class="table table-dark table-striped"> {% endcomment %}
+    <table class="table table-light table-striped table-hover table-bordered">
+        <thead>
+            <tr class="table-dark">
+                <th scope="col">Task</th>
+                <th scope="col">Done</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for todo in tasks %}
+            {% if todo.done %}
+            <tr class="table-success">
+                <th scope="row">{{ todo.task }}</th>
+                <td>YES</td>
+                <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+                <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+            </tr>
+            {% else %}
+            <tr>
+                <th scope="row">{{ todo.task }}</th>
+                <td>NO</td>
+                <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+                <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% for todo in tasks %}
+    <div class="todo">
+        <h3>{{ todo.task }} - {{ todo.done }}</h3>
+    </div>
+
+
+    {% endfor %}
+
+    {% endblock content %}
+```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/02124501-e51e-44a8-9433-e90626c05762)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/1eec6917-7f8f-4ef9-8c26-b6f16b130988)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/a04a4aed-1075-4144-b7e2-db3cb0cc7cbb)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/db8b9ea7-1016-44a0-8550-646e391acd3c)
+
+<img width="1400" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/9c32960b-e69b-4f62-8313-e599cb6771b5">
+<img width="1400" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5049d062-2360-44a7-a134-414b3d9c14b5">
+
+# #END</details>
+
+<details>
+<summary>11. Using Forms to add data </summary>
+
+# Using Forms to add data
 
 ```py
 
