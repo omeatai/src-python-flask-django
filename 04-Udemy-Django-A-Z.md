@@ -660,17 +660,88 @@ Welcome
 # #END</details>
 
 <details>
-<summary>8. Setup Admin Panel </summary>
+<summary>8. Create Super User for Admin Panel </summary>
 
-# Setup Admin Panel
+# Create Super User for Admin Panel
+
+## Create Super User
 
 ```py
+python manage.py createsuperuser
+```
+
+## Run Local Server
+
+```py
+python manage.py runserver
+```
+
+<img width="510" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/77949caa-8709-4791-a7e5-2afdec7fba00">
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/b0543452-5fe3-4bcb-82fa-383316494102)
+<img width="1400" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/6f3861bb-a0fb-4586-81ce-ef572f8a5222">
+
+# #END</details>
+
+<details>
+<summary>9. Setup Django Model and Migration </summary>
+
+# Setup Django Model and Migration
+
+### todolist.models:
+
+```py
+from django.db import models
+
+# Create your models here.
+
+
+class TaskList(models.Model):
+    task = models.CharField(max_length=300)
+    done = models.BooleanField(default=False)
+    # description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 ```
 
+### todolist.admin:
+
 ```py
+from django.contrib import admin
+from .models import TaskList
+
+# Register your models here.
+admin.site.register(TaskList)
 
 ```
+
+## Make Migrations
+
+```py
+python manage.py makemigrations
+python manage.py migrate
+```
+
+## Run Local Server
+
+```py
+python manage.py runserver
+```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/f69b55f9-7c06-45d9-b90f-95705d619746)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/efc83b7a-c85c-46fd-9381-3d673105a4ee)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/cc5ba05b-068b-4920-8670-f7abc38f04ad)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/1ec8e6a8-e448-4bc6-a8f9-2d296a99fbd5)
+
+<img width="1400" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/6c89310a-d2c6-4e4b-9ebb-a82cf387cab9">
+<img width="1400" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/addfbe9c-e4ae-4dd3-af38-f60ee9b8d031">
+
+# #END</details>
+
+<details>
+<summary>10. Fetch Data from Database </summary>
+
+# Fetch Data from Database
 
 ```py
 
