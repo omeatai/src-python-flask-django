@@ -1625,21 +1625,200 @@ Welcome
 
 # Mark Tasks as Completed or Pending
 
+[https://github.com/omeatai/src-python-flask-django/commit/5b431c4a4c4af67bd8b0ed70c091670358ab47be](https://github.com/omeatai/src-python-flask-django/commit/5b431c4a4c4af67bd8b0ed70c091670358ab47be)
+
+### todolist.urls:
+
 ```py
+from django.urls import path
+from todolist import views
+
+urlpatterns = [
+    path('', views.todolist, name="todolist"),
+    path('about/', views.about, name="about"),
+    path('contact/', views.contact, name="contact"),
+    path('edit/<int:id>', views.edit_task, name="edit-task"),
+    path('delete/<int:id>', views.delete_task, name="delete-task"),
+    path('completed/<int:id>', views.completed, name="completed"),
+    path('pending/<int:id>', views.pending, name="pending"),
+]
 
 ```
 
+### todolist.views:
+
 ```py
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.contrib import messages
+
+from .models import TaskList
+from .forms import TaskForm
+# Create your views here.
+
+
+def todolist(request):
+    if request.method == "POST":
+        form = TaskForm(request.POST or None)
+        if form.is_valid():
+            form.done = False
+            form.save()
+            messages.success(
+                request, "Awesome! Your new Task has been added successfully!")
+        # note = "Your new Task has been added successfully!"
+    tasks = TaskList.objects.all()
+    context = {
+        'tasks': tasks,
+        "welcome_text": "Welcome to your Todo List!",
+    }
+    return render(request, 'todolist.html', context)
+
+
+def edit_task(request, id):
+    if request.method == "POST":
+        form = TaskForm(request.POST or None,
+                        instance=TaskList.objects.get(pk=id))
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, "Your new Task has been updated successfully!")
+            return redirect('todolist')
+    else:
+        task = TaskList.objects.get(pk=id)
+        context = {
+            'task': task,
+        }
+        return render(request, 'edit.html', context)
+
+
+def completed(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.done = True
+    task.save()
+    return redirect('todolist')
+
+
+def pending(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.done = False
+    task.save()
+    return redirect('todolist')
+
+
+def delete_task(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.delete()
+    messages.success(request, "Task has been deleted successfully!")
+    return redirect('todolist')
+
+
+def about(request):
+    context = {
+        "welcome_text": "Welcome to the About Page!"
+    }
+    return render(request, 'about.html', context)
+
+
+def contact(request):
+    context = {
+        "welcome_text": "Welcome to the Contact Page!"
+    }
+    return render(request, 'contact.html', context)
 
 ```
 
-```py
+### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
 
+```html
+{% extends "todolist/base.html" %}
+
+{% block title %}
+Welcome
+{% endblock title %}
+
+{% block content %}
+<h2>{{ welcome_text }}</h2>
+
+<form method="POST" class="row my-3">
+    {% csrf_token %}
+
+    {% if messages %}
+
+    {% for message in messages %}
+    {% comment %} <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div> {% endcomment %}
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+
+    <div class="mb-3">
+        <label for="task" class="form-label">Add Task</label>
+        <input type="text" class="form-control" id="task" name="task" aria-describedby="textHelp"
+            placeholder="Call Alex...">
+        <div id="textHelp" class="form-text">What would you want to do?</div>
+    </div>
+    <button type="submit" class="btn btn-primary">ADD TASK</button>
+</form>
+
+
+<table class="table table-light table-striped table-hover table-bordered">
+    <thead>
+        <tr class="table-dark">
+            <th scope="col">Task</th>
+            <th scope="col">Done</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if tasks %}
+
+        {% for todo in tasks %}
+
+        {% if todo.done %}
+        <tr class="table-success">
+            <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
+            <td><a href="{% url 'pending' todo.id %}" type="button" class="btn btn-success btn-sm">YES - Mark as Pending</a></td>
+            <td><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+            <td><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+        </tr>
+        {% else %}
+        <tr>
+            <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
+            <td><a href="{% url 'completed' todo.id %}" type="button" class="btn btn-danger btn-sm">NO - Mark as Completed</a></td>
+            <td><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+            <td><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+        </tr>
+        {% endif %}
+
+        {% endfor %}
+
+        {% endif %}
+    </tbody>
+</table>
+
+
+{% endblock content %}
 ```
 
-```py
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a9253b7e-bee3-4fe4-9edd-0430a610fda7">
+<img width="1441" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/4b87c611-dde2-4111-ab00-b73fdf9d8d48">
+<img width="1441" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/960dc91d-0e91-4be1-ade4-8fcab1eef1f6">
+<img width="1441" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5e982354-79e9-48d9-bf99-64edba4b4e5a">
 
-```
+# #END</details>
+
+<details>
+<summary>16. Django Pagination </summary>
+
+# Django Pagination
 
 ```py
 
