@@ -6,4 +6,44 @@ Welcome
 
 {% block content %}
 <h2>{{ welcome_text }}</h2>
-{% endblock content %}
+
+{% comment %} <table class="table table-dark table-striped"> {% endcomment %}
+    <table class="table table-light table-striped table-hover table-bordered">
+        <thead>
+            <tr class="table-dark">
+                <th scope="col">Task</th>
+                <th scope="col">Done</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for todo in tasks %}
+            {% if todo.done %}
+            <tr class="table-success">
+                <th scope="row">{{ todo.task }}</th>
+                <td>YES</td>
+                <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+                <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+            </tr>
+            {% else %}
+            <tr>
+                <th scope="row">{{ todo.task }}</th>
+                <td>NO</td>
+                <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+                <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% for todo in tasks %}
+    <div class="todo">
+        <h3>{{ todo.task }} - {{ todo.done }}</h3>
+    </div>
+
+
+    {% endfor %}
+
+    {% endblock content %}
