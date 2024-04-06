@@ -2118,9 +2118,414 @@ Welcome
 # #END</details>
 
 <details>
-<summary>17. Setup URL Shortcuts </summary>
+<summary>17. Setup HomePage </summary>
 
-# Setup URL Shortcuts 
+# Setup HomePage
+
+[https://github.com/omeatai/src-python-flask-django/commit/cccec3cbe9d4a96abbbc1ed9d9ddb682938063a1](https://github.com/omeatai/src-python-flask-django/commit/cccec3cbe9d4a96abbbc1ed9d9ddb682938063a1)
+
+[https://unsplash.com/s/photos/notes](https://unsplash.com/s/photos/notes)
+
+### taskmate.urls:
+
+```py
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('todolist.urls')),
+]
+
+```
+
+### todolist.urls:
+
+```py
+from django.urls import path
+from todolist import views
+
+urlpatterns = [
+    path('', views.home, name="home"),
+    path('todolist/', views.todolist, name="todolist"),
+    path('about/', views.about, name="about"),
+    path('contact/', views.contact, name="contact"),
+    path('edit/<int:id>', views.edit_task, name="edit-task"),
+    path('delete/<int:id>', views.delete_task, name="delete-task"),
+    path('completed/<int:id>', views.completed, name="completed"),
+    path('pending/<int:id>', views.pending, name="pending"),
+]
+
+```
+
+### todolist.views:
+
+```py
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
+from django.core.paginator import Paginator
+from urllib.parse import urlparse, parse_qs
+
+from .models import TaskList
+from .forms import TaskForm
+# Create your views here.
+
+
+def home(request):
+    context = {
+        "welcome_text": "Welcome to the Home Page!"
+    }
+    return render(request, 'home.html', context)
+
+
+def todolist(request):
+    if request.method == "POST":
+        form = TaskForm(request.POST or None)
+        if form.is_valid():
+            form.done = False
+            form.save()
+            messages.success(
+                request, "Awesome! Your new Task has been added successfully!")
+        res = redirect('todolist')
+    else:
+        tasks = TaskList.objects.all()
+        no_per_pages = 5
+        paginator = Paginator(tasks, no_per_pages)
+        page = request.GET.get('pg')
+        tasks = paginator.get_page(page)
+
+        context = {
+            'tasks': tasks,
+            "welcome_text": "Welcome to your Todo List!",
+        }
+        return render(request, 'todolist.html', context)
+
+
+def edit_task(request, id):
+    if request.method == "POST":
+        form = TaskForm(request.POST or None,
+                        instance=TaskList.objects.get(pk=id))
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, "Your new Task has been updated successfully!")
+            return redirect('todolist')
+    else:
+        task = TaskList.objects.get(pk=id)
+        context = {
+            'task': task,
+        }
+        return render(request, 'edit.html', context)
+
+
+def completed(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.done = True
+    task.save()
+    # GET previous url
+    previous_url = request.META.get('HTTP_REFERER')
+    parsed_url = urlparse(previous_url)
+    query_params = parse_qs(parsed_url.query)
+    pg_value = query_params.get('pg', [None])[0]
+
+    res = reverse('todolist') + f"?pg={pg_value}"
+    return redirect(res)
+
+
+def pending(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.done = False
+    task.save()
+    # GET previous url
+    previous_url = request.META.get('HTTP_REFERER')
+    parsed_url = urlparse(previous_url)
+    query_params = parse_qs(parsed_url.query)
+    pg_value = query_params.get('pg', [None])[0]
+
+    res = reverse('todolist') + f"?pg={pg_value}"
+    return redirect(res)
+    # return redirect('todolist')
+
+
+def delete_task(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.delete()
+    messages.success(request, "Task has been deleted successfully!")
+    return redirect('todolist')
+
+
+def about(request):
+    context = {
+        "welcome_text": "Welcome to the About Page!"
+    }
+    return render(request, 'about.html', context)
+
+
+def contact(request):
+    context = {
+        "welcome_text": "Welcome to the Contact Page!"
+    }
+    return render(request, 'contact.html', context)
+
+```
+
+### src-python/udemy/django-A-Z/templates/todolist/base.html:
+
+```html
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="icon" href="{% static 'todolist/images/favicon.ico' %}" type="image/gif" sizes="16x16">
+
+    <title>Todo List Manager - {% block title %}{% endblock title %} </title>
+</head>
+
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg bg-body-dark navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'todolist/images/logo-1.png' %}"
+                    alt="Taskmate Logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'todolist' %}">Todo List</a>
+                        {% comment %} <a class="nav-link" href="/task">Todo List</a> {% endcomment %}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About Us</a>
+                        {% comment %} <a class="nav-link" href="/task/about">About Us</a> {% endcomment %}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                        {% comment %} <a class="nav-link" href="/task/contact">Contact Us</a> {% endcomment %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Taskmate</h1>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
+```
+
+### src-python/udemy/django-A-Z/todolist/templates/home.html:
+
+```html
+{% extends "todolist/base.html" %}
+{% load static %}
+
+{% block title %}
+Welcome
+{% endblock title %}
+
+{% block content %}
+<h2>{{ welcome_text }}</h2>
+
+<div class="text-center">
+  <div class="row mt-5">
+    <div class="col-lg-4">
+      <img src="{% static 'todolist/images/stickynotes-1.jpg' %}" alt='stickynotes' width="360" height="250" class="rounded-lg shadow-lg"></img>
+    </div>
+    <div class="col-lg-4">
+      <img src="{% static 'todolist/images/stickynotes-2.jpg' %}" alt='stickynotes' width="360" height="250" class="rounded-lg shadow-lg"></img>
+    </div>
+    <div class="col-lg-4">
+      <img src="{% static 'todolist/images/stickynotes-3.jpg' %}" alt='stickynotes' width="360" height="250" class="rounded-lg shadow-lg"></img>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-10 offset-md-1">
+        <p class="h1 text-success">Quick And Easy To Use, Anytime, Anywhere!</p>
+        <p class="h2 mt-3">"Plan Your Day Better, Get Your Life Organized"</p>
+        <p class="h5">TASKMATE Lets You Keep Track Of Your Task In One Place.</p>
+        <a href="{% url 'todolist' %}" type="button" class="btn btn-primary btn-lg mt-3 shadow-lg">Let's Get Started!</a>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+```
+
+### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
+
+```html
+{% extends "todolist/base.html" %}
+
+{% block title %}
+Welcome
+{% endblock title %}
+
+{% block content %}
+<h2>{{ welcome_text }}</h2>
+
+<form method="POST" class="row my-3">
+    {% csrf_token %}
+
+    {% if messages %}
+
+    {% for message in messages %}
+    {% comment %} <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div> {% endcomment %}
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+
+    <div class="mb-3">
+        <label for="task" class="form-label">Add Task</label>
+        <input type="text" class="form-control" id="task" name="task" aria-describedby="textHelp"
+            placeholder="Call Alex...">
+        <div id="textHelp" class="form-text">What would you want to do?</div>
+    </div>
+    <button type="submit" class="btn btn-primary">ADD TASK</button>
+</form>
+
+
+<table class="table table-light table-striped table-hover table-bordered text-center">
+    <thead>
+        <tr class="table-dark row">
+            <th class="col-7">Task</th>
+            <th class="col-3">Done</th>
+            <th class="col-1">Edit</th>
+            <th class="col-1">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if tasks %}
+
+        {% for todo in tasks %}
+
+        {% if todo.done %}
+        <tr class="table-success row">
+            <th class="col-7">{{ todo.task }}</th>
+            <td class="col-3"><a href="{% url 'pending' todo.id %}" type="button" class="btn btn-success btn-sm">YES - Mark as Pending</a></td>
+            <td class="col-1"><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning">Edit</a></td>
+            <td class="col-1"><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger">Delete</a></td>
+        </tr>
+        {% else %}
+        <tr class="row">
+            <th class="col-7">{{ todo.task }}</th>
+            <td class="col-3"><a href="{% url 'completed' todo.id %}" type="button" class="btn btn-danger btn-sm">NO - Mark as Completed</a></td>
+            <td class="col-1"><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning">Edit</a></td>
+            <td class="col-1"><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger">Delete</a></td>
+        </tr>
+        {% endif %}
+
+        {% endfor %}
+
+        {% endif %}
+    </tbody>
+</table>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+
+    {% comment %} {% for i in tasks.paginator.page_range %}{% endfor %}{% endcomment %}
+
+    <li class="page-item {% if not tasks.has_previous %} disabled {% endif %}">
+      <a class="page-link" href="?pg=1">First</a>
+    </li>
+
+    {% if tasks.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?pg={{ tasks.previous_page_number }}">Previous</a>
+    </li>
+
+    <li class="page-item"><a class="page-link" href="?pg={{ tasks.previous_page_number }}">{{ tasks.previous_page_number }}</a></li>
+    {% endif %}
+
+     <li class="page-item active"><a class="page-link" href="#">{{ tasks.number }}</a></li>
+
+
+    {% if tasks.has_next %}
+    <li class="page-item"><a class="page-link" href="?pg={{ tasks.next_page_number }}">{{ tasks.next_page_number }}</a></li>
+
+    <li class="page-item">
+      <a class="page-link" href="?pg={{ tasks.next_page_number }}">Next</a>
+    </li>
+    {% endif %}
+
+    <li class="page-item {% if not tasks.has_next %} disabled {% endif %}">
+      <a class="page-link" href="?pg={{ tasks.paginator.num_pages }}">Last</a>
+    </li>
+  </ul>
+</nav>
+
+
+{% endblock content %}
+```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/cf3f7b77-2f22-4de4-bb9f-18b99cf26757)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/492e8aa7-c89c-4922-9a86-55f4a4e8cad5)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/a5d38adc-26d3-471d-8d1e-c8368bd07169)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/91d6e012-3c45-4808-a78b-df57f7406007)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/2433351e-2e6e-4b7d-996f-cdc6bfe500de)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/10ae459e-a070-4b31-95c0-83fc1e1ea562)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/36c29504-0069-4311-9103-3f7ea2f94748)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/58096026-7c9a-4087-9310-70419bd8bf87)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/14ce4007-3c1e-49f4-b2b9-639c9af4033d)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/516d72c5-c66d-44f2-b5e2-46f31f484537)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/8c5756d5-d482-4511-a4b0-6e25d3687113)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/ddcf4e06-07d1-4f1a-a9e6-110e6a106a5d)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/628c02f1-4e54-40b5-9e90-7176f133cfb5)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/138600da-b0ad-4708-9c39-a163a9223ab5)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/dabb6bb7-d14e-407b-b915-f5465510c62e)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/5d7399a9-d188-4f74-b2f0-f0d7af03210f)
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/bc09af4c-f39d-454a-bff4-3212121f512a)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/e355e3f0-1038-4dbd-8e68-347c0a99a544)
+
+<img width="1396" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ec865bef-7c88-4720-9ea8-52f5b9b18ca2">
+<img width="1396" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5b350bda-4be3-424b-a10e-d3e1d4cd5b66">
+<img width="1396" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/89c12ac8-a650-4132-8124-db2470f2b637">
+<img width="1396" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/7aefe9c3-c94c-4e5a-8bda-aac412a3f9f6">
+<img width="1396" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/74ebaebc-4d46-4f50-b5c2-0f7637280f67">
+<img width="1396" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/25cb6276-4c08-4594-a3ec-b3c0d9d0e36b">
+
+# #END</details>
+
+<details>
+<summary>18. Setup User Model </summary>
+
+# Setup User Model
 
 ```py
 
