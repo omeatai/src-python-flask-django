@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
+from django.core.paginator import Paginator
+from urllib.parse import urlparse, parse_qs
 
 from .models import TaskList
 from .forms import TaskForm
@@ -15,13 +18,19 @@ def todolist(request):
             form.save()
             messages.success(
                 request, "Awesome! Your new Task has been added successfully!")
-        # note = "Your new Task has been added successfully!"
-    tasks = TaskList.objects.all()
-    context = {
-        'tasks': tasks,
-        "welcome_text": "Welcome to your Todo List!",
-    }
-    return render(request, 'todolist.html', context)
+        res = redirect('todolist')
+    else:
+        tasks = TaskList.objects.all()
+        no_per_pages = 5
+        paginator = Paginator(tasks, no_per_pages)
+        page = request.GET.get('pg')
+        tasks = paginator.get_page(page)
+
+        context = {
+            'tasks': tasks,
+            "welcome_text": "Welcome to your Todo List!",
+        }
+        return render(request, 'todolist.html', context)
 
 
 def edit_task(request, id):
@@ -45,14 +54,29 @@ def completed(request, id):
     task = TaskList.objects.get(pk=id)
     task.done = True
     task.save()
-    return redirect('todolist')
+    # GET previous url
+    previous_url = request.META.get('HTTP_REFERER')
+    parsed_url = urlparse(previous_url)
+    query_params = parse_qs(parsed_url.query)
+    pg_value = query_params.get('pg', [None])[0]
+
+    res = reverse('todolist') + f"?pg={pg_value}"
+    return redirect(res)
 
 
 def pending(request, id):
     task = TaskList.objects.get(pk=id)
     task.done = False
     task.save()
-    return redirect('todolist')
+    # GET previous url
+    previous_url = request.META.get('HTTP_REFERER')
+    parsed_url = urlparse(previous_url)
+    query_params = parse_qs(parsed_url.query)
+    pg_value = query_params.get('pg', [None])[0]
+
+    res = reverse('todolist') + f"?pg={pg_value}"
+    return redirect(res)
+    # return redirect('todolist')
 
 
 def delete_task(request, id):

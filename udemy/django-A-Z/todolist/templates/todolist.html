@@ -72,5 +72,39 @@ Welcome
     </tbody>
 </table>
 
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+
+    {% comment %} {% for i in tasks.paginator.page_range %}{% endfor %}{% endcomment %}
+
+    <li class="page-item {% if not tasks.has_previous %} disabled {% endif %}">
+      <a class="page-link" href="?pg=1">First</a>
+    </li>
+
+    {% if tasks.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?pg={{ tasks.previous_page_number }}">Previous</a>
+    </li>
+
+    <li class="page-item"><a class="page-link" href="?pg={{ tasks.previous_page_number }}">{{ tasks.previous_page_number }}</a></li>
+    {% endif %}
+
+     <li class="page-item active"><a class="page-link" href="#">{{ tasks.number }}</a></li>
+
+
+    {% if tasks.has_next %}
+    <li class="page-item"><a class="page-link" href="?pg={{ tasks.next_page_number }}">{{ tasks.next_page_number }}</a></li>
+
+    <li class="page-item">
+      <a class="page-link" href="?pg={{ tasks.next_page_number }}">Next</a>
+    </li>
+    {% endif %}
+
+    <li class="page-item {% if not tasks.has_next %} disabled {% endif %}">
+      <a class="page-link" href="?pg={{ tasks.paginator.num_pages }}">Last</a>
+    </li>
+  </ul>
+</nav>
+
 
 {% endblock content %}
