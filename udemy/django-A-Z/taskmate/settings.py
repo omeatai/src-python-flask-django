@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # apps
     'todolist',
+    'user_auth',
 ]
 
 MIDDLEWARE = [
