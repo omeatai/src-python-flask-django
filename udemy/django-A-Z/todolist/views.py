@@ -10,6 +10,13 @@ from .forms import TaskForm
 # Create your views here.
 
 
+def home(request):
+    context = {
+        "welcome_text": "Welcome to the Home Page!"
+    }
+    return render(request, 'home.html', context)
+
+
 def todolist(request):
     if request.method == "POST":
         form = TaskForm(request.POST or None)
