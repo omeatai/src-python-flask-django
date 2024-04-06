@@ -1820,21 +1820,307 @@ Welcome
 
 # Using Django Pagination
 
+[https://github.com/omeatai/src-python-flask-django/commit/6717a9bee64a99ecffe19d9d989a2e6bdb4fd416](https://github.com/omeatai/src-python-flask-django/commit/6717a9bee64a99ecffe19d9d989a2e6bdb4fd416)
+
+## Pagination Format
+
+```html
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <a class="page-link">Previous</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
+```
+
+### todolist.urls:
+
 ```py
+from django.urls import path
+from todolist import views
+
+urlpatterns = [
+    path('', views.todolist, name="todolist"),
+    path('about/', views.about, name="about"),
+    path('contact/', views.contact, name="contact"),
+    path('edit/<int:id>', views.edit_task, name="edit-task"),
+    path('delete/<int:id>', views.delete_task, name="delete-task"),
+    path('completed/<int:id>', views.completed, name="completed"),
+    path('pending/<int:id>', views.pending, name="pending"),
+]
 
 ```
 
+### todolist.models:
+
 ```py
+from django.db import models
+
+# Create your models here.
+
+
+class TaskList(models.Model):
+    task = models.CharField(max_length=300)
+    done = models.BooleanField(default=False)
+    # description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['id']
+
+    def __str__(self) -> str:
+        return f"{self.task} - {self.done}"
 
 ```
 
+### todolist.views:
+
 ```py
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
+from django.core.paginator import Paginator
+from urllib.parse import urlparse, parse_qs
+
+from .models import TaskList
+from .forms import TaskForm
+# Create your views here.
+
+
+def todolist(request):
+    if request.method == "POST":
+        form = TaskForm(request.POST or None)
+        if form.is_valid():
+            form.done = False
+            form.save()
+            messages.success(
+                request, "Awesome! Your new Task has been added successfully!")
+        res = redirect('todolist')
+    else:
+        tasks = TaskList.objects.all()
+        no_per_pages = 5
+        paginator = Paginator(tasks, no_per_pages)
+        page = request.GET.get('pg')
+        tasks = paginator.get_page(page)
+
+        context = {
+            'tasks': tasks,
+            "welcome_text": "Welcome to your Todo List!",
+        }
+        return render(request, 'todolist.html', context)
+
+
+def edit_task(request, id):
+    if request.method == "POST":
+        form = TaskForm(request.POST or None,
+                        instance=TaskList.objects.get(pk=id))
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, "Your new Task has been updated successfully!")
+            return redirect('todolist')
+    else:
+        task = TaskList.objects.get(pk=id)
+        context = {
+            'task': task,
+        }
+        return render(request, 'edit.html', context)
+
+
+def completed(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.done = True
+    task.save()
+    # GET previous url
+    previous_url = request.META.get('HTTP_REFERER')
+    parsed_url = urlparse(previous_url)
+    query_params = parse_qs(parsed_url.query)
+    pg_value = query_params.get('pg', [None])[0]
+
+    res = reverse('todolist') + f"?pg={pg_value}"
+    return redirect(res)
+
+
+def pending(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.done = False
+    task.save()
+    # GET previous url
+    previous_url = request.META.get('HTTP_REFERER')
+    parsed_url = urlparse(previous_url)
+    query_params = parse_qs(parsed_url.query)
+    pg_value = query_params.get('pg', [None])[0]
+
+    res = reverse('todolist') + f"?pg={pg_value}"
+    return redirect(res)
+    # return redirect('todolist')
+
+
+def delete_task(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.delete()
+    messages.success(request, "Task has been deleted successfully!")
+    return redirect('todolist')
+
+
+def about(request):
+    context = {
+        "welcome_text": "Welcome to the About Page!"
+    }
+    return render(request, 'about.html', context)
+
+
+def contact(request):
+    context = {
+        "welcome_text": "Welcome to the Contact Page!"
+    }
+    return render(request, 'contact.html', context)
 
 ```
 
-```py
+### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
 
+```html
+{% extends "todolist/base.html" %}
+
+{% block title %}
+Welcome
+{% endblock title %}
+
+{% block content %}
+<h2>{{ welcome_text }}</h2>
+
+<form method="POST" class="row my-3">
+    {% csrf_token %}
+
+    {% if messages %}
+
+    {% for message in messages %}
+    {% comment %} <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div> {% endcomment %}
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+
+    <div class="mb-3">
+        <label for="task" class="form-label">Add Task</label>
+        <input type="text" class="form-control" id="task" name="task" aria-describedby="textHelp"
+            placeholder="Call Alex...">
+        <div id="textHelp" class="form-text">What would you want to do?</div>
+    </div>
+    <button type="submit" class="btn btn-primary">ADD TASK</button>
+</form>
+
+
+<table class="table table-light table-striped table-hover table-bordered">
+    <thead>
+        <tr class="table-dark">
+            <th scope="col">Task</th>
+            <th scope="col">Done</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if tasks %}
+
+        {% for todo in tasks %}
+
+        {% if todo.done %}
+        <tr class="table-success">
+            <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
+            <td><a href="{% url 'pending' todo.id %}" type="button" class="btn btn-success btn-sm">YES - Mark as Pending</a></td>
+            <td><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+            <td><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+        </tr>
+        {% else %}
+        <tr>
+            <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
+            <td><a href="{% url 'completed' todo.id %}" type="button" class="btn btn-danger btn-sm">NO - Mark as Completed</a></td>
+            <td><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+            <td><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+        </tr>
+        {% endif %}
+
+        {% endfor %}
+
+        {% endif %}
+    </tbody>
+</table>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+
+    {% comment %} {% for i in tasks.paginator.page_range %}{% endfor %}{% endcomment %}
+
+    <li class="page-item {% if not tasks.has_previous %} disabled {% endif %}">
+      <a class="page-link" href="?pg=1">First</a>
+    </li>
+
+    {% if tasks.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?pg={{ tasks.previous_page_number }}">Previous</a>
+    </li>
+
+    <li class="page-item"><a class="page-link" href="?pg={{ tasks.previous_page_number }}">{{ tasks.previous_page_number }}</a></li>
+    {% endif %}
+
+     <li class="page-item active"><a class="page-link" href="#">{{ tasks.number }}</a></li>
+
+
+    {% if tasks.has_next %}
+    <li class="page-item"><a class="page-link" href="?pg={{ tasks.next_page_number }}">{{ tasks.next_page_number }}</a></li>
+
+    <li class="page-item">
+      <a class="page-link" href="?pg={{ tasks.next_page_number }}">Next</a>
+    </li>
+    {% endif %}
+
+    <li class="page-item {% if not tasks.has_next %} disabled {% endif %}">
+      <a class="page-link" href="?pg={{ tasks.paginator.num_pages }}">Last</a>
+    </li>
+  </ul>
+</nav>
+
+
+{% endblock content %}
 ```
+
+<img width="1402" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5a62d9d0-6e6b-4509-87d4-d4bfeb500217">
+<img width="1402" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b5c017a0-5974-413b-a6ac-15f1dd07df98">
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/1d8410b8-083c-495e-a65d-26582710f04c)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/90aadddc-6dbf-48fb-882b-890072028d17)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/93840e33-4778-4816-a3ff-fd404fcccf26)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/c14ad119-bd1e-4b0d-8200-8c2da8f3a62f)
+
+<img width="1396" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/f8be2323-0489-4681-908a-686338658626">
+<img width="1396" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e7c4b243-8f57-42e7-8507-9a88f11b9813">
+<img width="1396" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/349b9cad-191e-4cff-b614-e0e517736faa">
+<img width="1396" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ce1ac473-c04d-4305-811d-cbd88dfb01c4">
+
+# #END</details>
+
+<details>
+<summary>17. Setup URL Shortcuts </summary>
+
+# Setup URL Shortcuts 
 
 ```py
 
