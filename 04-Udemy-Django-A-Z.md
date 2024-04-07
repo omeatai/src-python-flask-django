@@ -2615,9 +2615,121 @@ def register(request):
 # #END</details>
 
 <details>
-<summary>19. Setup Registration Form, Views and Template </summary>
+<summary>19. Setup Registration userCreationForm, Views and Template with Errors and Messages </summary>
 
-# Setup Registration Form, Views and Template
+# Setup Registration userCreationForm, Views and Template with Errors and Messages
+
+[https://github.com/omeatai/src-python-flask-django/commit/a9d6c021a3d5cf2bdf7591043b5b21dcfc894940](https://github.com/omeatai/src-python-flask-django/commit/a9d6c021a3d5cf2bdf7591043b5b21dcfc894940)
+
+### user_auth.views:
+
+```py
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+# Create your views here.
+
+
+def register(request):
+    if request.method == "POST":
+        register_form = UserCreationForm(request.POST)
+        if register_form.is_valid():
+            register_form.save()
+            messages.success(
+                request, "Awesome! Your new account has been created successfully! Login to Get Started.")
+            return redirect('register')
+        else:
+            messages.error(
+                request, "Sorry! Your new account could not be created. Please try again.")
+            return render(request, 'user_auth/register.html', {'register_form': register_form})
+    else:
+        register_form = UserCreationForm()
+        return render(request, 'user_auth/register.html', {'register_form': register_form})
+
+```
+
+### src-python/udemy/django-A-Z/user_auth/templates/user_auth/register.html:
+
+```html
+{% extends "todolist/base.html" %}
+
+{% block title %}
+Sign Up - Taskmate
+{% endblock title %}
+
+{% block content %}
+
+<div>
+    <form action="" method="POST" class="form-group my-3">
+        {% csrf_token %}
+
+        {% if messages %}
+        {% for message in messages %}
+
+        <div class="alert {% if message.tags == 'error' %} alert-danger {% elif message.tags == 'success' %} alert-success {% else %} alert-warning {% endif %} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        {% endfor %}
+        {% endif %}
+
+        <hr/>
+
+        {% if register_form.errors %}
+        {% for field in register_form %}
+            {{ field.errors }}
+        {% endfor %}
+        {% endif %}
+
+        <hr/>
+
+        {% if register_form.errors %}
+        {% for field in register_form %}
+            {% for error in field.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ error|escape }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        {% endfor %}
+        {% endif %}
+
+        <hr/>
+
+        {% if register_form.non_field_errors %}
+        {% for error in register_form.non_field_errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ error|escape }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+        {% endif %}
+
+        <hr/>
+
+        {{ register_form.as_p}}
+
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+</div>
+{% endblock content %}
+```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/8a3212cc-4284-461c-bd13-3e334a1a281d)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/56eef428-a699-4462-bc72-ad15a5e5768d)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/b3866b11-26b3-4403-9488-cf4c9466e712)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/7462171d-5d6c-4f08-abb5-e5162463312a)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/0a1aacd4-81bb-496a-b194-b05c79763967)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/79beffcf-e612-4499-a038-04f8270d7095)
+
+# #END</details>
+
+<details>
+<summary>20. Add Email Field to Form </summary>
+
+# Add Email Field to Form
 
 ```py
 
