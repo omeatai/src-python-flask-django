@@ -26,16 +26,6 @@ Sign Up - Taskmate
         {% endfor %}
         {% endif %}
 
-        <hr/>
-
-        {% if register_form.errors %}
-        {% for field in register_form %}
-            {{ field.errors }}
-        {% endfor %}
-        {% endif %}
-
-        <hr/>
-
         {% if register_form.errors %}
         {% for field in register_form %}
             {% for error in field.errors %}
@@ -46,19 +36,6 @@ Sign Up - Taskmate
             {% endfor %}
         {% endfor %}
         {% endif %}
-
-        <hr/>
-
-        {% if register_form.non_field_errors %}
-        {% for error in register_form.non_field_errors %}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ error|escape }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
-        {% endif %}
-
-        <hr/>
 
         {{ register_form.as_p}}
 
