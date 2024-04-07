@@ -2727,13 +2727,123 @@ Sign Up - Taskmate
 # #END</details>
 
 <details>
-<summary>20. Add Email Field to Form </summary>
+<summary>20. Add Email Field to Form with forms.py </summary>
 
-# Add Email Field to Form
+# Add Email Field to Form with forms.py
+
+[https://github.com/omeatai/src-python-flask-django/commit/d3c63eda49bdb6f0cfd92c935930d850010d4126](https://github.com/omeatai/src-python-flask-django/commit/d3c63eda49bdb6f0cfd92c935930d850010d4126)
+
+### user_auth.forms:
 
 ```py
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+
+class CustomRegistrationForm(UserCreationForm):
+    email = forms.EmailField(max_length=200, help_text="Required")
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
 
 ```
+
+### user_auth.views:
+
+```py
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+
+from .forms import CustomRegistrationForm
+# Create your views here.
+
+
+def register(request):
+    if request.method == "POST":
+        register_form = CustomRegistrationForm(request.POST)
+        if register_form.is_valid():
+            register_form.save()
+            messages.success(
+                request, "Awesome! Your new account has been created successfully! Login to Get Started.")
+            return redirect('register')
+        else:
+            messages.error(
+                request, "Sorry! Your new account could not be created. Please try again.")
+            return render(request, 'user_auth/register.html', {'register_form': register_form})
+    else:
+        register_form = CustomRegistrationForm()
+        return render(request, 'user_auth/register.html', {'register_form': register_form})
+
+```
+
+### src-python/udemy/django-A-Z/user_auth/templates/user_auth/register.html:
+
+```html
+{% extends "todolist/base.html" %}
+
+{% block title %}
+Sign Up - Taskmate
+{% endblock title %}
+
+{% block content %}
+
+<div>
+    <form action="" method="POST" class="form-group my-3">
+        {% csrf_token %}
+
+        {% if messages %}
+        {% for message in messages %}
+
+        <div class="alert
+        {% if message.tags == 'error' %} alert-danger
+        {% elif message.tags == 'success' %} alert-success
+        {% else %} alert-warning
+        {% endif %} alert-dismissible fade show"
+        role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        {% endfor %}
+        {% endif %}
+
+        {% if register_form.errors %}
+        {% for field in register_form %}
+            {% for error in field.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ error|escape }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        {% endfor %}
+        {% endif %}
+
+        {{ register_form.as_p}}
+
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+</div>
+{% endblock content %}
+```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/f0fef2cd-8bf0-42fb-bf1b-80032ff682d9)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/c1253e16-e4be-463a-b4f7-a74f942de281)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/2f237133-d42c-471e-bc56-181b8c631fa1)
+
+<img width="1377" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/908fed7d-8b70-4886-ac79-027087017e59">
+<img width="1377" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/124d7dd2-bca9-4523-83bc-0886f7386f31">
+<img width="1377" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/d73fb41c-6967-4489-908b-902721ad6181">
+
+# #END</details>
+
+<details>
+<summary>21. Redesign the Register Page with Crispy Forms </summary>
+
+# Redesign the Register Page with Crispy Forms 
 
 ```py
 
