@@ -2523,9 +2523,137 @@ Welcome
 # #END</details>
 
 <details>
-<summary>18. Setup User Model </summary>
+<summary>18. Setup User Authentication App </summary>
 
-# Setup User Model
+# Setup User Authentication App
+
+[https://github.com/omeatai/src-python-flask-django/commit/071b0e57d5f1903d870b67c2bec349bef8770c9b](https://github.com/omeatai/src-python-flask-django/commit/071b0e57d5f1903d870b67c2bec349bef8770c9b)
+
+### Create User App
+
+```py
+python manage.py startapp user_auth
+```
+
+### taskmate.settings:
+
+```py
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # apps
+    'todolist',
+    'user_auth',
+]
+```
+
+### taskmate.urls:
+
+```py
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('todolist.urls')),
+    path('account/', include('user_auth.urls')),
+]
+```
+
+### user_auth.urls:
+
+```py
+from django.urls import path
+from user_auth import views
+
+urlpatterns = [
+    path('register/', views.register, name="register"),
+
+    # path('signup/', views.signup, name="signup"),
+    # path('login/', views.login_user, name="login"),
+    # path('logout/', views.logout_user, name="logout"),
+    # path('profile/', views.profile, name="profile"),
+    # path('edit-profile/', views.edit_profile, name="edit-profile"),
+    # path('change-password/', views.change_password, name="change-password"),
+    # path('reset-password/', views.reset_password, name="reset-password"),
+    # path('reset-password-done/', views.reset_password_done, name="reset-password-done"),
+    # path('reset-password-confirm/<uidb64>/<token>/', views.reset_password_confirm, name="reset-password-confirm"),
+    # path('reset-password-complete/', views.reset_password_complete, name="reset-password-complete"),
+    # path('delete-account/', views.delete_account, name="delete-account"),
+]
+
+```
+
+### user_auth.views:
+
+```py
+from django.shortcuts import render
+from django.http import HttpResponse
+# Create your views here.
+
+
+def register(request):
+    return HttpResponse("<h1>User registration Page is working!</h1>")
+    # return render(request, 'register.html', {})
+
+```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/e4a251f1-43e0-4416-a791-862ec83beed2)
+
+<img width="1396" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/46946c8a-2738-4526-9e41-e07251234608">
+<img width="1396" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e906c58e-310f-44da-81ad-9a085d9e6ce6">
+<img width="1396" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/90398f9e-5c4c-4898-9910-aae10b343f05">
+<img width="1396" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/3bc0762d-c8f6-483e-a7ab-4f5769133b0b">
+
+# #END</details>
+
+<details>
+<summary>19. Setup Registration Form, Views and Template </summary>
+
+# Setup Registration Form, Views and Template
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
 
 ```py
 
