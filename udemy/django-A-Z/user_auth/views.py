@@ -1,8 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 # Create your views here.
 
 
 def register(request):
-    return HttpResponse("<h1>User registration Page is working!</h1>")
-    # return render(request, 'register.html', {})
+    if request.method == "POST":
+        register_form = UserCreationForm(request.POST)
+        if register_form.is_valid():
+            register_form.save()
+            messages.success(
+                request, "Awesome! Your new account has been created successfully! Login to Get Started.")
+            return redirect('register')
+        else:
+            messages.error(
+                request, "Sorry! Your new account could not be created. Please try again.")
+            return render(request, 'user_auth/register.html', {'register_form': register_form})
+    else:
+        register_form = UserCreationForm()
+        return render(request, 'user_auth/register.html', {'register_form': register_form})
