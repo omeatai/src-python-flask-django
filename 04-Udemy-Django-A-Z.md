@@ -2952,17 +2952,116 @@ Sign Up - Taskmate
 
 # Login Functionality
 
+[https://github.com/omeatai/src-python-flask-django/commit/6cd6828e1377c2306776d47d8f21e5c13b3dd1a8](https://github.com/omeatai/src-python-flask-django/commit/6cd6828e1377c2306776d47d8f21e5c13b3dd1a8)
+
+### taskmate.settings:
+
 ```py
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+
+LOGIN_REDIRECT_URL = 'todolist'
+```
+
+### user_auth.urls:
+
+```py
+from django.urls import path
+from user_auth import views
+from django.contrib.auth import views as auth_views
+
+urlpatterns = [
+    path('register/', views.register, name="register"),
+    path('login/', auth_views.LoginView.as_view(template_name='user_auth/login.html'), name="login"),
+    # path('logout/', auth_views.LogoutView.as_view(), name="logout"),
+
+    # path('signup/', views.signup, name="signup"),
+    # path('login/', views.login_user, name="login"),
+    # path('logout/', views.logout_user, name="logout"),
+    # path('profile/', views.profile, name="profile"),
+    # path('edit-profile/', views.edit_profile, name="edit-profile"),
+    # path('change-password/', views.change_password, name="change-password"),
+    # path('reset-password/', views.reset_password, name="reset-password"),
+    # path('reset-password-done/', views.reset_password_done, name="reset-password-done"),
+    # path('reset-password-confirm/<uidb64>/<token>/', views.reset_password_confirm, name="reset-password-confirm"),
+    # path('reset-password-complete/', views.reset_password_complete, name="reset-password-complete"),
+    # path('delete-account/', views.delete_account, name="delete-account"),
+]
 
 ```
 
-```py
+### src-python/udemy/django-A-Z/user_auth/templates/user_auth/login.html:
 
+```html
+{% extends "todolist/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Sign In - Taskmate
+{% endblock title %}
+
+{% block content %}
+
+<div>
+    <h2>Sign In</h2>
+    <form action="" method="POST" class="form-group my-3 col-6">
+        {% csrf_token %}
+
+        {% if messages %}
+        {% for message in messages %}
+
+        <div class="alert
+        {% if message.tags == 'error' %} alert-danger
+        {% elif message.tags == 'success' %} alert-success
+        {% else %} alert-warning
+        {% endif %} alert-dismissible fade show"
+        role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        {% endfor %}
+        {% endif %}
+
+        {% if register_form.errors %}
+        {% for field in register_form %}
+            {% for error in field.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ error|escape }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        {% endfor %}
+        {% endif %}
+
+        {{ form|crispy }}
+
+        <button type="submit" class="btn btn-primary">Sign In</button>
+    </form>
+</div>
+{% endblock content %}
 ```
 
-```py
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/ced09a03-fb3d-4c64-b01a-bbfb1df602d9)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/f6421499-d2da-45e5-acc6-7e1ca124b53c)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/1d4896ff-b121-43ac-8f40-d5044f27fc5a)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/b278fdfa-68b0-47d6-b4e2-fac4b2d5e95b)
 
-```
+<img width="1447" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/023f6b2d-e771-438b-bb2d-9d06cb1b1b79">
+<img width="1447" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/851925dd-fa3a-4743-b7ac-473c0eaea69a">
+<img width="1447" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/1acc64db-a3df-477c-bfc3-e7561f93b6c7">
+
+# #END</details>
+
+<details>
+<summary>23. Logout Functionality </summary>
+
+# Logout Functionality
 
 ```py
 
