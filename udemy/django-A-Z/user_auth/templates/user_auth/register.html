@@ -1,4 +1,5 @@
 {% extends "todolist/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %}
 Sign Up - Taskmate
@@ -7,7 +8,8 @@ Sign Up - Taskmate
 {% block content %}
 
 <div>
-    <form action="" method="POST" class="form-group my-3">
+    <h2>Sign Up</h2>
+    <form action="" method="POST" class="form-group my-3 col-6">
         {% csrf_token %}
 
         {% if messages %}
@@ -37,7 +39,7 @@ Sign Up - Taskmate
         {% endfor %}
         {% endif %}
 
-        {{ register_form.as_p}}
+        {{ register_form|crispy }}
 
         <button type="submit" class="btn btn-primary">Sign Up</button>
     </form>
