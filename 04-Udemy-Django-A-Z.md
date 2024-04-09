@@ -2843,19 +2843,114 @@ Sign Up - Taskmate
 <details>
 <summary>21. Redesign the Register Page with Crispy Forms </summary>
 
-# Redesign the Register Page with Crispy Forms 
+# Redesign the Register Page with Crispy Forms
+
+[https://github.com/omeatai/src-python-flask-django/commit/9ea3288a858fe8e5a453b400794e894cfe16a213](https://github.com/omeatai/src-python-flask-django/commit/9ea3288a858fe8e5a453b400794e894cfe16a213)
+
+## Install Crispy Forms
+
+```x
+pip install crispy-bootstrap5
+```
+
+### taskmate.settings:
 
 ```py
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # apps
+    'todolist',
+    'user_auth',
+    'crispy_forms',
+    'crispy_bootstrap5',
+]
+
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 
 ```
 
-```py
+### src-python/udemy/django-A-Z/user_auth/templates/user_auth/register.html:
 
+```html
+{% extends "todolist/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Sign Up - Taskmate
+{% endblock title %}
+
+{% block content %}
+
+<div>
+    <h2>Sign Up</h2>
+    <form action="" method="POST" class="form-group my-3 col-6">
+        {% csrf_token %}
+
+        {% if messages %}
+        {% for message in messages %}
+
+        <div class="alert
+        {% if message.tags == 'error' %} alert-danger
+        {% elif message.tags == 'success' %} alert-success
+        {% else %} alert-warning
+        {% endif %} alert-dismissible fade show"
+        role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        {% endfor %}
+        {% endif %}
+
+        {% if register_form.errors %}
+        {% for field in register_form %}
+            {% for error in field.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ error|escape }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        {% endfor %}
+        {% endif %}
+
+        {{ register_form|crispy }}
+
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+</div>
+{% endblock content %}
 ```
 
-```py
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/92e7f747-7986-4410-af6d-95c8e83a4527)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/f19ad3d6-4d0c-49e8-a619-bdfecff9c029)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/f488d0f0-1734-44bd-b8de-fba7e47134b9)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/dba5eccb-5065-48d8-a0b5-69e3a4ed0096)
 
-```
+<img width="1447" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b4ac9c23-ae6e-4cb9-9e26-79513d47fece">
+<img width="1447" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/36e9fbc4-35c1-4e66-bdf0-6a41ace252d7">
+
+
+# #END</details>
+
+<details>
+<summary>22. Login Functionality </summary>
+
+# Login Functionality
 
 ```py
 
