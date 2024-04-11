@@ -3059,25 +3059,232 @@ Sign In - Taskmate
 # #END</details>
 
 <details>
-<summary>23. Logout Functionality </summary>
+<summary>23. Logout Functionality and Username in Navbar </summary>
 
-# Logout Functionality
+# Logout Functionality and Username in Navbar
+
+### user_auth.urls:
 
 ```py
+from django.urls import path
+from user_auth import views
+from django.contrib.auth import views as auth_views
+
+urlpatterns = [
+    path('register/', views.register, name="register"),
+    path('login/', auth_views.LoginView.as_view(template_name='user_auth/login.html'), name="login"),
+    path('logout/', views.logout, name="logout"),
+
+    # path('signup/', views.signup, name="signup"),
+    # path('login/', views.login_user, name="login"),
+    # path('logout/', views.logout_user, name="logout"),
+    # path('profile/', views.profile, name="profile"),
+    # path('edit-profile/', views.edit_profile, name="edit-profile"),
+    # path('change-password/', views.change_password, name="change-password"),
+    # path('reset-password/', views.reset_password, name="reset-password"),
+    # path('reset-password-done/', views.reset_password_done, name="reset-password-done"),
+    # path('reset-password-confirm/<uidb64>/<token>/', views.reset_password_confirm, name="reset-password-confirm"),
+    # path('reset-password-complete/', views.reset_password_complete, name="reset-password-complete"),
+    # path('delete-account/', views.delete_account, name="delete-account"),
+]
 
 ```
 
+### user_auth.views:
+
 ```py
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth import views as auth_views
+from django.contrib.auth import logout
+from django.views import View
+from django.contrib.auth.views import LogoutView
+
+from .forms import CustomRegistrationForm
+# Create your views here.
+
+
+def register(request):
+    if request.method == "POST":
+        register_form = CustomRegistrationForm(request.POST)
+        if register_form.is_valid():
+            register_form.save()
+            messages.success(
+                request, "Awesome! Your new account has been created successfully! Login to Get Started.")
+            return redirect('register')
+        else:
+            messages.error(
+                request, "Sorry! Your new account could not be created. Please try again.")
+            return render(request, 'user_auth/register.html', {'register_form': register_form})
+    else:
+        register_form = CustomRegistrationForm()
+        return render(request, 'user_auth/register.html', {'register_form': register_form})
+
+
+def logout(request):
+    if request.method == 'POST':
+        messages.success(
+            request, "Awesome! You have been logged out successfully!")
+        return LogoutView.as_view(next_page='login')(request)
+    else:
+        return render(request, 'user_auth/logout.html')
+
+
+# class UserLogoutView(LogoutView):
+#     def get(self, request):
+#         logout(request)
+#         return redirect('login')
 
 ```
 
-```py
+### src-python/udemy/django-A-Z/templates/todolist/base.html:
 
+```html
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="icon" href="{% static 'todolist/images/favicon.ico' %}" type="image/gif" sizes="16x16">
+
+    <title>Todo List Manager - {% block title %}{% endblock title %} </title>
+</head>
+
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg bg-body-dark mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'todolist/images/logo-1.png' %}"
+                    alt="Taskmate Logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{% url 'todolist' %}">Todo List</a>
+                </li>
+                 <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">About Us</a>
+                </li>
+                 <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                </li>
+
+            </ul>
+            {% if user.is_authenticated %}
+            <div class="d-flex text-secondary mx-2">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Welcome, {{ user.username|title }}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Change Password</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                    </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex mx-2">
+                <a href="{% url 'logout' %}" class="btn btn-danger" type="submit">Logout</a>
+            </div>
+            {% else %}
+            <div class="d-flex mx-2">
+                <a href="{% url 'login' %}" class="btn btn-success" type="submit">Login</a>
+            </div>
+            <div class="d-flex mx-2">
+                <a href="{% url 'register' %}" class="btn btn-primary" type="submit">Register</a>
+            </div>
+            {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Taskmate</h1>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
 ```
 
-```py
+### src-python/udemy/django-A-Z/user_auth/templates/user_auth/logout.html:
 
+```html
+{% extends "todolist/base.html" %}
+
+{% block title %}
+Logged Out - Taskmate
+{% endblock title %}
+
+{% block content %}
+
+<div>
+    <form action="{% url 'logout' %}" method="POST" class="form-group my-3 col-6">
+        {% csrf_token %}
+
+        {% if messages %}
+        {% for message in messages %}
+
+        <div class="alert
+        {% if message.tags == 'error' %} alert-danger
+        {% elif message.tags == 'success' %} alert-success
+        {% else %} alert-warning
+        {% endif %} alert-dismissible fade show"
+        role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        {% endfor %}
+        {% endif %}
+
+        <h2 class="text-secondary">Sure you want to Logout of Taskmate?</h2>
+
+        <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
+</div>
+{% endblock content %}
 ```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/7c7e0b1a-a083-4019-8037-6b79ef1f1eac)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/170123a2-d524-4809-ac1a-ce44213feb86)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/3b019d45-f235-4f14-99c3-4b384bf30ba5)
+
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ceaaf8c7-f786-4154-bfc1-f48615ebda56">
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/67be9e97-ef33-4f58-875c-3e11781e19ce">
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/6b6ce0ff-9357-4e0b-92bb-4608e2ff7955">
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/43f565e8-c61e-436f-8b5a-ec4278959f3a">
+
+# #END</details>
+
+<details>
+<summary>24. Login Manually with authenticate and login </summary>
+
+# Login Manually with authenticate and login
 
 ```py
 
