@@ -17,32 +17,56 @@
 </head>
 
 <body class="bg-light">
-    <nav class="navbar navbar-expand-lg bg-body-dark navbar-dark bg-dark">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg bg-body-dark mb-4">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'todolist/images/logo-1.png' %}"
                     alt="Taskmate Logo"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'todolist' %}">Todo List</a>
-                        {% comment %} <a class="nav-link" href="/task">Todo List</a> {% endcomment %}
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">About Us</a>
-                        {% comment %} <a class="nav-link" href="/task/about">About Us</a> {% endcomment %}
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
-                        {% comment %} <a class="nav-link" href="/task/contact">Contact Us</a> {% endcomment %}
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{% url 'todolist' %}">Todo List</a>
+                </li>
+                 <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">About Us</a>
+                </li>
+                 <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                </li>
+
+            </ul>
+            {% if user.is_authenticated %}
+            <div class="d-flex text-secondary mx-2">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Welcome, {{ user.username|title }}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Change Password</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                    </ul>
                     </li>
                 </ul>
+            </div>
+            <div class="d-flex mx-2">
+                <a href="{% url 'logout' %}" class="btn btn-danger" type="submit">Logout</a>
+            </div>
+            {% else %}
+            <div class="d-flex mx-2">
+                <a href="{% url 'login' %}" class="btn btn-success" type="submit">Login</a>
+            </div>
+            <div class="d-flex mx-2">
+                <a href="{% url 'register' %}" class="btn btn-primary" type="submit">Register</a>
+            </div>
+            {% endif %}
             </div>
         </div>
     </nav>

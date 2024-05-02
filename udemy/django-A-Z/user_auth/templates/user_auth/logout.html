@@ -1,0 +1,34 @@
+{% extends "todolist/base.html" %}
+
+{% block title %}
+Logged Out - Taskmate
+{% endblock title %}
+
+{% block content %}
+
+<div>
+    <form action="{% url 'logout' %}" method="POST" class="form-group my-3 col-6">
+        {% csrf_token %}
+
+        {% if messages %}
+        {% for message in messages %}
+
+        <div class="alert
+        {% if message.tags == 'error' %} alert-danger
+        {% elif message.tags == 'success' %} alert-success
+        {% else %} alert-warning
+        {% endif %} alert-dismissible fade show"
+        role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        {% endfor %}
+        {% endif %}
+
+        <h2 class="text-secondary">Sure you want to Logout of Taskmate?</h2>
+
+        <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
+</div>
+{% endblock content %}

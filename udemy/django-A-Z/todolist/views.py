@@ -25,7 +25,7 @@ def todolist(request):
             form.save()
             messages.success(
                 request, "Awesome! Your new Task has been added successfully!")
-        res = redirect('todolist')
+            redirect('todolist')
     else:
         tasks = TaskList.objects.all()
         no_per_pages = 5
