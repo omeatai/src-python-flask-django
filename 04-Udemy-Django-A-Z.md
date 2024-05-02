@@ -4293,9 +4293,218 @@ Welcome
 # #END</details>
 
 <details>
-<summary>30. Securing Application </summary>
+<summary>30. Allow only Owners to Update, Delete or changes Status of their Tasks </summary>
 
-# Securing Application
+# Allow only Owners to Update, Delete or changes Status of their Tasks
+
+[https://github.com/omeatai/src-python-flask-django/commit/6f5f8d6591a65b34dd77615fdc78dca64fe6958b](https://github.com/omeatai/src-python-flask-django/commit/6f5f8d6591a65b34dd77615fdc78dca64fe6958b)
+
+### todolist.views:
+
+```py
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
+from django.core.paginator import Paginator
+from urllib.parse import urlparse, parse_qs
+from django.contrib.auth.decorators import login_required
+
+from .models import TaskList
+from .forms import TaskForm
+# Create your views here.
+
+
+def home(request):
+    context = {
+        "welcome_text": "Welcome to the Home Page!"
+    }
+    return render(request, 'home.html', context)
+
+
+@login_required(login_url='login')
+def todolist(request):
+    if request.method == "POST":
+        form = TaskForm(request.POST or None)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.done = False
+            instance.owner = request.user
+            instance.save()
+            messages.success(
+                request, "Awesome! Your new Task has been added successfully!")
+            return redirect('todolist')
+    else:
+        # tasks = TaskList.objects.all()
+        tasks = TaskList.objects.filter(owner=request.user)
+        no_per_pages = 5
+        paginator = Paginator(tasks, no_per_pages)
+        page = request.GET.get('pg')
+        tasks = paginator.get_page(page)
+
+        context = {
+            'tasks': tasks,
+            "welcome_text": "Welcome to your Todo List!",
+        }
+        return render(request, 'todolist.html', context)
+
+
+@login_required
+def edit_task(request, id):
+    if request.method == "POST":
+        form = TaskForm(request.POST or None,
+                        instance=TaskList.objects.get(pk=id))
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, "Your new Task has been updated successfully!")
+            return redirect('todolist')
+    else:
+        task = TaskList.objects.get(pk=id)
+        context = {
+            'task': task,
+        }
+        return render(request, 'edit.html', context)
+
+
+@login_required
+def completed(request, id):
+    task = TaskList.objects.get(pk=id)
+    if task.owner == request.user:
+        task.done = True
+        task.save()
+        # GET previous url
+        previous_url = request.META.get('HTTP_REFERER')
+        parsed_url = urlparse(previous_url)
+        query_params = parse_qs(parsed_url.query)
+        pg_value = query_params.get('pg', [None])[0]
+
+        res = reverse('todolist') + f"?pg={pg_value}"
+        return redirect(res)
+    else:
+        messages.error(
+            request, "You are not allowed to mark this task as completed!")
+        return redirect('todolist')
+
+
+@login_required
+def pending(request, id):
+    task = TaskList.objects.get(pk=id)
+    if task.owner == request.user:
+        task.done = False
+        task.save()
+        # GET previous url
+        previous_url = request.META.get('HTTP_REFERER')
+        parsed_url = urlparse(previous_url)
+        query_params = parse_qs(parsed_url.query)
+        pg_value = query_params.get('pg', [None])[0]
+
+        res = reverse('todolist') + f"?pg={pg_value}"
+        return redirect(res)
+    else:
+        messages.error(
+            request, "You are not allowed to mark this task as pending!")
+        return redirect('todolist')
+
+
+@login_required
+def delete_task(request, id):
+    task = TaskList.objects.get(pk=id)
+    if task.owner == request.user:
+        task.delete()
+        messages.success(request, "Task has been deleted successfully!")
+    else:
+        messages.error(
+            request, "You are not allowed to delete this task!")
+    return redirect('todolist')
+
+
+def about(request):
+    context = {
+        "welcome_text": "Welcome to the About Page!"
+    }
+    return render(request, 'about.html', context)
+
+
+@login_required
+def contact(request):
+    context = {
+        "welcome_text": "Welcome to the Contact Page!"
+    }
+    return render(request, 'contact.html', context)
+
+```
+
+### src-python/udemy/django-A-Z/todolist/templates/edit.html:
+
+```py
+{% extends "todolist/base.html" %}
+
+{% block title %}
+Welcome
+{% endblock title %}
+
+{% block content %}
+<h2>{{ welcome_text }}</h2>
+
+{% if task.owner == request.user %}
+
+<form method="POST" class="row my-3">
+    {% csrf_token %}
+
+    {% if messages %}
+
+    {% for message in messages %}
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+
+    <div class="mb-3">
+        <label for="task" class="form-label">Edit Task</label>
+        <input type="text" class="form-control" id="task" name="task" value="{{ task.task }}" aria-describedby="textHelp"
+            placeholder="{{ task.task }}">
+        <div id="textHelp" class="form-text">Make your changes</div>
+    </div>
+    <div class="mb-3">
+        {% comment %} <input type='hidden' name="done" value="{{ task.done }}" /> {% endcomment %}
+
+        <label for="done" class="form-label">Is it Done?</label>
+        <select class="form-select" id="done" name="done" aria-label="Default select example">
+            <option value=False {% if not task.done %} selected {% endif %}>NO</option>
+            <option value=True {% if task.done %} selected {% endif %}>YES</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary my-2">Update TASK</button>
+    <a href="{% url 'todolist' %}" class="btn btn-danger my-2">Back</a>
+</form>
+
+{% else %}
+
+<h2>Access Denied! You are Not the Owner of this Post!</h2>
+<a href="{% url 'todolist' %}" class="btn btn-danger my-2">Go To Your Todolist</a>
+
+{% endif %}
+
+{% endblock content %}
+```
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/caeaf8ef-43bc-48d0-99f7-1a454b84645b">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/05a13074-87ef-4209-ac2b-79314ddfbef9">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e01329e7-6110-4a24-92f1-268570fcf576">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/7eb5f0a8-2e96-448b-b085-621abe52e4e8">
+
+# #END</details>
+
+<details>
+<summary>31. Connect PostgreSQL Database </summary>
+
+# Connect PostgreSQL Database
 
 ```py
 
