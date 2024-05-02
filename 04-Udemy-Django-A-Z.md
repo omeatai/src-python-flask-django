@@ -5105,8 +5105,21 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 ```
 
-```py
+# Setup passenger_wsgi.py
 
+```py
+# from taskmate.wsgi import application
+
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(__file__))
+
+def application(environ, start_response):
+    start_response('200 OK', [(Content-Type, 'text/plain')])
+    message = 'It works!'
+    response = message
+    return [response.encode()]
 ```
 
 # #END</details>
