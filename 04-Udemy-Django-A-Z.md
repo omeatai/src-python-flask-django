@@ -3836,6 +3836,88 @@ def contact(request):
 
 # Relationship between User to Task
 
+[https://github.com/omeatai/src-python-flask-django/commit/1be6a912f9b2beedb658c1d66d0bbba390d02722](https://github.com/omeatai/src-python-flask-django/commit/1be6a912f9b2beedb658c1d66d0bbba390d02722)
+
+## Make Migrations
+
+```py
+python manage.py makemigrations
+python manage.py migrate 
+```
+
+### todolist.models:
+
+```py
+from django.db import models
+from django.contrib.auth.models import User
+
+# Create your models here.
+
+
+class TaskList(models.Model):
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    task = models.CharField(max_length=300)
+    done = models.BooleanField(default=False)
+    # description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['id']
+
+    def __str__(self) -> str:
+        return f"{self.task} - {self.done} (by {self.owner})"
+
+```
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/8018cdbb-7c36-4375-abc2-20494ab58204">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/c797c459-c6d7-494c-ab1e-0ff1f8ed3e02">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/37615109-bd40-4d9e-8f9f-51c9c0aee3ce">
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/be18e020-040f-4347-96d2-d0b8eb8e90f6">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/bdc66f6f-fecf-4390-95e8-a069a673b77b">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/ae23443a-b580-43d9-b913-55690e852ca6">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/f62994e3-8a2f-47ee-b26b-109db254e151">
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/11a0c0c9-4990-40be-bf16-bdc2c8ddafc9">
+
+# #END</details>
+
+<details>
+<summary>28. Creating Task with User </summary>
+
+# Creating Task with User
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
 
 ```py
 
