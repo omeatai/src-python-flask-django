@@ -3630,33 +3630,212 @@ def auth_logout(request):
 # #END</details>
 
 <details>
-<summary>26. Handling Header Restrictions </summary>
+<summary>26. Auth Page Restrictions </summary>
 
-# Handling Header Restrictions
+# Auth Page Restrictions
+
+[https://github.com/omeatai/src-python-flask-django/commit/b4056b0987df08efd47c40f81287360628340a9a](https://github.com/omeatai/src-python-flask-django/commit/b4056b0987df08efd47c40f81287360628340a9a)
+
+## Logic for Limiting access to logged-in users
 
 ```py
+from django.conf import settings
+from django.shortcuts import redirect
 
+
+def my_view(request):
+    if not request.user.is_authenticated:
+        return redirect(f"{settings.LOGIN_URL}?next={request.path}")
 ```
 
 ```py
+from django.shortcuts import render
 
+
+def my_view(request):
+    if not request.user.is_authenticated:
+        return render(request, "myapp/login_error.html")
 ```
 
 ```py
+from django.contrib.auth.decorators import login_required
 
+
+@login_required(redirect_field_name='next', login_url='login')
+def my_view(request):
+    pass
 ```
+
+### todolist.urls:
 
 ```py
+from django.urls import path
+from todolist import views
+
+urlpatterns = [
+    path('', views.home, name="home"),
+    path('todolist/', views.todolist, name="todolist"),
+    path('about/', views.about, name="about"),
+    path('contact/', views.contact, name="contact"),
+    path('edit/<int:id>', views.edit_task, name="edit-task"),
+    path('delete/<int:id>', views.delete_task, name="delete-task"),
+    path('completed/<int:id>', views.completed, name="completed"),
+    path('pending/<int:id>', views.pending, name="pending"),
+]
 
 ```
+
+### taskmate.settings:
 
 ```py
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+
+LOGIN_REDIRECT_URL = 'todolist'
+LOGIN_URL = 'login'
 
 ```
+
+### todolist.views:
 
 ```py
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
+from django.core.paginator import Paginator
+from urllib.parse import urlparse, parse_qs
+from django.contrib.auth.decorators import login_required
 
+from .models import TaskList
+from .forms import TaskForm
+# Create your views here.
+
+
+def home(request):
+    context = {
+        "welcome_text": "Welcome to the Home Page!"
+    }
+    return render(request, 'home.html', context)
+
+
+@login_required(login_url='login')
+def todolist(request):
+    if request.method == "POST":
+        form = TaskForm(request.POST or None)
+        if form.is_valid():
+            form.done = False
+            form.save()
+            messages.success(
+                request, "Awesome! Your new Task has been added successfully!")
+            redirect('todolist')
+    else:
+        tasks = TaskList.objects.all()
+        no_per_pages = 5
+        paginator = Paginator(tasks, no_per_pages)
+        page = request.GET.get('pg')
+        tasks = paginator.get_page(page)
+
+        context = {
+            'tasks': tasks,
+            "welcome_text": "Welcome to your Todo List!",
+        }
+        return render(request, 'todolist.html', context)
+
+
+@login_required
+def edit_task(request, id):
+    if request.method == "POST":
+        form = TaskForm(request.POST or None,
+                        instance=TaskList.objects.get(pk=id))
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, "Your new Task has been updated successfully!")
+            return redirect('todolist')
+    else:
+        task = TaskList.objects.get(pk=id)
+        context = {
+            'task': task,
+        }
+        return render(request, 'edit.html', context)
+
+
+def completed(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.done = True
+    task.save()
+    # GET previous url
+    previous_url = request.META.get('HTTP_REFERER')
+    parsed_url = urlparse(previous_url)
+    query_params = parse_qs(parsed_url.query)
+    pg_value = query_params.get('pg', [None])[0]
+
+    res = reverse('todolist') + f"?pg={pg_value}"
+    return redirect(res)
+
+
+def pending(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.done = False
+    task.save()
+    # GET previous url
+    previous_url = request.META.get('HTTP_REFERER')
+    parsed_url = urlparse(previous_url)
+    query_params = parse_qs(parsed_url.query)
+    pg_value = query_params.get('pg', [None])[0]
+
+    res = reverse('todolist') + f"?pg={pg_value}"
+    return redirect(res)
+    # return redirect('todolist')
+
+
+@login_required
+def delete_task(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.delete()
+    messages.success(request, "Task has been deleted successfully!")
+    return redirect('todolist')
+
+
+def about(request):
+    context = {
+        "welcome_text": "Welcome to the About Page!"
+    }
+    return render(request, 'about.html', context)
+
+
+@login_required
+def contact(request):
+    context = {
+        "welcome_text": "Welcome to the Contact Page!"
+    }
+    return render(request, 'contact.html', context)
 ```
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5d98a05e-65f7-48c5-ab43-790ee183ddb7">
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/3f8612c5-453c-406b-8300-8e360cdbe030">
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/8f604bfb-003e-49c1-bcc0-3826f710a831">
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/c5d58131-bb38-4d92-a4e0-2c35d6be2193">
+
+# #END</details>
+
+<details>
+<summary>27. Relationship between User to Task </summary>
+
+# Relationship between User to Task
+
 
 ```py
 
