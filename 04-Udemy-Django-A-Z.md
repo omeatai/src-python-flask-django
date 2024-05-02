@@ -4577,28 +4577,55 @@ python manage.py runserver
 
 # Deploy to Production
 
-```py
+## Install latest version of git
 
+```py
+brew install git
+```
+
+## Install venv
+
+```py
+python -m venv myproject-env
+source myproject-env/bin/activate
 ```
 
 ```py
-
+pip install virtualenv
+virtualenv myproject-env
 ```
 
-```py
+## Install Django
 
+```py
+python -m pip install Django
 ```
 
-```py
+## Upgrade Django Version
 
+```py
+pip install --upgrade django==4.2
+pip install django --upgrade
+python -m pip install Django==5.0.4
 ```
 
-```py
+## Save Dependencies to Requirements.txt
 
+```py
+pip freeze
+pip freeze > requirements.txt
 ```
 
-```py
+## Install requirements from Requirements.txt
 
+```py
+pip install -r requirements.txt
+```
+
+## Deactivate a virtual environment
+
+```py
+deactivate
 ```
 
 ```py
