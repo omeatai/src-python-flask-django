@@ -4882,6 +4882,8 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DJANGO_DEBUG")
 
+ALLOWED_HOSTS = ["*"]
+
 
 DATABASES = {
     'default': {
@@ -4894,8 +4896,74 @@ DATABASES = {
     }
 }
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 ```
+
+## Run Collectstatic
+
+```py
+python manage.py collectstatic
+```
+
+## Install Whitenoise
+
+```py
+pip install whitenoise
+```
+
+### taskmate.settings:
+
+```py
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', #added whitenoise
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+```
+
+## Create Github Project - Taskmate
+
+## Set email and name 
+
+```py
+git config --global user.name "o"
+git config --global user.email "o@gmail.com"
+```
+
+### create a new repository on the command line
+
+```py
+echo "# project-django-taskmate" >> README.md
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add taskmate https://github.com/omeatai/project-django-taskmate.git
+git push -u taskmate main
+```
+
+### push an existing repository from the command line
+
+```py
+git remote add taskmate https://github.com/omeatai/project-django-taskmate.git
+git branch -M main
+git push -u taskmate main
+```
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/130b9f54-a98b-4ec2-b479-feb9d75e8a8d">
+
 
 ```py
 
@@ -4904,19 +4972,6 @@ DATABASES = {
 ```py
 
 ```
-
-```py
-
-```
-
-```py
-
-```
-
-```py
-
-```
-
 
 
 # #END</details>
