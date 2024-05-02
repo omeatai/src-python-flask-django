@@ -5037,12 +5037,25 @@ python manage.py migrate
 
 ```py
 pip install mysqlclient
+
+pip install pymysql
 ```
 
 ```py
 import pymysql
 
 pymysql.install_as_MySQLdb()
+```
+
+```py
+ 'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'databasename',
+        'USER': 'databaseusername',
+        'PASSWORD': 'databasepassword',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
 ```
 
 # Revert to Crispy-Forms Bootstrap 4
