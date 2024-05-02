@@ -3887,6 +3887,167 @@ class TaskList(models.Model):
 
 # Creating Task with User
 
+[https://github.com/omeatai/src-python-flask-django/commit/04beb8749f460cf1395eeb32366a47e1949cb775](https://github.com/omeatai/src-python-flask-django/commit/04beb8749f460cf1395eeb32366a47e1949cb775)
+
+### todolist.views:
+
+```py
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
+from django.core.paginator import Paginator
+from urllib.parse import urlparse, parse_qs
+from django.contrib.auth.decorators import login_required
+
+from .models import TaskList
+from .forms import TaskForm
+# Create your views here.
+
+
+def home(request):
+    context = {
+        "welcome_text": "Welcome to the Home Page!"
+    }
+    return render(request, 'home.html', context)
+
+
+@login_required(login_url='login')
+def todolist(request):
+    if request.method == "POST":
+        form = TaskForm(request.POST or None)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.done = False
+            instance.owner = request.user
+            instance.save()
+            messages.success(
+                request, "Awesome! Your new Task has been added successfully!")
+            return redirect('todolist')
+    else:
+        tasks = TaskList.objects.all()
+        no_per_pages = 5
+        paginator = Paginator(tasks, no_per_pages)
+        page = request.GET.get('pg')
+        tasks = paginator.get_page(page)
+
+        context = {
+            'tasks': tasks,
+            "welcome_text": "Welcome to your Todo List!",
+        }
+        return render(request, 'todolist.html', context)
+
+
+@login_required
+def edit_task(request, id):
+    if request.method == "POST":
+        form = TaskForm(request.POST or None,
+                        instance=TaskList.objects.get(pk=id))
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, "Your new Task has been updated successfully!")
+            return redirect('todolist')
+    else:
+        task = TaskList.objects.get(pk=id)
+        context = {
+            'task': task,
+        }
+        return render(request, 'edit.html', context)
+
+
+def completed(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.done = True
+    task.save()
+    # GET previous url
+    previous_url = request.META.get('HTTP_REFERER')
+    parsed_url = urlparse(previous_url)
+    query_params = parse_qs(parsed_url.query)
+    pg_value = query_params.get('pg', [None])[0]
+
+    res = reverse('todolist') + f"?pg={pg_value}"
+    return redirect(res)
+
+
+def pending(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.done = False
+    task.save()
+    # GET previous url
+    previous_url = request.META.get('HTTP_REFERER')
+    parsed_url = urlparse(previous_url)
+    query_params = parse_qs(parsed_url.query)
+    pg_value = query_params.get('pg', [None])[0]
+
+    res = reverse('todolist') + f"?pg={pg_value}"
+    return redirect(res)
+    # return redirect('todolist')
+
+
+@login_required
+def delete_task(request, id):
+    task = TaskList.objects.get(pk=id)
+    task.delete()
+    messages.success(request, "Task has been deleted successfully!")
+    return redirect('todolist')
+
+
+def about(request):
+    context = {
+        "welcome_text": "Welcome to the About Page!"
+    }
+    return render(request, 'about.html', context)
+
+
+@login_required
+def contact(request):
+    context = {
+        "welcome_text": "Welcome to the Contact Page!"
+    }
+    return render(request, 'contact.html', context)
+
+```
+
+### todolist.models:
+
+```py
+from django.db import models
+from django.contrib.auth.models import User
+
+# Create your models here.
+
+
+class TaskList(models.Model):
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    task = models.CharField(max_length=300)
+    done = models.BooleanField(default=False)
+    # description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['id']
+
+    def __str__(self) -> str:
+        return f"{self.task} - {self.done} (by {self.owner})"
+
+```
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0258fa19-5d19-4dc4-8d88-0b1eac716fde">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/9da45c4f-1564-4410-ac51-4dd4efbfdc62">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a01cfe23-14f6-452a-a49e-48df7a0d2984">
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/bdfd047b-67eb-4876-a868-45c45cb9169a">
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/1fa1e8c3-3858-46a9-91d5-9553d424254c">
+
+# #END</details>
+
+<details>
+<summary>29. Showing Task of Logged-In User only </summary>
+
+# Showing Task of Logged-In User only
+
 ```py
 
 ```
