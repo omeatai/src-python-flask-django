@@ -5122,6 +5122,9 @@ def application(environ, start_response):
     return [response.encode()]
 ```
 
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/e68abb6f-bbab-4cb7-9b08-3d53f8532845)
+
+
 # #END</details>
 
 <details>
