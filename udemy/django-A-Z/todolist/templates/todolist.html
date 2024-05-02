@@ -52,14 +52,14 @@ Welcome
 
         {% if todo.done %}
         <tr class="table-success row">
-            <th class="col-7"><del>{{ todo.task }}</del></th>
+            <th class="col-7"><del>{{ todo.task }}</del> <small>(by {{ todo.owner|title }})</small></th>
             <td class="col-3"><a href="{% url 'pending' todo.id %}" type="button" class="btn btn-success btn-sm">YES - Mark as Pending</a></td>
             <td class="col-1"><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning">Edit</a></td>
             <td class="col-1"><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger">Delete</a></td>
         </tr>
         {% else %}
         <tr class="row">
-            <th class="col-7">{{ todo.task }}</th>
+            <th class="col-7">{{ todo.task }} <small>(by {{ todo.owner|title }})</small></th>
             <td class="col-3"><a href="{% url 'completed' todo.id %}" type="button" class="btn btn-danger btn-sm">NO - Mark as Completed</a></td>
             <td class="col-1"><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning">Edit</a></td>
             <td class="col-1"><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger">Delete</a></td>
