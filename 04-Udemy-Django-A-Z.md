@@ -5036,6 +5036,10 @@ python manage.py migrate
 ## For MySQL Database (Edit the __init__.py file)
 
 ```py
+pip install mysqlclient
+```
+
+```py
 import pymysql
 
 pymysql.install_as_MySQLdb()
