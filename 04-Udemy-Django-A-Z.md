@@ -4971,9 +4971,14 @@ git push -u taskmate main
 ### /.github/workflows/main.yml
 
 [https://github.com/SamKirkland/FTP-Deploy-Action](https://github.com/SamKirkland/FTP-Deploy-Action)
+
 [Deploy To Shared Hosting With Github Actions](https://youtu.be/UNWIXYSZfZY?si=KpqsJOvREIEQ3dfV)
+
 [Deploy Django 4.0 to Shared Hosting](https://youtu.be/nvq7NNSfKdw?si=LVJOM3xW6VukdtWi)
+
 [https://pythonfusion.com/deploy-django-on-shared-hosting/](https://pythonfusion.com/deploy-django-on-shared-hosting/)
+
+[https://www.namecheap.com/support/knowledgebase/article.aspx/1249/89/how-to-remotely-connect-to-a-mysql-database-located-on-our-shared-server/](https://www.namecheap.com/support/knowledgebase/article.aspx/1249/89/how-to-remotely-connect-to-a-mysql-database-located-on-our-shared-server/)
 
 ```py
 on: push
@@ -5005,12 +5010,19 @@ jobs:
 
 ![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/9fa1abb8-987e-490f-b717-2515a71d82a1)
 
-```py
+## Install requirements
 
+```py
+pip install -r requirements.txt
+
+pip install django psycopg2-binary django-environ whitenoise crispy-bootstrap5
 ```
 
-```py
+## Make Migrations
 
+```py
+python manage.py makemigrations
+python manage.py migrate
 ```
 
 ```py
