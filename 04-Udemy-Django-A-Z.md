@@ -4506,17 +4506,76 @@ Welcome
 
 # Connect PostgreSQL Database
 
+[https://github.com/omeatai/src-python-flask-django/commit/5bb357bc434afaed09e1113094a862a01d515897](https://github.com/omeatai/src-python-flask-django/commit/5bb357bc434afaed09e1113094a862a01d515897)
+
+## Install psycopg2
+
 ```py
+pip install psycopg2
+```
+
+### taskmate.settings:
+
+```py
+# Database
+# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 ```
 
-```py
-
-```
+## Make Migrations
 
 ```py
-
+python manage.py makemigrations
+python manage.py migrate
 ```
+
+## Create SuperUser
+
+```py
+python manage.py createsuperuser
+```
+
+## Run Dev Server
+
+```py
+python manage.py runserver
+```
+
+<img width="763" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/9f325a9d-21ba-403b-88cb-48618213066c">
+<img width="1426" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/360aa47c-e52b-4e49-8ba5-0c7e1f4c9be6">
+<img width="1350" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/71c3dc64-e62a-421a-8f7f-dd5f68413b93">
+<img width="1382" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/a6051e6d-a525-4491-b8a8-77a682053b49">
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/7567daca-eed8-4a71-af3d-a1716efd60ca)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/55e2f81e-c9f9-4e6a-97e2-faa0e3885b05)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/55b2c7b7-9520-4aff-81ab-7d2411181a4a)
+
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/14708696-36fa-486f-a296-53fa90f14fe5">
+
+# #END</details>
+
+<details>
+<summary>32. Deploy to Production </summary>
+
+# Deploy to Production
 
 ```py
 
