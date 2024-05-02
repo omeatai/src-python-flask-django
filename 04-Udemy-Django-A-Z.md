@@ -4609,6 +4609,18 @@ pip install django --upgrade
 python -m pip install Django==5.0.4
 ```
 
+## Install Crispy Forms
+
+```py
+pip install crispy-bootstrap5
+```
+
+## Install psycopg2
+
+```py
+pip install psycopg2
+```
+
 ## Save Dependencies to Requirements.txt
 
 ```py
