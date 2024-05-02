@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.core.paginator import Paginator
 from urllib.parse import urlparse, parse_qs
+from django.contrib.auth.decorators import login_required
 
 from .models import TaskList
 from .forms import TaskForm
@@ -17,6 +18,7 @@ def home(request):
     return render(request, 'home.html', context)
 
 
+@login_required(login_url='login')
 def todolist(request):
     if request.method == "POST":
         form = TaskForm(request.POST or None)
@@ -40,6 +42,7 @@ def todolist(request):
         return render(request, 'todolist.html', context)
 
 
+@login_required
 def edit_task(request, id):
     if request.method == "POST":
         form = TaskForm(request.POST or None,
@@ -86,6 +89,7 @@ def pending(request, id):
     # return redirect('todolist')
 
 
+@login_required
 def delete_task(request, id):
     task = TaskList.objects.get(pk=id)
     task.delete()
@@ -100,6 +104,7 @@ def about(request):
     return render(request, 'about.html', context)
 
 
+@login_required
 def contact(request):
     context = {
         "welcome_text": "Welcome to the Contact Page!"
