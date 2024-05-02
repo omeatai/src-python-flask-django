@@ -4850,14 +4850,14 @@ pip install django-environ
 ```
 
 Create .env file in same directory where settings.py exists and add the following:
-DJANGO_SECRET_KEY=XXX
-DJANGO_DEBUG=True
+- DJANGO_SECRET_KEY=XXX
+- DJANGO_DEBUG=True
 
-DJANGO_DB_NAME=postgres
-DJANGO_DB_USER=postgres
-DJANGO_DB_PASSWORD=
-DJANGO_DB_HOST=localhost
-DJANGO_DB_PORT=5432
+- DJANGO_DB_NAME=postgres
+- DJANGO_DB_USER=postgres
+- DJANGO_DB_PASSWORD=
+- DJANGO_DB_HOST=localhost
+- DJANGO_DB_PORT=5432
 
 ### taskmate.settings:
 
