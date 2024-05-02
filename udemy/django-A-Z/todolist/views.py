@@ -23,11 +23,13 @@ def todolist(request):
     if request.method == "POST":
         form = TaskForm(request.POST or None)
         if form.is_valid():
-            form.done = False
-            form.save()
+            instance = form.save(commit=False)
+            instance.done = False
+            instance.owner = request.user
+            instance.save()
             messages.success(
                 request, "Awesome! Your new Task has been added successfully!")
-            redirect('todolist')
+            return redirect('todolist')
     else:
         tasks = TaskList.objects.all()
         no_per_pages = 5
