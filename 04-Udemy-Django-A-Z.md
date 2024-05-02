@@ -1,4 +1,7 @@
 
+<details>
+<summary>+Udemy - Django A-Z Build and Deploy Web Project </summary>
+
 ## +Udemy - Django A-Z Build and Deploy Web Project
 
 <details>
@@ -5137,11 +5140,12 @@ def application(environ, start_response):
 
 ![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/e68abb6f-bbab-4cb7-9b08-3d53f8532845)
 
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/45ded09c-b989-486d-8b50-0fc0fec5f1bf)
+
 
 # #END</details>
 
-<details>
-<summary>+Udemy - Django A-Z Build and Deploy Web Project </summary>
+
 
 # #END</details>
 
