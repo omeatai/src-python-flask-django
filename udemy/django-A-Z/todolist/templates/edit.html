@@ -7,6 +7,8 @@ Welcome
 {% block content %}
 <h2>{{ welcome_text }}</h2>
 
+{% if task.owner == request.user %}
+
 <form method="POST" class="row my-3">
     {% csrf_token %}
 
@@ -42,5 +44,11 @@ Welcome
     <a href="{% url 'todolist' %}" class="btn btn-danger my-2">Back</a>
 </form>
 
+{% else %}
+
+<h2>Access Denied! You are Not the Owner of this Post!</h2>
+<a href="{% url 'todolist' %}" class="btn btn-danger my-2">Go To Your Todolist</a>
+
+{% endif %}
 
 {% endblock content %}

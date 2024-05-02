@@ -63,40 +63,55 @@ def edit_task(request, id):
         return render(request, 'edit.html', context)
 
 
+@login_required
 def completed(request, id):
     task = TaskList.objects.get(pk=id)
-    task.done = True
-    task.save()
-    # GET previous url
-    previous_url = request.META.get('HTTP_REFERER')
-    parsed_url = urlparse(previous_url)
-    query_params = parse_qs(parsed_url.query)
-    pg_value = query_params.get('pg', [None])[0]
+    if task.owner == request.user:
+        task.done = True
+        task.save()
+        # GET previous url
+        previous_url = request.META.get('HTTP_REFERER')
+        parsed_url = urlparse(previous_url)
+        query_params = parse_qs(parsed_url.query)
+        pg_value = query_params.get('pg', [None])[0]
 
-    res = reverse('todolist') + f"?pg={pg_value}"
-    return redirect(res)
+        res = reverse('todolist') + f"?pg={pg_value}"
+        return redirect(res)
+    else:
+        messages.error(
+            request, "You are not allowed to mark this task as completed!")
+        return redirect('todolist')
 
 
+@login_required
 def pending(request, id):
     task = TaskList.objects.get(pk=id)
-    task.done = False
-    task.save()
-    # GET previous url
-    previous_url = request.META.get('HTTP_REFERER')
-    parsed_url = urlparse(previous_url)
-    query_params = parse_qs(parsed_url.query)
-    pg_value = query_params.get('pg', [None])[0]
+    if task.owner == request.user:
+        task.done = False
+        task.save()
+        # GET previous url
+        previous_url = request.META.get('HTTP_REFERER')
+        parsed_url = urlparse(previous_url)
+        query_params = parse_qs(parsed_url.query)
+        pg_value = query_params.get('pg', [None])[0]
 
-    res = reverse('todolist') + f"?pg={pg_value}"
-    return redirect(res)
-    # return redirect('todolist')
+        res = reverse('todolist') + f"?pg={pg_value}"
+        return redirect(res)
+    else:
+        messages.error(
+            request, "You are not allowed to mark this task as pending!")
+        return redirect('todolist')
 
 
 @login_required
 def delete_task(request, id):
     task = TaskList.objects.get(pk=id)
-    task.delete()
-    messages.success(request, "Task has been deleted successfully!")
+    if task.owner == request.user:
+        task.delete()
+        messages.success(request, "Task has been deleted successfully!")
+    else:
+        messages.error(
+            request, "You are not allowed to delete this task!")
     return redirect('todolist')
 
 
