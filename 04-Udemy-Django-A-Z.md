@@ -5144,6 +5144,36 @@ def application(environ, start_response):
 
 ![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/7bde54ca-daa0-4422-b4d8-099aa64365c2)
 
+## Run collectstatic
+
+```py
+python manage.py collectstatic
+```
+
+## Run createsuperuser
+
+```py
+python manage.py createsuperuser
+```
+
+## Export all the data from the database to a json file
+
+```py
+python manage.py dumpdata>data.json
+```
+
+## Clear the new database
+
+```py
+python manage.py flush
+```
+
+## Load the data from the data.json file into the new database
+
+```py
+python manage.py loaddata data.json
+```
+
 
 # #END</details>
 
