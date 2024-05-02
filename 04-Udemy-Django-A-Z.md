@@ -5142,6 +5142,8 @@ def application(environ, start_response):
 
 ![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/45ded09c-b989-486d-8b50-0fc0fec5f1bf)
 
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/7bde54ca-daa0-4422-b4d8-099aa64365c2)
+
 
 # #END</details>
 
