@@ -3063,6 +3063,8 @@ Sign In - Taskmate
 
 # Logout Functionality and Username in Navbar
 
+[https://github.com/omeatai/src-python-flask-django/commit/a8686d606c7ce2e0a6a988dd3e345b8ccd2be50a](https://github.com/omeatai/src-python-flask-django/commit/a8686d606c7ce2e0a6a988dd3e345b8ccd2be50a)
+
 ### user_auth.urls:
 
 ```py
@@ -3285,6 +3287,253 @@ Logged Out - Taskmate
 <summary>24. Login Manually with authenticate and login </summary>
 
 # Login Manually with authenticate and login
+
+[https://github.com/omeatai/src-python-flask-django/commit/783ee1680b9f55b5b86f5ee8eab2d787531046fc](https://github.com/omeatai/src-python-flask-django/commit/783ee1680b9f55b5b86f5ee8eab2d787531046fc)
+
+## Logic for Creating users
+
+```py
+>>> from django.contrib.auth.models import User
+>>> user = User.objects.create_user("john", "lennon@thebeatles.com", "johnpassword")
+
+# At this point, user is a User object that has already been saved
+# to the database. You can continue to change its attributes
+# if you want to change other fields.
+>>> user.last_name = "Lennon"
+>>> user.save()
+```
+
+## Command for creating SuperUser from Prompt
+
+```py
+python manage.py createsuperuser --username=joe --email=joe@example.com
+```
+
+## Logic for changing Passwords
+
+```py
+>>> from django.contrib.auth.models import User
+>>> u = User.objects.get(username="john")
+>>> u.set_password("new password")
+>>> u.save()
+```
+
+## Logic for Authenticating users manually
+
+```py
+from django.contrib.auth import authenticate
+
+user = authenticate(username="john", password="secret")
+if user is not None:
+    # A backend authenticated the credentials
+else:
+    # No backend authenticated the credentials
+```
+
+```py
+from django.contrib.auth import authenticate, login
+
+
+def my_view(request):
+    username = request.POST["username"]
+    password = request.POST["password"]
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        # Redirect to a success page.
+    else:
+        # Return an 'invalid login' error message.
+```
+
+### user_auth.urls:
+
+```py
+from django.urls import path
+from user_auth import views
+from django.contrib.auth import views as auth_views
+
+urlpatterns = [
+    path('register/', views.register, name="register"),
+    # path('login/', auth_views.LoginView.as_view(template_name='user_auth/login.html'), name="login"),
+    path('login/', views.auth_login, name="login"),
+    path('logout/', views.logout, name="logout"),
+
+    # path('signup/', views.signup, name="signup"),
+    # path('login/', views.login_user, name="login"),
+    # path('logout/', views.logout_user, name="logout"),
+    # path('profile/', views.profile, name="profile"),
+    # path('edit-profile/', views.edit_profile, name="edit-profile"),
+    # path('change-password/', views.change_password, name="change-password"),
+    # path('reset-password/', views.reset_password, name="reset-password"),
+    # path('reset-password-done/', views.reset_password_done, name="reset-password-done"),
+    # path('reset-password-confirm/<uidb64>/<token>/', views.reset_password_confirm, name="reset-password-confirm"),
+    # path('reset-password-complete/', views.reset_password_complete, name="reset-password-complete"),
+    # path('delete-account/', views.delete_account, name="delete-account"),
+]
+
+```
+
+### user_auth.views:
+
+```py
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth import views as auth_views
+from django.views import View
+from django.contrib.auth.views import LogoutView
+from django.contrib.auth import authenticate, logout, login
+
+from .forms import CustomRegistrationForm
+# Create your views here.
+
+
+def register(request):
+    if request.method == "POST":
+        register_form = CustomRegistrationForm(request.POST)
+        if register_form.is_valid():
+            register_form.save()
+            messages.success(
+                request, "Awesome! Your new account has been created successfully! Login to Get Started.")
+            return redirect('register')
+        else:
+            messages.error(
+                request, "Sorry! Your new account could not be created. Please try again.")
+            return render(request, 'user_auth/register.html', {'register_form': register_form})
+    else:
+        register_form = CustomRegistrationForm()
+        return render(request, 'user_auth/register.html', {'register_form': register_form})
+
+
+def auth_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        # username = request.POST["username"]
+        # password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('todolist')
+        else:
+            messages.error(
+                request, "Sorry! Your credentials could not be validated. Please try again.")
+            return redirect('login')
+    else:
+        return render(request, 'user_auth/login_manual.html')
+
+
+def logout(request):
+    if request.method == 'POST':
+        messages.success(
+            request, "Awesome! You have been logged out successfully!")
+        return LogoutView.as_view(next_page='login')(request)
+    else:
+        return render(request, 'user_auth/logout.html')
+
+
+# class UserLogoutView(LogoutView):
+#     def get(self, request):
+#         logout(request)
+#         return redirect('login')
+
+```
+
+### src-python/udemy/django-A-Z/user_auth/templates/user_auth/login_manual.html:
+
+```py
+{% extends "todolist/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Sign In - Taskmate
+{% endblock title %}
+
+{% block content %}
+
+<div>
+    <h2>Sign In</h2>
+    <form action="{% url 'login' %}" method="POST" class="form-group my-3 col-6">
+        {% csrf_token %}
+
+        {% if messages %}
+        {% for message in messages %}
+
+        <div class="alert
+        {% if message.tags == 'error' %} alert-danger
+        {% elif message.tags == 'success' %} alert-success
+        {% else %} alert-warning
+        {% endif %} alert-dismissible fade show"
+        role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        {% endfor %}
+        {% endif %}
+
+        {% if register_form.errors %}
+        {% for field in register_form %}
+            {% for error in field.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ error|escape }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        {% endfor %}
+        {% endif %}
+
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Sign In</button>
+    </form>
+</div>
+{% endblock content %}
+```
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/5f48f582-9988-4d85-af9d-3e8632159d81">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/d5255ec2-66eb-4741-8ef6-019891312111">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b0518f62-982c-4d1a-aff3-bfd6790f9b78">
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/7df9b66e-1e73-420b-a772-d14c3adf2ccb">
+
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/c3a052d9-b46a-43f4-9217-d4ce5f2f6c73">
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/c626753a-c0b9-4492-bbd5-d57783bd52ba">
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/1cd66482-7585-4ce3-8456-13ff487e89b1">
+
+# #END</details>
+
+<details>
+<summary>25. Logout Manually with logout </summary>
+
+# Logout Manually with logout
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
+
+```py
+
+```
 
 ```py
 
