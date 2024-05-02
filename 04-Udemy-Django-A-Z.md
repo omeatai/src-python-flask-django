@@ -3515,9 +3515,124 @@ Sign In - Taskmate
 
 # Logout Manually with logout
 
+[https://github.com/omeatai/src-python-flask-django/commit/96a65ce7e583625918360741f65d6262c5bcec7e](https://github.com/omeatai/src-python-flask-django/commit/96a65ce7e583625918360741f65d6262c5bcec7e)
+
+## Logic to Logout user
+
 ```py
+from django.contrib.auth import logout
+
+
+def logout_view(request):
+    logout(request)
+    # Redirect to a success page.
+```
+
+### user_auth.urls:
+
+```py
+from django.urls import path
+from user_auth import views
+from django.contrib.auth import views as auth_views
+
+urlpatterns = [
+    path('register/', views.register, name="register"),
+    # path('login/', auth_views.LoginView.as_view(template_name='user_auth/login.html'), name="login"),
+    path('login/', views.auth_login, name="login"),
+    path('logout/', views.auth_logout, name="logout"),
+]
 
 ```
+
+### user_auth.views:
+
+```py
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth import views as auth_views
+from django.views import View
+from django.contrib.auth.views import LogoutView
+from django.contrib.auth import authenticate, logout, login
+
+from .forms import CustomRegistrationForm
+# Create your views here.
+
+
+def register(request):
+    if request.method == "POST":
+        register_form = CustomRegistrationForm(request.POST)
+        if register_form.is_valid():
+            register_form.save()
+            messages.success(
+                request, "Awesome! Your new account has been created successfully! Login to Get Started.")
+            return redirect('register')
+        else:
+            messages.error(
+                request, "Sorry! Your new account could not be created. Please try again.")
+            return render(request, 'user_auth/register.html', {'register_form': register_form})
+    else:
+        register_form = CustomRegistrationForm()
+        return render(request, 'user_auth/register.html', {'register_form': register_form})
+
+
+def auth_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        # username = request.POST["username"]
+        # password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('todolist')
+        else:
+            messages.error(
+                request, "Sorry! Your credentials could not be validated. Please try again.")
+            return redirect('login')
+    else:
+        return render(request, 'user_auth/login_manual.html')
+
+
+def auth_logout(request):
+    if request.method == 'POST':
+        messages.success(
+            request, "Awesome! You have been logged out successfully!")
+        logout(request)
+        return redirect('login')
+    else:
+        return render(request, 'user_auth/logout.html')
+
+
+# def logout(request):
+#     if request.method == 'POST':
+#         messages.success(
+#             request, "Awesome! You have been logged out successfully!")
+#         return LogoutView.as_view(next_page='login')(request)
+#     else:
+#         return render(request, 'user_auth/logout.html')
+
+# class UserLogoutView(LogoutView):
+#     def get(self, request):
+#         logout(request)
+#         return redirect('login')
+
+```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/917adbcb-da8c-414c-8600-558eab84afa6)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/875647ac-661f-447d-be16-426b87d56378)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/b32b8e06-94cb-429a-bf27-673815b9bef6)
+
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/f51cb95d-5d8c-47db-8e2e-682c68024aaf">
+<img width="1394" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/9c1512bc-b101-4fc4-9777-341b9fb7050b">
+
+# #END</details>
+
+<details>
+<summary>26. Handling Header Restrictions </summary>
+
+# Handling Header Restrictions
 
 ```py
 
