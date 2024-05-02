@@ -5025,8 +5025,12 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-```py
+## For MySQL Database (Edit the __init__.py file)
 
+```py
+import pymysql
+
+pymysql.install_as_MySQLdb()
 ```
 
 ```py
