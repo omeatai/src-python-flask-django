@@ -3,9 +3,9 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import views as auth_views
-from django.contrib.auth import logout
 from django.views import View
 from django.contrib.auth.views import LogoutView
+from django.contrib.auth import authenticate, logout, login
 
 from .forms import CustomRegistrationForm
 # Create your views here.
@@ -26,6 +26,24 @@ def register(request):
     else:
         register_form = CustomRegistrationForm()
         return render(request, 'user_auth/register.html', {'register_form': register_form})
+
+
+def auth_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        # username = request.POST["username"]
+        # password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('todolist')
+        else:
+            messages.error(
+                request, "Sorry! Your credentials could not be validated. Please try again.")
+            return redirect('login')
+    else:
+        return render(request, 'user_auth/login_manual.html')
 
 
 def logout(request):
