@@ -4882,8 +4882,8 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DJANGO_DEBUG")
 
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = ALLOWED_HOSTS = ["localhost", "127.0.0.1", "*"]
+CSRF_TRUSTED_ORIGINS = ['https://your-base-domain']
 
 DATABASES = {
     'default': {
@@ -4964,6 +4964,54 @@ git push -u taskmate main
 
 <img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/130b9f54-a98b-4ec2-b479-feb9d75e8a8d">
 
+## Configure SamKirkland/FTP-Deploy for Namecheap hosting
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/1ecd3b8b-ac17-440c-8ae1-d5ef19541868)
+
+### /.github/workflows/main.yml
+
+[https://github.com/SamKirkland/FTP-Deploy-Action](https://github.com/SamKirkland/FTP-Deploy-Action)
+[Deploy To Shared Hosting With Github Actions](https://youtu.be/UNWIXYSZfZY?si=KpqsJOvREIEQ3dfV)
+[Deploy Django 4.0 to Shared Hosting](https://youtu.be/nvq7NNSfKdw?si=LVJOM3xW6VukdtWi)
+[https://pythonfusion.com/deploy-django-on-shared-hosting/](https://pythonfusion.com/deploy-django-on-shared-hosting/)
+
+```py
+on: push
+name: 🚀 Deploy taskmate website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp.ifeanyiomeata.com
+          username: taskmate@ifeanyiomeata.com
+          password: ${{ secrets.ftp_password }}
+          protocol: ftp
+          port: 21
+          server-dir: /public_html/projects/taskmate/
+
+```
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/ee315874-29bf-4a36-9eb0-daddb9b260e0)
+
+<img width="960" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/22204623-ffc9-4745-be92-52797a0bbe78">
+<img width="1414" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/d6ea157f-e6a9-416e-913b-f7c2a7379ba1">
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/9fa1abb8-987e-490f-b717-2515a71d82a1)
+
+```py
+
+```
+
+```py
+
+```
 
 ```py
 
