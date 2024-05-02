@@ -5016,6 +5016,14 @@ jobs:
 pip install -r requirements.txt
 
 pip install django psycopg2-binary django-environ whitenoise crispy-bootstrap5
+
+source /home/omeatai/virtualenv/taskmate/3.11/bin/activate && cd /home/omeatai/taskmate
+cd ../public_html/project_taskmate/taskmate/
+psql -p 5432 <dbname> <dbuser>
+psql -p 5432 omeatai_taskmate omeatai_taskmateuser
+
+psql -V
+psql --version
 ```
 
 ## Make Migrations
@@ -5033,10 +5041,69 @@ import pymysql
 pymysql.install_as_MySQLdb()
 ```
 
+# Revert to Crispy-Forms Bootstrap 4
+
+[https://getbootstrap.com/docs/4.6/getting-started/introduction/](https://getbootstrap.com/docs/4.6/getting-started/introduction/)
+
+[https://pypi.org/project/crispy-bootstrap4/](https://pypi.org/project/crispy-bootstrap4/)
+
+## Install Crispy-Bootstrap4
+
+```py
+pip install crispy-bootstrap4
+```
+
+## Update INSTALLED_APPS in settings.py
+
+```py
+INSTALLED_APPS = (
+    ...
+    "crispy_forms",
+    "crispy_bootstrap4",
+    ...
+)
+```
+
+## Add CRISPY_TEMPLATE_PACK in settings.py
+
+```py
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+```
+
+# Revert to Crispy-Forms Bootstrap 5
+
+[https://getbootstrap.com/](https://getbootstrap.com/)
+
+[https://github.com/django-crispy-forms/crispy-bootstrap5](https://github.com/django-crispy-forms/crispy-bootstrap5)
+
+## Install Crispy-Bootstrap5
+
+```py
+pip install crispy-bootstrap5
+```
+
+## Update INSTALLED_APPS in settings.py
+
+```py
+INSTALLED_APPS = (
+    ...
+    "crispy_forms",
+    "crispy_bootstrap5",
+    ...
+)
+```
+
+## Add CRISPY_TEMPLATE_PACK in settings.py
+
+```py
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+```
+
 ```py
 
 ```
-
 
 # #END</details>
 
