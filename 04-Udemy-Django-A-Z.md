@@ -5018,9 +5018,8 @@ pip install -r requirements.txt
 pip install django psycopg2-binary django-environ whitenoise crispy-bootstrap5
 
 source /home/omeatai/virtualenv/taskmate/3.11/bin/activate && cd /home/omeatai/taskmate
-cd ../public_html/project_taskmate/taskmate/
+cd ../public_html/project_taskmate/
 psql -p 5432 <dbname> <dbuser>
-psql -p 5432 omeatai_taskmate omeatai_taskmateuser
 
 psql -V
 psql --version
