@@ -46,14 +46,23 @@ def auth_login(request):
         return render(request, 'user_auth/login_manual.html')
 
 
-def logout(request):
+def auth_logout(request):
     if request.method == 'POST':
         messages.success(
             request, "Awesome! You have been logged out successfully!")
-        return LogoutView.as_view(next_page='login')(request)
+        logout(request)
+        return redirect('login')
     else:
         return render(request, 'user_auth/logout.html')
 
+
+# def logout(request):
+#     if request.method == 'POST':
+#         messages.success(
+#             request, "Awesome! You have been logged out successfully!")
+#         return LogoutView.as_view(next_page='login')(request)
+#     else:
+#         return render(request, 'user_auth/logout.html')
 
 # class UserLogoutView(LogoutView):
 #     def get(self, request):
