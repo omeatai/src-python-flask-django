@@ -1,4 +1,3 @@
-
 <details>
 <summary>+Udemy - Django A-Z Build and Deploy Web Project </summary>
 
@@ -128,14 +127,12 @@ INSTALLED_APPS = [
 
 <img width="1529" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/0df79c8a-1bcd-44c9-8941-cae421178859">
 
-
 # #END</details>
 
 <details>
 <summary>3. Create Urls and Views </summary>
 
 # Create Urls and Views
-
 
 ### taskmate.urls:
 
@@ -236,17 +233,26 @@ def todolist(request):
 ## Bootstrap Main Template
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <h1>Hello, world!</h1>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
 ```
@@ -257,7 +263,15 @@ def todolist(request):
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -283,59 +297,73 @@ def todolist(request):
 ### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
 
-    <title>Todo List - Taskmate </title>
-</head>
+    <title>Todo List - Taskmate</title>
+  </head>
 
-<body>
+  <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
-            </div>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <main class="container">
-        <h1>Welcome to the New Task Page on Template!</h1>
+      <h1>Welcome to the New Task Page on Template!</h1>
     </main>
 
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-    </script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
 ```
 
@@ -439,77 +467,95 @@ def contact(request):
 ### src-python/udemy/django-A-Z/templates/todolist/base.html:
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
 
-    <title>Todo List Manager - {% block title %}{% endblock title %} </title>
-</head>
+    <title>Todo List Manager - {% block title %}{% endblock title %}</title>
+  </head>
 
-<body>
+  <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Task Mate</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'todolist' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'todolist' %}">Todo List</a>
-                        {% comment %} <a class="nav-link" href="/task">Todo List</a> {% endcomment %}
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">About Us</a>
-                        {% comment %} <a class="nav-link" href="/task/about">About Us</a> {% endcomment %}
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
-                        {% comment %} <a class="nav-link" href="/task/contact">Contact Us</a> {% endcomment %}
-                    </li>
-                </ul>
-            </div>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Task Mate</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'todolist' %}"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'todolist' %}">Todo List</a>
+              {% comment %} <a class="nav-link" href="/task">Todo List</a> {%
+              endcomment %}
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">About Us</a>
+              {% comment %}
+              <a class="nav-link" href="/task/about">About Us</a> {% endcomment
+              %}
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+              {% comment %}
+              <a class="nav-link" href="/task/contact">Contact Us</a> {%
+              endcomment %}
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <main class="container">
-        <h1>Taskmate</h1>
-        {% block content %}
-        {% endblock content %}
+      <h1>Taskmate</h1>
+      {% block content %} {% endblock content %}
     </main>
 
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-    </script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
 ```
 
 ### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
 
 ```html
-{% extends "todolist/base.html" %}
-
-{% block title %}
-Welcome
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% block title %} Welcome {% endblock title
+%} {% block content %}
 <h2>{{ welcome_text }}</h2>
 {% endblock content %}
 ```
@@ -517,13 +563,8 @@ Welcome
 ### src-python/udemy/django-A-Z/todolist/templates/about.html:
 
 ```html
-{% extends "todolist/base.html" %}
-
-{% block title %}
-About Us
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% block title %} About Us {% endblock title
+%} {% block content %}
 <h2>{{ welcome_text }}</h2>
 {% endblock content %}
 ```
@@ -531,13 +572,8 @@ About Us
 ### src-python/udemy/django-A-Z/todolist/templates/contact.html:
 
 ```html
-{% extends "todolist/base.html" %}
-
-{% block title %}
-Contact Us
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% block title %} Contact Us {% endblock
+title %} {% block content %}
 <h2>{{ welcome_text }}</h2>
 {% endblock content %}
 ```
@@ -578,65 +614,91 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 ```html
 {% load static %}
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
 
-    <title>Todo List Manager - {% block title %}{% endblock title %} </title>
-</head>
+    <title>Todo List Manager - {% block title %}{% endblock title %}</title>
+  </head>
 
-<body>
+  <body>
     <nav class="navbar navbar-expand-lg bg-body-dark navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'todolist' %}"><img src="{% static 'todolist/images/logo-1.png' %}"
-                    alt="Taskmate Logo"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'todolist' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'todolist' %}">Todo List</a>
-                        {% comment %} <a class="nav-link" href="/task">Todo List</a> {% endcomment %}
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">About Us</a>
-                        {% comment %} <a class="nav-link" href="/task/about">About Us</a> {% endcomment %}
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
-                        {% comment %} <a class="nav-link" href="/task/contact">Contact Us</a> {% endcomment %}
-                    </li>
-                </ul>
-            </div>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'todolist' %}"
+          ><img
+            src="{% static 'todolist/images/logo-1.png' %}"
+            alt="Taskmate Logo"
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'todolist' %}"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'todolist' %}">Todo List</a>
+              {% comment %} <a class="nav-link" href="/task">Todo List</a> {%
+              endcomment %}
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">About Us</a>
+              {% comment %}
+              <a class="nav-link" href="/task/about">About Us</a> {% endcomment
+              %}
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+              {% comment %}
+              <a class="nav-link" href="/task/contact">Contact Us</a> {%
+              endcomment %}
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <main class="container">
-        <h1>Taskmate</h1>
-        {% block content %}
-        {% endblock content %}
+      <h1>Taskmate</h1>
+      {% block content %} {% endblock content %}
     </main>
 
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-    </script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
 ```
 
@@ -823,55 +885,56 @@ def contact(request):
 ### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
 
 ```html
-{% extends "todolist/base.html" %}
-
-{% block title %}
-Welcome
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% block title %} Welcome {% endblock title
+%} {% block content %}
 <h2>{{ welcome_text }}</h2>
 
-{% comment %} <table class="table table-dark table-striped"> {% endcomment %}
-    <table class="table table-light table-striped table-hover table-bordered">
-        <thead>
-            <tr class="table-dark">
-                <th scope="col">Task</th>
-                <th scope="col">Done</th>
-                <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for todo in tasks %}
-            {% if todo.done %}
-            <tr class="table-success">
-                <th scope="row">{{ todo.task }}</th>
-                <td>YES</td>
-                <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
-                <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
-            </tr>
-            {% else %}
-            <tr>
-                <th scope="row">{{ todo.task }}</th>
-                <td>NO</td>
-                <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
-                <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
-            </tr>
-            {% endif %}
-            {% endfor %}
-        </tbody>
-    </table>
+{% comment %}
+<table class="table table-dark table-striped">
+  {% endcomment %}
+  <table class="table table-light table-striped table-hover table-bordered">
+    <thead>
+      <tr class="table-dark">
+        <th scope="col">Task</th>
+        <th scope="col">Done</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for todo in tasks %} {% if todo.done %}
+      <tr class="table-success">
+        <th scope="row">{{ todo.task }}</th>
+        <td>YES</td>
+        <td>
+          <a href="" type="button" class="btn btn-warning btn-sm">Edit</a>
+        </td>
+        <td>
+          <a href="" type="button" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <th scope="row">{{ todo.task }}</th>
+        <td>NO</td>
+        <td>
+          <a href="" type="button" class="btn btn-warning btn-sm">Edit</a>
+        </td>
+        <td>
+          <a href="" type="button" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+      </tr>
+      {% endif %} {% endfor %}
+    </tbody>
+  </table>
 
-    {% for todo in tasks %}
-    <div class="todo">
-        <h3>{{ todo.task }} - {{ todo.done }}</h3>
-    </div>
+  {% for todo in tasks %}
+  <div class="todo">
+    <h3>{{ todo.task }} - {{ todo.done }}</h3>
+  </div>
 
-
-    {% endfor %}
-
-    {% endblock content %}
+  {% endfor %} {% endblock content %}
+</table>
 ```
 
 ![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/02124501-e51e-44a8-9433-e90626c05762)
@@ -897,15 +960,22 @@ Welcome
 <form>
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    <input
+      type="email"
+      class="form-control"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+    />
+    <div id="emailHelp" class="form-text">
+      We'll never share your email with anyone else.
+    </div>
   </div>
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
+    <input type="password" class="form-control" id="exampleInputPassword1" />
   </div>
   <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
     <label class="form-check-label" for="exampleCheck1">Check me out</label>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
@@ -972,64 +1042,57 @@ def contact(request):
 ### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
 
 ```html
-{% extends "todolist/base.html" %}
-
-{% block title %}
-Welcome
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% block title %} Welcome {% endblock title
+%} {% block content %}
 <h2>{{ welcome_text }}</h2>
 
 <form method="POST" class="my-3">
-    {% csrf_token %}
+  {% csrf_token %} {% if note %}
+  <div class="alert alert-success" role="alert">{{ note }}</div>
+  {% endif %}
 
-    {% if note %}
-    <div class="alert alert-success" role="alert">
-        {{ note }}
-    </div>
-    {% endif %}
-
-    <div class="mb-3">
-        <label for="task" class="form-label">Add Task</label>
-        <input type="text" class="form-control" id="task" name="task" aria-describedby="textHelp"
-            placeholder="Call Alex...">
-        <div id="textHelp" class="form-text">What would you want to do?</div>
-    </div>
-    <button type="submit" class="btn btn-primary">ADD TASK</button>
+  <div class="mb-3">
+    <label for="task" class="form-label">Add Task</label>
+    <input
+      type="text"
+      class="form-control"
+      id="task"
+      name="task"
+      aria-describedby="textHelp"
+      placeholder="Call Alex..."
+    />
+    <div id="textHelp" class="form-text">What would you want to do?</div>
+  </div>
+  <button type="submit" class="btn btn-primary">ADD TASK</button>
 </form>
 
-
 <table class="table table-light table-striped table-hover table-bordered">
-    <thead>
-        <tr class="table-dark">
-            <th scope="col">Task</th>
-            <th scope="col">Done</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for todo in tasks %}
-        {% if todo.done %}
-        <tr class="table-success">
-            <th scope="row">{{ todo.task }}</th>
-            <td>YES</td>
-            <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
-            <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
-        </tr>
-        {% else %}
-        <tr>
-            <th scope="row">{{ todo.task }}</th>
-            <td>NO</td>
-            <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
-            <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
-        </tr>
-        {% endif %}
-        {% endfor %}
-    </tbody>
+  <thead>
+    <tr class="table-dark">
+      <th scope="col">Task</th>
+      <th scope="col">Done</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for todo in tasks %} {% if todo.done %}
+    <tr class="table-success">
+      <th scope="row">{{ todo.task }}</th>
+      <td>YES</td>
+      <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+      <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+    </tr>
+    {% else %}
+    <tr>
+      <th scope="row">{{ todo.task }}</th>
+      <td>NO</td>
+      <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+      <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+    </tr>
+    {% endif %} {% endfor %}
+  </tbody>
 </table>
-
 
 {% endblock content %}
 ```
@@ -1086,8 +1149,14 @@ Welcome
 
 ```html
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <strong>Holy guacamole!</strong> You should check in on some of those fields
+  below.
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
 </div>
 ```
 
@@ -1138,80 +1207,69 @@ def contact(request):
 ### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
 
 ```html
-{% extends "todolist/base.html" %}
-
-{% block title %}
-Welcome
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% block title %} Welcome {% endblock title
+%} {% block content %}
 <h2>{{ welcome_text }}</h2>
 
 <form method="POST" class="my-3">
-    {% csrf_token %}
+  {% csrf_token %} {% if messages %} {% for message in messages %} {% comment %}
+  <div class="alert alert-success" role="alert">{{ message }}</div>
+  {% endcomment %}
 
-    {% if messages %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
 
-    {% for message in messages %}
-    {% comment %} <div class="alert alert-success" role="alert">
-        {{ message }}
-    </div> {% endcomment %}
+  {% endfor %} {% endif %}
 
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
-    {% endfor %}
-
-    {% endif %}
-
-    <div class="mb-3">
-        <label for="task" class="form-label">Add Task</label>
-        <input type="text" class="form-control" id="task" name="task" aria-describedby="textHelp"
-            placeholder="Call Alex...">
-        <div id="textHelp" class="form-text">What would you want to do?</div>
-    </div>
-    <button type="submit" class="btn btn-primary">ADD TASK</button>
+  <div class="mb-3">
+    <label for="task" class="form-label">Add Task</label>
+    <input
+      type="text"
+      class="form-control"
+      id="task"
+      name="task"
+      aria-describedby="textHelp"
+      placeholder="Call Alex..."
+    />
+    <div id="textHelp" class="form-text">What would you want to do?</div>
+  </div>
+  <button type="submit" class="btn btn-primary">ADD TASK</button>
 </form>
 
-
 <table class="table table-light table-striped table-hover table-bordered">
-    <thead>
-        <tr class="table-dark">
-            <th scope="col">Task</th>
-            <th scope="col">Done</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% if tasks %}
-
-        {% for todo in tasks %}
-
-        {% if todo.done %}
-        <tr class="table-success">
-            <th scope="row">{{ todo.task }}</th>
-            <td>YES</td>
-            <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
-            <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
-        </tr>
-        {% else %}
-        <tr>
-            <th scope="row">{{ todo.task }}</th>
-            <td>NO</td>
-            <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
-            <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
-        </tr>
-        {% endif %}
-
-        {% endfor %}
-
-        {% endif %}
-    </tbody>
+  <thead>
+    <tr class="table-dark">
+      <th scope="col">Task</th>
+      <th scope="col">Done</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if tasks %} {% for todo in tasks %} {% if todo.done %}
+    <tr class="table-success">
+      <th scope="row">{{ todo.task }}</th>
+      <td>YES</td>
+      <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+      <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+    </tr>
+    {% else %}
+    <tr>
+      <th scope="row">{{ todo.task }}</th>
+      <td>NO</td>
+      <td><a href="" type="button" class="btn btn-warning btn-sm">Edit</a></td>
+      <td><a href="" type="button" class="btn btn-danger btn-sm">Delete</a></td>
+    </tr>
+    {% endif %} {% endfor %} {% endif %}
+  </tbody>
 </table>
-
 
 {% endblock content %}
 ```
@@ -1484,50 +1542,58 @@ def contact(request):
 ### src-python/udemy/django-A-Z/todolist/templates/edit.html:
 
 ```html
-{% extends "todolist/base.html" %}
-
-{% block title %}
-Welcome
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% block title %} Welcome {% endblock title
+%} {% block content %}
 <h2>{{ welcome_text }}</h2>
 
 <form method="POST" class="row my-3">
-    {% csrf_token %}
+  {% csrf_token %} {% if messages %} {% for message in messages %}
 
-    {% if messages %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
 
-    {% for message in messages %}
+  {% endfor %} {% endif %}
 
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+  <div class="mb-3">
+    <label for="task" class="form-label">Edit Task</label>
+    <input
+      type="text"
+      class="form-control"
+      id="task"
+      name="task"
+      value="{{ task.task }}"
+      aria-describedby="textHelp"
+      placeholder="{{ task.task }}"
+    />
+    <div id="textHelp" class="form-text">Make your changes</div>
+  </div>
+  <div class="mb-3">
+    {% comment %} <input type="hidden" name="done" value="{{ task.done }}" /> {%
+    endcomment %}
 
-    {% endfor %}
-
-    {% endif %}
-
-    <div class="mb-3">
-        <label for="task" class="form-label">Edit Task</label>
-        <input type="text" class="form-control" id="task" name="task" value="{{ task.task }}" aria-describedby="textHelp"
-            placeholder="{{ task.task }}">
-        <div id="textHelp" class="form-text">Make your changes</div>
-    </div>
-    <div class="mb-3">
-        {% comment %} <input type='hidden' name="done" value="{{ task.done }}" /> {% endcomment %}
-
-        <label for="done" class="form-label">Is it Done?</label>
-        <select class="form-select" id="done" name="done" aria-label="Default select example">
-            <option value=False {% if not task.done %} selected {% endif %}>NO</option>
-            <option value=True {% if task.done %} selected {% endif %}>YES</option>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-primary my-2">Update TASK</button>
-    <a href="{% url 'todolist' %}" class="btn btn-danger my-2">Back</a>
+    <label for="done" class="form-label">Is it Done?</label>
+    <select
+      class="form-select"
+      id="done"
+      name="done"
+      aria-label="Default select example"
+    >
+      <option value="False" {% if not task.done %} selected {% endif %}>
+        NO
+      </option>
+      <option value="True" {% if task.done %} selected {% endif %}>YES</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary my-2">Update TASK</button>
+  <a href="{% url 'todolist' %}" class="btn btn-danger my-2">Back</a>
 </form>
-
 
 {% endblock content %}
 ```
@@ -1535,80 +1601,97 @@ Welcome
 ### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
 
 ```html
-{% extends "todolist/base.html" %}
-
-{% block title %}
-Welcome
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% block title %} Welcome {% endblock title
+%} {% block content %}
 <h2>{{ welcome_text }}</h2>
 
 <form method="POST" class="row my-3">
-    {% csrf_token %}
+  {% csrf_token %} {% if messages %} {% for message in messages %} {% comment %}
+  <div class="alert alert-success" role="alert">{{ message }}</div>
+  {% endcomment %}
 
-    {% if messages %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
 
-    {% for message in messages %}
-    {% comment %} <div class="alert alert-success" role="alert">
-        {{ message }}
-    </div> {% endcomment %}
+  {% endfor %} {% endif %}
 
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
-    {% endfor %}
-
-    {% endif %}
-
-    <div class="mb-3">
-        <label for="task" class="form-label">Add Task</label>
-        <input type="text" class="form-control" id="task" name="task" aria-describedby="textHelp"
-            placeholder="Call Alex...">
-        <div id="textHelp" class="form-text">What would you want to do?</div>
-    </div>
-    <button type="submit" class="btn btn-primary">ADD TASK</button>
+  <div class="mb-3">
+    <label for="task" class="form-label">Add Task</label>
+    <input
+      type="text"
+      class="form-control"
+      id="task"
+      name="task"
+      aria-describedby="textHelp"
+      placeholder="Call Alex..."
+    />
+    <div id="textHelp" class="form-text">What would you want to do?</div>
+  </div>
+  <button type="submit" class="btn btn-primary">ADD TASK</button>
 </form>
 
-
 <table class="table table-light table-striped table-hover table-bordered">
-    <thead>
-        <tr class="table-dark">
-            <th scope="col">Task</th>
-            <th scope="col">Done</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% if tasks %}
-
-        {% for todo in tasks %}
-
-        {% if todo.done %}
-        <tr class="table-success">
-            <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
-            <td>YES</td>
-            <td><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning btn-sm">Edit</a></td>
-            <td><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger btn-sm">Delete</a></td>
-        </tr>
-        {% else %}
-        <tr>
-            <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
-            <td>NO</td>
-            <td><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning btn-sm">Edit</a></td>
-            <td><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger btn-sm">Delete</a></td>
-        </tr>
-        {% endif %}
-
-        {% endfor %}
-
-        {% endif %}
-    </tbody>
+  <thead>
+    <tr class="table-dark">
+      <th scope="col">Task</th>
+      <th scope="col">Done</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if tasks %} {% for todo in tasks %} {% if todo.done %}
+    <tr class="table-success">
+      <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
+      <td>YES</td>
+      <td>
+        <a
+          href="{% url 'edit-task' todo.id %}"
+          type="button"
+          class="btn btn-warning btn-sm"
+          >Edit</a
+        >
+      </td>
+      <td>
+        <a
+          href="{% url 'delete-task' todo.id %}"
+          type="button"
+          class="btn btn-danger btn-sm"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
+      <td>NO</td>
+      <td>
+        <a
+          href="{% url 'edit-task' todo.id %}"
+          type="button"
+          class="btn btn-warning btn-sm"
+          >Edit</a
+        >
+      </td>
+      <td>
+        <a
+          href="{% url 'delete-task' todo.id %}"
+          type="button"
+          class="btn btn-danger btn-sm"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% endif %} {% endfor %} {% endif %}
+  </tbody>
 </table>
-
 
 {% endblock content %}
 ```
@@ -1733,80 +1816,111 @@ def contact(request):
 ### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
 
 ```html
-{% extends "todolist/base.html" %}
-
-{% block title %}
-Welcome
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% block title %} Welcome {% endblock title
+%} {% block content %}
 <h2>{{ welcome_text }}</h2>
 
 <form method="POST" class="row my-3">
-    {% csrf_token %}
+  {% csrf_token %} {% if messages %} {% for message in messages %} {% comment %}
+  <div class="alert alert-success" role="alert">{{ message }}</div>
+  {% endcomment %}
 
-    {% if messages %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
 
-    {% for message in messages %}
-    {% comment %} <div class="alert alert-success" role="alert">
-        {{ message }}
-    </div> {% endcomment %}
+  {% endfor %} {% endif %}
 
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
-    {% endfor %}
-
-    {% endif %}
-
-    <div class="mb-3">
-        <label for="task" class="form-label">Add Task</label>
-        <input type="text" class="form-control" id="task" name="task" aria-describedby="textHelp"
-            placeholder="Call Alex...">
-        <div id="textHelp" class="form-text">What would you want to do?</div>
-    </div>
-    <button type="submit" class="btn btn-primary">ADD TASK</button>
+  <div class="mb-3">
+    <label for="task" class="form-label">Add Task</label>
+    <input
+      type="text"
+      class="form-control"
+      id="task"
+      name="task"
+      aria-describedby="textHelp"
+      placeholder="Call Alex..."
+    />
+    <div id="textHelp" class="form-text">What would you want to do?</div>
+  </div>
+  <button type="submit" class="btn btn-primary">ADD TASK</button>
 </form>
 
-
 <table class="table table-light table-striped table-hover table-bordered">
-    <thead>
-        <tr class="table-dark">
-            <th scope="col">Task</th>
-            <th scope="col">Done</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% if tasks %}
-
-        {% for todo in tasks %}
-
-        {% if todo.done %}
-        <tr class="table-success">
-            <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
-            <td><a href="{% url 'pending' todo.id %}" type="button" class="btn btn-success btn-sm">YES - Mark as Pending</a></td>
-            <td><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning btn-sm">Edit</a></td>
-            <td><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger btn-sm">Delete</a></td>
-        </tr>
-        {% else %}
-        <tr>
-            <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
-            <td><a href="{% url 'completed' todo.id %}" type="button" class="btn btn-danger btn-sm">NO - Mark as Completed</a></td>
-            <td><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning btn-sm">Edit</a></td>
-            <td><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger btn-sm">Delete</a></td>
-        </tr>
-        {% endif %}
-
-        {% endfor %}
-
-        {% endif %}
-    </tbody>
+  <thead>
+    <tr class="table-dark">
+      <th scope="col">Task</th>
+      <th scope="col">Done</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if tasks %} {% for todo in tasks %} {% if todo.done %}
+    <tr class="table-success">
+      <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
+      <td>
+        <a
+          href="{% url 'pending' todo.id %}"
+          type="button"
+          class="btn btn-success btn-sm"
+          >YES - Mark as Pending</a
+        >
+      </td>
+      <td>
+        <a
+          href="{% url 'edit-task' todo.id %}"
+          type="button"
+          class="btn btn-warning btn-sm"
+          >Edit</a
+        >
+      </td>
+      <td>
+        <a
+          href="{% url 'delete-task' todo.id %}"
+          type="button"
+          class="btn btn-danger btn-sm"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
+      <td>
+        <a
+          href="{% url 'completed' todo.id %}"
+          type="button"
+          class="btn btn-danger btn-sm"
+          >NO - Mark as Completed</a
+        >
+      </td>
+      <td>
+        <a
+          href="{% url 'edit-task' todo.id %}"
+          type="button"
+          class="btn btn-warning btn-sm"
+          >Edit</a
+        >
+      </td>
+      <td>
+        <a
+          href="{% url 'delete-task' todo.id %}"
+          type="button"
+          class="btn btn-danger btn-sm"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% endif %} {% endfor %} {% endif %}
+  </tbody>
 </table>
-
 
 {% endblock content %}
 ```
@@ -1993,84 +2107,116 @@ def contact(request):
 ### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
 
 ```html
-{% extends "todolist/base.html" %}
-
-{% block title %}
-Welcome
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% block title %} Welcome {% endblock title
+%} {% block content %}
 <h2>{{ welcome_text }}</h2>
 
 <form method="POST" class="row my-3">
-    {% csrf_token %}
+  {% csrf_token %} {% if messages %} {% for message in messages %} {% comment %}
+  <div class="alert alert-success" role="alert">{{ message }}</div>
+  {% endcomment %}
 
-    {% if messages %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
 
-    {% for message in messages %}
-    {% comment %} <div class="alert alert-success" role="alert">
-        {{ message }}
-    </div> {% endcomment %}
+  {% endfor %} {% endif %}
 
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
-    {% endfor %}
-
-    {% endif %}
-
-    <div class="mb-3">
-        <label for="task" class="form-label">Add Task</label>
-        <input type="text" class="form-control" id="task" name="task" aria-describedby="textHelp"
-            placeholder="Call Alex...">
-        <div id="textHelp" class="form-text">What would you want to do?</div>
-    </div>
-    <button type="submit" class="btn btn-primary">ADD TASK</button>
+  <div class="mb-3">
+    <label for="task" class="form-label">Add Task</label>
+    <input
+      type="text"
+      class="form-control"
+      id="task"
+      name="task"
+      aria-describedby="textHelp"
+      placeholder="Call Alex..."
+    />
+    <div id="textHelp" class="form-text">What would you want to do?</div>
+  </div>
+  <button type="submit" class="btn btn-primary">ADD TASK</button>
 </form>
 
-
 <table class="table table-light table-striped table-hover table-bordered">
-    <thead>
-        <tr class="table-dark">
-            <th scope="col">Task</th>
-            <th scope="col">Done</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% if tasks %}
-
-        {% for todo in tasks %}
-
-        {% if todo.done %}
-        <tr class="table-success">
-            <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
-            <td><a href="{% url 'pending' todo.id %}" type="button" class="btn btn-success btn-sm">YES - Mark as Pending</a></td>
-            <td><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning btn-sm">Edit</a></td>
-            <td><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger btn-sm">Delete</a></td>
-        </tr>
-        {% else %}
-        <tr>
-            <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
-            <td><a href="{% url 'completed' todo.id %}" type="button" class="btn btn-danger btn-sm">NO - Mark as Completed</a></td>
-            <td><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning btn-sm">Edit</a></td>
-            <td><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger btn-sm">Delete</a></td>
-        </tr>
-        {% endif %}
-
-        {% endfor %}
-
-        {% endif %}
-    </tbody>
+  <thead>
+    <tr class="table-dark">
+      <th scope="col">Task</th>
+      <th scope="col">Done</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if tasks %} {% for todo in tasks %} {% if todo.done %}
+    <tr class="table-success">
+      <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
+      <td>
+        <a
+          href="{% url 'pending' todo.id %}"
+          type="button"
+          class="btn btn-success btn-sm"
+          >YES - Mark as Pending</a
+        >
+      </td>
+      <td>
+        <a
+          href="{% url 'edit-task' todo.id %}"
+          type="button"
+          class="btn btn-warning btn-sm"
+          >Edit</a
+        >
+      </td>
+      <td>
+        <a
+          href="{% url 'delete-task' todo.id %}"
+          type="button"
+          class="btn btn-danger btn-sm"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <th scope="row">{{ todo.id }} | {{ todo.task }}</th>
+      <td>
+        <a
+          href="{% url 'completed' todo.id %}"
+          type="button"
+          class="btn btn-danger btn-sm"
+          >NO - Mark as Completed</a
+        >
+      </td>
+      <td>
+        <a
+          href="{% url 'edit-task' todo.id %}"
+          type="button"
+          class="btn btn-warning btn-sm"
+          >Edit</a
+        >
+      </td>
+      <td>
+        <a
+          href="{% url 'delete-task' todo.id %}"
+          type="button"
+          class="btn btn-danger btn-sm"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% endif %} {% endfor %} {% endif %}
+  </tbody>
 </table>
 
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
-
-    {% comment %} {% for i in tasks.paginator.page_range %}{% endfor %}{% endcomment %}
+    {% comment %} {% for i in tasks.paginator.page_range %}{% endfor %}{%
+    endcomment %}
 
     <li class="page-item {% if not tasks.has_previous %} disabled {% endif %}">
       <a class="page-link" href="?pg=1">First</a>
@@ -2078,17 +2224,28 @@ Welcome
 
     {% if tasks.has_previous %}
     <li class="page-item">
-      <a class="page-link" href="?pg={{ tasks.previous_page_number }}">Previous</a>
+      <a class="page-link" href="?pg={{ tasks.previous_page_number }}"
+        >Previous</a
+      >
     </li>
 
-    <li class="page-item"><a class="page-link" href="?pg={{ tasks.previous_page_number }}">{{ tasks.previous_page_number }}</a></li>
+    <li class="page-item">
+      <a class="page-link" href="?pg={{ tasks.previous_page_number }}"
+        >{{ tasks.previous_page_number }}</a
+      >
+    </li>
     {% endif %}
 
-     <li class="page-item active"><a class="page-link" href="#">{{ tasks.number }}</a></li>
-
+    <li class="page-item active">
+      <a class="page-link" href="#">{{ tasks.number }}</a>
+    </li>
 
     {% if tasks.has_next %}
-    <li class="page-item"><a class="page-link" href="?pg={{ tasks.next_page_number }}">{{ tasks.next_page_number }}</a></li>
+    <li class="page-item">
+      <a class="page-link" href="?pg={{ tasks.next_page_number }}"
+        >{{ tasks.next_page_number }}</a
+      >
+    </li>
 
     <li class="page-item">
       <a class="page-link" href="?pg={{ tasks.next_page_number }}">Next</a>
@@ -2100,7 +2257,6 @@ Welcome
     </li>
   </ul>
 </nav>
-
 
 {% endblock content %}
 ```
@@ -2279,66 +2435,97 @@ def contact(request):
 ```html
 {% load static %}
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="icon" href="{% static 'todolist/images/favicon.ico' %}" type="image/gif" sizes="16x16">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="icon"
+      href="{% static 'todolist/images/favicon.ico' %}"
+      type="image/gif"
+      sizes="16x16"
+    />
 
-    <title>Todo List Manager - {% block title %}{% endblock title %} </title>
-</head>
+    <title>Todo List Manager - {% block title %}{% endblock title %}</title>
+  </head>
 
-<body class="bg-light">
+  <body class="bg-light">
     <nav class="navbar navbar-expand-lg bg-body-dark navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'todolist/images/logo-1.png' %}"
-                    alt="Taskmate Logo"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'todolist' %}">Todo List</a>
-                        {% comment %} <a class="nav-link" href="/task">Todo List</a> {% endcomment %}
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">About Us</a>
-                        {% comment %} <a class="nav-link" href="/task/about">About Us</a> {% endcomment %}
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
-                        {% comment %} <a class="nav-link" href="/task/contact">Contact Us</a> {% endcomment %}
-                    </li>
-                </ul>
-            </div>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}"
+          ><img
+            src="{% static 'todolist/images/logo-1.png' %}"
+            alt="Taskmate Logo"
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'home' %}"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'todolist' %}">Todo List</a>
+              {% comment %} <a class="nav-link" href="/task">Todo List</a> {%
+              endcomment %}
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">About Us</a>
+              {% comment %}
+              <a class="nav-link" href="/task/about">About Us</a> {% endcomment
+              %}
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+              {% comment %}
+              <a class="nav-link" href="/task/contact">Contact Us</a> {%
+              endcomment %}
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <main class="container">
-        <h1>Taskmate</h1>
-        {% block content %}
-        {% endblock content %}
+      <h1>Taskmate</h1>
+      {% block content %} {% endblock content %}
     </main>
 
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-    </script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
 ```
 
@@ -2384,84 +2571,118 @@ Welcome
 ### src-python/udemy/django-A-Z/todolist/templates/todolist.html:
 
 ```html
-{% extends "todolist/base.html" %}
-
-{% block title %}
-Welcome
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% block title %} Welcome {% endblock title
+%} {% block content %}
 <h2>{{ welcome_text }}</h2>
 
 <form method="POST" class="row my-3">
-    {% csrf_token %}
+  {% csrf_token %} {% if messages %} {% for message in messages %} {% comment %}
+  <div class="alert alert-success" role="alert">{{ message }}</div>
+  {% endcomment %}
 
-    {% if messages %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
 
-    {% for message in messages %}
-    {% comment %} <div class="alert alert-success" role="alert">
-        {{ message }}
-    </div> {% endcomment %}
+  {% endfor %} {% endif %}
 
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
-    {% endfor %}
-
-    {% endif %}
-
-    <div class="mb-3">
-        <label for="task" class="form-label">Add Task</label>
-        <input type="text" class="form-control" id="task" name="task" aria-describedby="textHelp"
-            placeholder="Call Alex...">
-        <div id="textHelp" class="form-text">What would you want to do?</div>
-    </div>
-    <button type="submit" class="btn btn-primary">ADD TASK</button>
+  <div class="mb-3">
+    <label for="task" class="form-label">Add Task</label>
+    <input
+      type="text"
+      class="form-control"
+      id="task"
+      name="task"
+      aria-describedby="textHelp"
+      placeholder="Call Alex..."
+    />
+    <div id="textHelp" class="form-text">What would you want to do?</div>
+  </div>
+  <button type="submit" class="btn btn-primary">ADD TASK</button>
 </form>
 
-
-<table class="table table-light table-striped table-hover table-bordered text-center">
-    <thead>
-        <tr class="table-dark row">
-            <th class="col-7">Task</th>
-            <th class="col-3">Done</th>
-            <th class="col-1">Edit</th>
-            <th class="col-1">Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% if tasks %}
-
-        {% for todo in tasks %}
-
-        {% if todo.done %}
-        <tr class="table-success row">
-            <th class="col-7">{{ todo.task }}</th>
-            <td class="col-3"><a href="{% url 'pending' todo.id %}" type="button" class="btn btn-success btn-sm">YES - Mark as Pending</a></td>
-            <td class="col-1"><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning">Edit</a></td>
-            <td class="col-1"><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger">Delete</a></td>
-        </tr>
-        {% else %}
-        <tr class="row">
-            <th class="col-7">{{ todo.task }}</th>
-            <td class="col-3"><a href="{% url 'completed' todo.id %}" type="button" class="btn btn-danger btn-sm">NO - Mark as Completed</a></td>
-            <td class="col-1"><a href="{% url 'edit-task' todo.id %}" type="button" class="btn btn-warning">Edit</a></td>
-            <td class="col-1"><a href="{% url 'delete-task' todo.id %}" type="button" class="btn btn-danger">Delete</a></td>
-        </tr>
-        {% endif %}
-
-        {% endfor %}
-
-        {% endif %}
-    </tbody>
+<table
+  class="table table-light table-striped table-hover table-bordered text-center"
+>
+  <thead>
+    <tr class="table-dark row">
+      <th class="col-7">Task</th>
+      <th class="col-3">Done</th>
+      <th class="col-1">Edit</th>
+      <th class="col-1">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if tasks %} {% for todo in tasks %} {% if todo.done %}
+    <tr class="table-success row">
+      <th class="col-7">{{ todo.task }}</th>
+      <td class="col-3">
+        <a
+          href="{% url 'pending' todo.id %}"
+          type="button"
+          class="btn btn-success btn-sm"
+          >YES - Mark as Pending</a
+        >
+      </td>
+      <td class="col-1">
+        <a
+          href="{% url 'edit-task' todo.id %}"
+          type="button"
+          class="btn btn-warning"
+          >Edit</a
+        >
+      </td>
+      <td class="col-1">
+        <a
+          href="{% url 'delete-task' todo.id %}"
+          type="button"
+          class="btn btn-danger"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% else %}
+    <tr class="row">
+      <th class="col-7">{{ todo.task }}</th>
+      <td class="col-3">
+        <a
+          href="{% url 'completed' todo.id %}"
+          type="button"
+          class="btn btn-danger btn-sm"
+          >NO - Mark as Completed</a
+        >
+      </td>
+      <td class="col-1">
+        <a
+          href="{% url 'edit-task' todo.id %}"
+          type="button"
+          class="btn btn-warning"
+          >Edit</a
+        >
+      </td>
+      <td class="col-1">
+        <a
+          href="{% url 'delete-task' todo.id %}"
+          type="button"
+          class="btn btn-danger"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% endif %} {% endfor %} {% endif %}
+  </tbody>
 </table>
 
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
-
-    {% comment %} {% for i in tasks.paginator.page_range %}{% endfor %}{% endcomment %}
+    {% comment %} {% for i in tasks.paginator.page_range %}{% endfor %}{%
+    endcomment %}
 
     <li class="page-item {% if not tasks.has_previous %} disabled {% endif %}">
       <a class="page-link" href="?pg=1">First</a>
@@ -2469,17 +2690,28 @@ Welcome
 
     {% if tasks.has_previous %}
     <li class="page-item">
-      <a class="page-link" href="?pg={{ tasks.previous_page_number }}">Previous</a>
+      <a class="page-link" href="?pg={{ tasks.previous_page_number }}"
+        >Previous</a
+      >
     </li>
 
-    <li class="page-item"><a class="page-link" href="?pg={{ tasks.previous_page_number }}">{{ tasks.previous_page_number }}</a></li>
+    <li class="page-item">
+      <a class="page-link" href="?pg={{ tasks.previous_page_number }}"
+        >{{ tasks.previous_page_number }}</a
+      >
+    </li>
     {% endif %}
 
-     <li class="page-item active"><a class="page-link" href="#">{{ tasks.number }}</a></li>
-
+    <li class="page-item active">
+      <a class="page-link" href="#">{{ tasks.number }}</a>
+    </li>
 
     {% if tasks.has_next %}
-    <li class="page-item"><a class="page-link" href="?pg={{ tasks.next_page_number }}">{{ tasks.next_page_number }}</a></li>
+    <li class="page-item">
+      <a class="page-link" href="?pg={{ tasks.next_page_number }}"
+        >{{ tasks.next_page_number }}</a
+      >
+    </li>
 
     <li class="page-item">
       <a class="page-link" href="?pg={{ tasks.next_page_number }}">Next</a>
@@ -2491,7 +2723,6 @@ Welcome
     </li>
   </ul>
 </nav>
-
 
 {% endblock content %}
 ```
@@ -2655,67 +2886,69 @@ def register(request):
 ### src-python/udemy/django-A-Z/user_auth/templates/user_auth/register.html:
 
 ```html
-{% extends "todolist/base.html" %}
-
-{% block title %}
-Sign Up - Taskmate
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% block title %} Sign Up - Taskmate {%
+endblock title %} {% block content %}
 
 <div>
-    <form action="" method="POST" class="form-group my-3">
-        {% csrf_token %}
+  <form action="" method="POST" class="form-group my-3">
+    {% csrf_token %} {% if messages %} {% for message in messages %}
 
-        {% if messages %}
-        {% for message in messages %}
+    <div
+      class="alert {% if message.tags == 'error' %} alert-danger {% elif message.tags == 'success' %} alert-success {% else %} alert-warning {% endif %} alert-dismissible fade show"
+      role="alert"
+    >
+      {{ message }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
 
-        <div class="alert {% if message.tags == 'error' %} alert-danger {% elif message.tags == 'success' %} alert-success {% else %} alert-warning {% endif %} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+    {% endfor %} {% endif %}
 
-        {% endfor %}
-        {% endif %}
+    <hr />
 
-        <hr/>
+    {% if register_form.errors %} {% for field in register_form %} {{
+    field.errors }} {% endfor %} {% endif %}
 
-        {% if register_form.errors %}
-        {% for field in register_form %}
-            {{ field.errors }}
-        {% endfor %}
-        {% endif %}
+    <hr />
 
-        <hr/>
+    {% if register_form.errors %} {% for field in register_form %} {% for error
+    in field.errors %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ error|escape }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    {% endfor %} {% endfor %} {% endif %}
 
-        {% if register_form.errors %}
-        {% for field in register_form %}
-            {% for error in field.errors %}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ error|escape }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% endfor %}
-        {% endfor %}
-        {% endif %}
+    <hr />
 
-        <hr/>
+    {% if register_form.non_field_errors %} {% for error in
+    register_form.non_field_errors %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ error|escape }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    {% endfor %} {% endif %}
 
-        {% if register_form.non_field_errors %}
-        {% for error in register_form.non_field_errors %}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ error|escape }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
-        {% endif %}
+    <hr />
 
-        <hr/>
+    {{ register_form.as_p}}
 
-        {{ register_form.as_p}}
-
-        <button type="submit" class="btn btn-primary">Sign Up</button>
-    </form>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+  </form>
 </div>
 {% endblock content %}
 ```
@@ -2786,49 +3019,45 @@ def register(request):
 ### src-python/udemy/django-A-Z/user_auth/templates/user_auth/register.html:
 
 ```html
-{% extends "todolist/base.html" %}
-
-{% block title %}
-Sign Up - Taskmate
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% block title %} Sign Up - Taskmate {%
+endblock title %} {% block content %}
 
 <div>
-    <form action="" method="POST" class="form-group my-3">
-        {% csrf_token %}
+  <form action="" method="POST" class="form-group my-3">
+    {% csrf_token %} {% if messages %} {% for message in messages %}
 
-        {% if messages %}
-        {% for message in messages %}
-
-        <div class="alert
+    <div
+      class="alert
         {% if message.tags == 'error' %} alert-danger
         {% elif message.tags == 'success' %} alert-success
         {% else %} alert-warning
         {% endif %} alert-dismissible fade show"
-        role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+      role="alert"
+    >
+      {{ message }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
 
-        {% endfor %}
-        {% endif %}
+    {% endfor %} {% endif %} {% if register_form.errors %} {% for field in
+    register_form %} {% for error in field.errors %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ error|escape }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    {% endfor %} {% endfor %} {% endif %} {{ register_form.as_p}}
 
-        {% if register_form.errors %}
-        {% for field in register_form %}
-            {% for error in field.errors %}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ error|escape }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% endfor %}
-        {% endfor %}
-        {% endif %}
-
-        {{ register_form.as_p}}
-
-        <button type="submit" class="btn btn-primary">Sign Up</button>
-    </form>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+  </form>
 </div>
 {% endblock content %}
 ```
@@ -2890,51 +3119,46 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 ### src-python/udemy/django-A-Z/user_auth/templates/user_auth/register.html:
 
 ```html
-{% extends "todolist/base.html" %}
-{% load crispy_forms_tags %}
-
-{% block title %}
-Sign Up - Taskmate
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% load crispy_forms_tags %} {% block title
+%} Sign Up - Taskmate {% endblock title %} {% block content %}
 
 <div>
-    <h2>Sign Up</h2>
-    <form action="" method="POST" class="form-group my-3 col-6">
-        {% csrf_token %}
+  <h2>Sign Up</h2>
+  <form action="" method="POST" class="form-group my-3 col-6">
+    {% csrf_token %} {% if messages %} {% for message in messages %}
 
-        {% if messages %}
-        {% for message in messages %}
-
-        <div class="alert
+    <div
+      class="alert
         {% if message.tags == 'error' %} alert-danger
         {% elif message.tags == 'success' %} alert-success
         {% else %} alert-warning
         {% endif %} alert-dismissible fade show"
-        role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+      role="alert"
+    >
+      {{ message }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
 
-        {% endfor %}
-        {% endif %}
+    {% endfor %} {% endif %} {% if register_form.errors %} {% for field in
+    register_form %} {% for error in field.errors %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ error|escape }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    {% endfor %} {% endfor %} {% endif %} {{ register_form|crispy }}
 
-        {% if register_form.errors %}
-        {% for field in register_form %}
-            {% for error in field.errors %}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ error|escape }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% endfor %}
-        {% endfor %}
-        {% endif %}
-
-        {{ register_form|crispy }}
-
-        <button type="submit" class="btn btn-primary">Sign Up</button>
-    </form>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+  </form>
 </div>
 {% endblock content %}
 ```
@@ -2946,7 +3170,6 @@ Sign Up - Taskmate
 
 <img width="1447" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/b4ac9c23-ae6e-4cb9-9e26-79513d47fece">
 <img width="1447" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/36e9fbc4-35c1-4e66-bdf0-6a41ace252d7">
-
 
 # #END</details>
 
@@ -3001,51 +3224,46 @@ urlpatterns = [
 ### src-python/udemy/django-A-Z/user_auth/templates/user_auth/login.html:
 
 ```html
-{% extends "todolist/base.html" %}
-{% load crispy_forms_tags %}
-
-{% block title %}
-Sign In - Taskmate
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% load crispy_forms_tags %} {% block title
+%} Sign In - Taskmate {% endblock title %} {% block content %}
 
 <div>
-    <h2>Sign In</h2>
-    <form action="" method="POST" class="form-group my-3 col-6">
-        {% csrf_token %}
+  <h2>Sign In</h2>
+  <form action="" method="POST" class="form-group my-3 col-6">
+    {% csrf_token %} {% if messages %} {% for message in messages %}
 
-        {% if messages %}
-        {% for message in messages %}
-
-        <div class="alert
+    <div
+      class="alert
         {% if message.tags == 'error' %} alert-danger
         {% elif message.tags == 'success' %} alert-success
         {% else %} alert-warning
         {% endif %} alert-dismissible fade show"
-        role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+      role="alert"
+    >
+      {{ message }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
 
-        {% endfor %}
-        {% endif %}
+    {% endfor %} {% endif %} {% if register_form.errors %} {% for field in
+    register_form %} {% for error in field.errors %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ error|escape }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+    {% endfor %} {% endfor %} {% endif %} {{ form|crispy }}
 
-        {% if register_form.errors %}
-        {% for field in register_form %}
-            {% for error in field.errors %}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ error|escape }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% endfor %}
-        {% endfor %}
-        {% endif %}
-
-        {{ form|crispy }}
-
-        <button type="submit" class="btn btn-primary">Sign In</button>
-    </form>
+    <button type="submit" class="btn btn-primary">Sign In</button>
+  </form>
 </div>
 {% endblock content %}
 ```
@@ -3149,128 +3367,164 @@ def logout(request):
 ```html
 {% load static %}
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="icon" href="{% static 'todolist/images/favicon.ico' %}" type="image/gif" sizes="16x16">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="icon"
+      href="{% static 'todolist/images/favicon.ico' %}"
+      type="image/gif"
+      sizes="16x16"
+    />
 
-    <title>Todo List Manager - {% block title %}{% endblock title %} </title>
-</head>
+    <title>Todo List Manager - {% block title %}{% endblock title %}</title>
+  </head>
 
-<body class="bg-light">
+  <body class="bg-light">
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg bg-body-dark mb-4">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'todolist/images/logo-1.png' %}"
-                    alt="Taskmate Logo"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}"
+          ><img
+            src="{% static 'todolist/images/logo-1.png' %}"
+            alt="Taskmate Logo"
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'home' %}"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'todolist' %}">Todo List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+            </li>
+          </ul>
+          {% if user.is_authenticated %}
+          <div class="d-flex text-secondary mx-2">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="{% url 'todolist' %}">Todo List</a>
-                </li>
-                 <li class="nav-item">
-                <a class="nav-link" href="{% url 'about' %}">About Us</a>
-                </li>
-                 <li class="nav-item">
-                <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
-                </li>
-
-            </ul>
-            {% if user.is_authenticated %}
-            <div class="d-flex text-secondary mx-2">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Welcome, {{ user.username|title }}
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Change Password</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                    </ul>
-                    </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Welcome, {{ user.username|title }}
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><a class="dropdown-item" href="#">Change Password</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#">Settings</a></li>
                 </ul>
-            </div>
-            <div class="d-flex mx-2">
-                <a href="{% url 'logout' %}" class="btn btn-danger" type="submit">Logout</a>
-            </div>
-            {% else %}
-            <div class="d-flex mx-2">
-                <a href="{% url 'login' %}" class="btn btn-success" type="submit">Login</a>
-            </div>
-            <div class="d-flex mx-2">
-                <a href="{% url 'register' %}" class="btn btn-primary" type="submit">Register</a>
-            </div>
-            {% endif %}
-            </div>
+              </li>
+            </ul>
+          </div>
+          <div class="d-flex mx-2">
+            <a href="{% url 'logout' %}" class="btn btn-danger" type="submit"
+              >Logout</a
+            >
+          </div>
+          {% else %}
+          <div class="d-flex mx-2">
+            <a href="{% url 'login' %}" class="btn btn-success" type="submit"
+              >Login</a
+            >
+          </div>
+          <div class="d-flex mx-2">
+            <a href="{% url 'register' %}" class="btn btn-primary" type="submit"
+              >Register</a
+            >
+          </div>
+          {% endif %}
         </div>
+      </div>
     </nav>
 
     <main class="container">
-        <h1>Taskmate</h1>
-        {% block content %}
-        {% endblock content %}
+      <h1>Taskmate</h1>
+      {% block content %} {% endblock content %}
     </main>
 
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-    </script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
 ```
 
 ### src-python/udemy/django-A-Z/user_auth/templates/user_auth/logout.html:
 
 ```html
-{% extends "todolist/base.html" %}
-
-{% block title %}
-Logged Out - Taskmate
-{% endblock title %}
-
-{% block content %}
+{% extends "todolist/base.html" %} {% block title %} Logged Out - Taskmate {%
+endblock title %} {% block content %}
 
 <div>
-    <form action="{% url 'logout' %}" method="POST" class="form-group my-3 col-6">
-        {% csrf_token %}
+  <form action="{% url 'logout' %}" method="POST" class="form-group my-3 col-6">
+    {% csrf_token %} {% if messages %} {% for message in messages %}
 
-        {% if messages %}
-        {% for message in messages %}
-
-        <div class="alert
+    <div
+      class="alert
         {% if message.tags == 'error' %} alert-danger
         {% elif message.tags == 'success' %} alert-success
         {% else %} alert-warning
         {% endif %} alert-dismissible fade show"
-        role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+      role="alert"
+    >
+      {{ message }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
 
-        {% endfor %}
-        {% endif %}
+    {% endfor %} {% endif %}
 
-        <h2 class="text-secondary">Sure you want to Logout of Taskmate?</h2>
+    <h2 class="text-secondary">Sure you want to Logout of Taskmate?</h2>
 
-        <button type="submit" class="btn btn-danger">Logout</button>
-    </form>
+    <button type="submit" class="btn btn-danger">Logout</button>
+  </form>
 </div>
 {% endblock content %}
 ```
@@ -3845,7 +4099,7 @@ def contact(request):
 
 ```py
 python manage.py makemigrations
-python manage.py migrate 
+python manage.py migrate
 ```
 
 ### todolist.models:
@@ -4853,6 +5107,7 @@ pip install django-environ
 ```
 
 Create .env file in same directory where settings.py exists and add the following:
+
 - DJANGO_SECRET_KEY=XXX
 - DJANGO_DEBUG=True
 
@@ -4938,7 +5193,7 @@ MIDDLEWARE = [
 
 ## Create Github Project - Taskmate
 
-## Set email and name 
+## Set email and name
 
 ```py
 git config --global user.name "o"
@@ -5036,7 +5291,7 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-## For MySQL Database (Edit the __init__.py file)
+## For MySQL Database (Edit the **init**.py file)
 
 ```py
 pip install mysqlclient
@@ -5176,11 +5431,6 @@ python manage.py flush
 python manage.py loaddata data.json
 ```
 
-
 # #END</details>
 
-
-
 # #END</details>
-
-
