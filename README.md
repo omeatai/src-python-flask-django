@@ -29,6 +29,12 @@ source myproject-env/bin/activate
 python -m pip install Django
 ```
 
+## Install Django from Template
+
+```py
+django-admin startproject --template https://github.com/ciur/django-bootstrap-project-template/archive/master.zip my-project
+```
+
 ## Get dependencies
 
 ```py
