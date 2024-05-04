@@ -7510,6 +7510,24 @@ Quit the server with CONTROL-C.
 
 <img width="1529" alt="image" src="https://github.com/omeatai/src-python-flask-django/assets/32337103/e087d565-d986-4697-b1d6-3e1a239d5689">
 
+# How to add custom fields to the User Model 
+
+[https://youtu.be/kRJpQxi2jIo?si=m8p5MTXKtYd98mpn](https://youtu.be/kRJpQxi2jIo?si=m8p5MTXKtYd98mpn)
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/df4b11a2-c3c8-4773-a47f-89643ee27fcb)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/094ae27a-60fc-4c1d-b7c9-9020cbf9d8d3)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/e1785752-1a93-450e-add8-f7e1710d2a40)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/15fe9d7d-3779-4e8b-ae6e-805870a6ff1a)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/10b489ca-6f3b-415e-ac24-c2619e0d5fe7)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/c8ed99a3-d196-4063-b2ab-8682c74b66e2)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/7e3ae82b-2815-4b87-9a63-70b9a41741af)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/b4120e85-ce85-4b43-a32d-c9f0f917bfd4)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/1ae9c5aa-53fe-413e-975c-a4f1bb9b1111)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/d8163172-f64e-4ac1-a248-fedf541cf3b9)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/85f2587b-42cd-40a3-8a5a-51955bfd7be7)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/769cd5ee-ecca-4534-bf2e-ae0ffb6d98d8)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/6071f30f-6a24-4188-a093-16e9be0cf61f)
+
 # #END</details>
 
 <details>
