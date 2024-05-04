@@ -7474,6 +7474,23 @@ INSTALLED_APPS = (
 python manage.py graph_models -a -o hotelview.png
 ```
 
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/69873eb0-5645-46d5-bbb7-440f0db592c8)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/3d188ac8-e2ae-4c89-9d4c-721f75838899)
+
+## How to configure User when Migrations have already been done
+
+[https://youtu.be/EudKs1HPUfE?si=OWnRWdaf478UsHxg](https://youtu.be/EudKs1HPUfE?si=OWnRWdaf478UsHxg)
+
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/6ac1b4de-da34-4dd8-9555-c93e3a659578)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/62bfc48a-d626-438c-a111-390d4f317722)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/b95d3955-9df6-4d0d-98ef-c4f00b6abc16)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/3b44c97a-30b0-4ee8-929c-9a74bc8249d1)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/c7b95ac1-217f-4015-8035-8e3877377e8c)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/db8d5329-388f-4297-9077-26c5e00b3a09)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/6c136abd-131f-43c5-a58a-33b74238eb68)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/d6bd08fc-d5e0-4be3-946a-5e258a36418d)
+![image](https://github.com/omeatai/src-python-flask-django/assets/32337103/66144a42-2a19-4771-82c0-ca6ce36725f9)
+
 ## Start Local Server
 
 ```py
