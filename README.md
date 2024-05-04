@@ -29,12 +29,6 @@ source myproject-env/bin/activate
 python -m pip install Django
 ```
 
-## Install Django from Template
-
-```py
-django-admin startproject --template https://github.com/ciur/django-bootstrap-project-template/archive/master.zip my-project
-```
-
 ## Get dependencies
 
 ```py
@@ -7389,11 +7383,95 @@ deactivate
 django-admin startproject taskmate .
 ```
 
+## Install Django Project from Template
+
+```py
+django-admin startproject --template https://github.com/ciur/django-bootstrap-project-template/archive/master.zip my-project
+```
+
+## Add AbstractUser for User model
+
+### account.models:
+
+```py
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+
+class User(AbstractUser):
+    pass
+```
+
+### hotelview.settings:
+
+```py
+
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # Third party apps
+    'account',
+]
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
+
+STATIC_URL = 'static/'
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'account.User'
+```
+
 ## Make Migrations
 
 ```py
 python manage.py makemigrations
 python manage.py migrate
+```
+
+## View Graph of Model relationships
+
+### Install django extensions
+  
+```py
+$ pip install django-extensions==3.1.5
+```
+
+### Install pydotplus 
+
+```py
+$ pip install pydotplus==2.0.2
+```
+
+### Install GraphViz
+
+via [installer](https://graphviz.org/download/) and MANUALLY add it to the user PATH
+
+### Include django_extensions in settings.py:
+
+```py
+INSTALLED_APPS = (
+    ...
+    'django_extensions',
+    ...
+)
+```
+
+### Run command:
+
+```py
+python manage.py graph_models -a -o hotelview.png
 ```
 
 ## Start Local Server
